@@ -1,1 +1,11 @@
-venv/
+# Virtual environment and VSC files
+venv
+.vscode
+
+# Environmental variables
+.env
+
+# Django and Python files
+__pycache__
+*.pyc
+.pytest_cache
