@@ -4,6 +4,7 @@ This project is a web application that main focus is to plan a trip. Key feature
 ## Table of Contents
 - [Tools](#technologies-and-frameworks)
 - [Installation](#how-to-install-and-run-the-project)
+- [API](#api)
 - [Tests](#tests)
 - [Docker](#docker-compose)
 - [Acknowledgments](#acknowledgments)
@@ -41,9 +42,15 @@ This project is a web application that main focus is to plan a trip. Key feature
 
 3. Change the directory
 
-` cd backend `
+` cd backend ` 
 
-4. Run the project
+4. Apply database migrations
+
+` python manage.py makemigrations `
+
+` python manage.py migrate `
+
+5. Run the project
 
 ` python manage.py runserver `
 
@@ -54,6 +61,13 @@ In order to have full experience, you need to rename your *.env.template* file t
 
 ### PostgreSQL
 For PostgreSQL, you need to download PostgreSQL https://www.postgresql.org/download/. Follow the installation guide and setup a user.
+
+You can also run project with SQLite3, which is a lightweight and easy-to-use database, by running this command:
+
+` python manage.py runserver --settings=settings.local `
+
+## API
+All endpoints with methods are available under http://127.0.0.1:8000/swagger/
 
 ## Tests
 Run all tests
