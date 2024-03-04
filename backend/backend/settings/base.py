@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     "authx",
     # Libraries
     "rest_framework",
-    "drf_yasg",
+    "drf_spectacular",
+    'drf_spectacular_sidecar', 
     # Django
     "django.contrib.admin",
     "django.contrib.auth",
@@ -159,9 +160,19 @@ REST_FRAMEWORK = {
     "DEFAULT_PARSER_CLASSES": [
         "rest_framework.parsers.JSONParser",
     ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
     "PAGE_SIZE": 10,
 }
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 DEFAULT_FROM_EMAIL = "admin@travel-planner.com"
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Travel Planner',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    'SWAGGER_UI_DIST': 'SIDECAR',  
+    'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
+    'REDOC_DIST': 'SIDECAR',
+}
