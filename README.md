@@ -72,11 +72,7 @@ All endpoints with methods are available under http://127.0.0.1:8000/swagger/
 ## Tests
 Run all tests
 <br>
-`pytest`
-<br>
-Or run tests for given folder
-<br>
-`pytest tests/<folder_name>/`
+` python manage.py test `
 
 ## docker-compose
 Building Docker Image

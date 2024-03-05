@@ -18,18 +18,20 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from rest_framework import permissions
-
-from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularRedocView,
+    SpectacularSwaggerView,
+)
 
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include("rest_framework.urls", namespace="rest_framework")),
-    path('schema/', SpectacularAPIView.as_view(), name='schema'),
+    path("schema/", SpectacularAPIView.as_view(), name="schema"),
     path(
-        "swagger/",
-        SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'
+        "swagger/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"
     ),
-    path("redoc/", SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+    path("redoc/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"),
+    path("authx/", include("authx.urls", namespace="authx")),
 ]

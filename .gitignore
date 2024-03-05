@@ -7,5 +7,6 @@ venv
 
 # Django and Python files
 __pycache__
+backend/__pycache__
 *.pyc
 .pytest_cache
