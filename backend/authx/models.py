@@ -18,3 +18,17 @@ class CustomUser(AbstractUser, PermissionsMixin):
 
     def __str__(self):
         return str(self.username)
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    bio = models.TextField(blank=True)
+    photo = models.URLField(blank=True)
+    birthdate = models.DateField(blank=True, null=True, verbose_name="Date of Birth")
+
+    class Meta:
+        ordering = ["user__username"]
+        indexes = [models.Index(fields=["user"])]
+
+    def __str__(self):
+        return f"{self.user.username}'s profile"
