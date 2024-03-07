@@ -26,12 +26,16 @@ from drf_spectacular.views import (
 
 
 urlpatterns = [
+    # Django
     path("admin/", admin.site.urls),
     path("api/", include("rest_framework.urls", namespace="rest_framework")),
+    # Documentation
     path("schema/", SpectacularAPIView.as_view(), name="schema"),
     path(
         "swagger/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"
     ),
     path("redoc/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"),
+    # Apps
     path("authx/", include("authx.urls", namespace="authx")),
+    path("trip/", include("trip.urls", namespace="trip")),
 ]

@@ -1,6 +1,10 @@
 name: Django Test
 
-on: [push]
+on:
+  push:
+      branches: [main]
+  pull_request:
+      branches: [main]
 
 jobs:
   test:
@@ -21,5 +25,7 @@ jobs:
         pip install -r requirements.txt
 
     - name: Run Tests
+      env:
+        DJANGO_SETTINGS_MODULE: backend.settings.local
       run: |
         python backend/manage.py test
