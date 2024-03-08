@@ -12,6 +12,15 @@ This project is a web application that main focus is to plan a trip. Key feature
 
 
 ## Technologies and frameworks
+
+- Frontend 
+
+    [![HTML](https://skillicons.dev/icons?i=html)](https://skillicons.dev)
+    [![CSS](https://skillicons.dev/icons?i=css)](https://skillicons.dev)
+    [![JavaScript](https://skillicons.dev/icons?i=javascript)](https://skillicons.dev)
+    [![TypeScript](https://skillicons.dev/icons?i=typescript)](https://skillicons.dev)
+    [![Vue](https://skillicons.dev/icons?i=vue)](https://skillicons.dev)
+
 - Backend
     
     [![Python](https://skillicons.dev/icons?i=python)](https://skillicons.dev) 
@@ -32,32 +41,51 @@ This project is a web application that main focus is to plan a trip. Key feature
 
 ## How to install and run the project?
 ### Running the project locally
+
 1. Clone the repository
 
-` git clone https://github.com/Ewa-Anna/travel-planner `
+    ` git clone https://github.com/Ewa-Anna/travel-planner `
+
+#### Frontend
+1. Change the directory
+
+    ` cd frontend `
 
 2. Install dependencies
 
-` pip install -r requirements.txt `
+    ` npm install `
 
-3. Change the directory
+3. Run the project
 
-` cd backend ` 
+    ` npm run dev `
 
-4. Apply database migrations
+Project will run on http://127.0.0.1:3000/
 
-` python manage.py makemigrations `
+#### Backend
 
-` python manage.py migrate `
+1. Install dependencies
 
-5. Run the project
+    ` pip install -r requirements.txt `
 
-` python manage.py runserver `
+2. Change the directory
+
+    ` cd backend ` 
+
+3. Apply database migrations
+
+    ` python manage.py makemigrations `
+
+    ` python manage.py migrate `
+
+4. Run the project
+
+    ` python manage.py runserver `
 
 Project will run on http://127.0.0.1:8000/
 
-### Creating .env file
+### Creating .env files
 In order to have full experience, you need to rename your *.env.template* file to *.env* and fill all the environmental variables.
+Please note that there are two .env files - one in main directory and other in frontend.
 
 ### PostgreSQL
 For PostgreSQL, you need to download PostgreSQL https://www.postgresql.org/download/. Follow the installation guide and setup a user.
@@ -70,14 +98,18 @@ You can also run project with SQLite3, which is a lightweight and easy-to-use da
 All endpoints with methods are available under http://127.0.0.1:8000/swagger/
 
 ## Tests
-Run all tests
+Run tests for given app
 <br>
 ` python manage.py test <app_name> `
+<br>
+or run all tests
+<br>
+` python manage.py test --pattern="test*.py" `
 
 ## docker-compose
 Building Docker Image
 <br>
-` docker-compose build `
+` docker-compose build --no-cache `
 <br>
 Running Docker Container
 <br>
