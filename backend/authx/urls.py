@@ -2,7 +2,7 @@ from django.urls import path
 
 from rest_framework_simplejwt.views import TokenRefreshView
 
-from .views import CustomTokenObtainPairView, RegisterView, ProfileView
+from .views import CustomTokenObtainPairView, RegisterView, ProfileView, LogoutAPIView
 
 app_name = "authx"
 
@@ -11,4 +11,5 @@ urlpatterns = [
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("register/", RegisterView.as_view(), name="authx_register"),
     path("profile/", ProfileView.as_view(), name="profile"),
+    path("logout/", LogoutAPIView.as_view(), name="logout"),
 ]

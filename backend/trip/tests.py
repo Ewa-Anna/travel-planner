@@ -169,8 +169,8 @@ class TripCreationTestCase(TestCase):
         self.client.force_login(self.user)
         data = {
             "name": "Test Trip",
-            "start_date": "2024-01-05",  
-            "end_date": "2024-01-01"    
+            "start_date": "2024-01-05",
+            "end_date": "2024-01-01",
         }
 
         with self.assertRaises(serializers.ValidationError) as context:
@@ -178,16 +178,15 @@ class TripCreationTestCase(TestCase):
 
         expected_error_message = ["End date must be greater than the start date."]
         self.assertEqual(
-            [str(error) for error in context.exception.detail],
-            expected_error_message
+            [str(error) for error in context.exception.detail], expected_error_message
         )
 
     def test_end_date_equal_to_start_date(self):
         self.client.force_login(self.user)
         data = {
             "name": "Test Trip",
-            "start_date": "2024-01-01", 
-            "end_date": "2024-01-01"     
+            "start_date": "2024-01-01",
+            "end_date": "2024-01-01",
         }
 
         with self.assertRaises(serializers.ValidationError) as context:
@@ -195,16 +194,15 @@ class TripCreationTestCase(TestCase):
 
         expected_error_message = ["End date must be greater than the start date."]
         self.assertEqual(
-            [str(error) for error in context.exception.detail],
-            expected_error_message
+            [str(error) for error in context.exception.detail], expected_error_message
         )
 
     def test_end_date_greater_than_start_date_valid(self):
-        self.client.force_login(self.user)        
+        self.client.force_login(self.user)
         data = {
             "name": "Test Trip",
-            "start_date": "2024-01-01", 
-            "end_date": "2024-01-05"    
+            "start_date": "2024-01-01",
+            "end_date": "2024-01-05",
         }
 
         validated_data = self.serializer.validate(data)
