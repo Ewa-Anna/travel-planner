@@ -20,6 +20,7 @@ This project is a web application that main focus is to plan a trip. Key feature
     [![JavaScript](https://skillicons.dev/icons?i=javascript)](https://skillicons.dev)
     [![TypeScript](https://skillicons.dev/icons?i=typescript)](https://skillicons.dev)
     [![Vue](https://skillicons.dev/icons?i=vue)](https://skillicons.dev)
+    [![Vuetify](https://skillicons.dev/icons?i=vuetify)](https://skillicons.dev)
 
 - Backend
     
@@ -119,6 +120,8 @@ Running Docker Container
 [![100commitow](100commitow.png)](https://100commitow.pl/)
 - [djangoproject](https://www.djangoproject.com/)
 - [Django REST framework](https://www.django-rest-framework.org/)
+- [Vue](https://vuejs.org/)
+- [Vuetify](https://vuetifyjs.com/en/)
 
 ## License
 Distributed under the MIT License. See [LICENSE](LICENSE) for more information.

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "drf_spectacular_sidecar",
     "rest_framework_simplejwt.token_blacklist",
     "corsheaders",
+    "django_rest_passwordreset",
     # Django
     "django.contrib.admin",
     "django.contrib.auth",
@@ -246,3 +247,8 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_EXPOSE_HEADERS = ["Content-Type", "X-CSRFToken"]
 
 CORS_ORIGIN_WHITELIST = "http://localhost:3000"
+
+DJANGO_REST_PASSWORDRESET_TOKEN_CONFIG = {
+    "CLASS": "django_rest_passwordreset.tokens.RandomStringTokenGenerator",
+    "OPTIONS": {"min_length": 20, "max_length": 30},
+}
