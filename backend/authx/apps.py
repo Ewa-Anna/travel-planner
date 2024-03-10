@@ -7,4 +7,4 @@ class AuthxConfig(AppConfig):
 
     def ready(self):
         # pylint: disable=import-outside-toplevel, unused-import
-        import authx.signals
+        import authx.signals  # noqa: F401

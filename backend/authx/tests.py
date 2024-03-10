@@ -17,7 +17,8 @@ class CustomTokenObtainPairViewTestCase(TestCase):
         self.client = APIClient()
 
     def test_token_obtain_pair(self):
-        user = CustomUser.objects.create_user(
+        # pylint: disable=W0612
+        user = CustomUser.objects.create_user(  # noqa: F841
             username="testuser", email="test@example.com", password="password123"
         )
 
@@ -149,7 +150,9 @@ class ChangePasswordViewTestCase(APITestCase):
             "new_password": "new_password",
             "new_password_confirm": "new_password",
         }
-        response = self.client.put(url, json.dumps(data), content_type="application/json")
+        response = self.client.put(
+            url, json.dumps(data), content_type="application/json"
+        )
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["detail"], "Your password has been changed.")
@@ -168,7 +171,9 @@ class ChangePasswordViewTestCase(APITestCase):
             "new_password": "new_password",
             "new_password_confirm": "new_password",
         }
-        response = self.client.put(url, json.dumps(data), content_type="application/json")
+        response = self.client.put(
+            url, json.dumps(data), content_type="application/json"
+        )
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn("old_password", response.data)
@@ -210,7 +215,7 @@ class PasswordResetConfirmAPIViewTestCase(APITestCase):
             username="testuser", email="test@example.com", password="password"
         )
         self.token_generator = CustomTokenGenerator()
-        self.token = self.token_generator.generate_token() 
+        self.token = self.token_generator.generate_token()
         ResetPasswordToken.objects.create(key=self.token, user=self.user)
 
     def test_password_reset_success(self):
@@ -220,7 +225,9 @@ class PasswordResetConfirmAPIViewTestCase(APITestCase):
             "confirm_new_password": "new_password",
             "token": self.token,
         }
-        response = self.client.post(url, json.dumps(data), content_type="application/json")
+        response = self.client.post(
+            url, json.dumps(data), content_type="application/json"
+        )
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["success"], "Password reset successfully")
@@ -234,7 +241,9 @@ class PasswordResetConfirmAPIViewTestCase(APITestCase):
             "confirm_new_password": "new_password",
             "token": "invalid_token",
         }
-        response = self.client.post(url, json.dumps(data), content_type="application/json")
+        response = self.client.post(
+            url, json.dumps(data), content_type="application/json"
+        )
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn("error", response.data)

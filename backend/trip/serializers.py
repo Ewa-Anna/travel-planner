@@ -8,19 +8,19 @@ class ParticipantSerializer(serializers.ModelSerializer):
         model = Participant
         fields = ["id", "trip", "participant"]
 
-    def validate(self, data):
+    def validate(self, attrs):
         """
         Validate that the participant is not already participating in the trip.
         """
-        trip = data.get("trip")
-        participant = data.get("participant")
+        trip = attrs.get("trip")
+        participant = attrs.get("participant")
 
         if Participant.objects.filter(trip=trip, participant=participant).exists():
             raise serializers.ValidationError(
                 "Participant is already participating in the trip."
             )
 
-        return data
+        return attrs
 
 
 class ParticipantViewSerializer(serializers.ModelSerializer):
@@ -48,19 +48,19 @@ class TripSerializer(serializers.ModelSerializer):
             "participants",
         ]
 
-    def validate(self, data):
+    def validate(self, attrs):
         """
         Validate that the end date is greater than the start date.
         """
-        start_date = data.get("start_date")
-        end_date = data.get("end_date")
+        start_date = attrs.get("start_date")
+        end_date = attrs.get("end_date")
 
         if end_date <= start_date:
             raise serializers.ValidationError(
                 "End date must be greater than the start date."
             )
 
-        return data
+        return attrs
 
     def get_trip_length(self, obj):
         """

@@ -8,6 +8,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from .models import CustomUser, Profile
 
 
+# pylint: disable=W0223
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
@@ -95,6 +96,7 @@ class ChangePasswordSerializer(serializers.ModelSerializer):
         return user
 
 
+# pylint: disable=W0223
 class PasswordResetConfirmSerializer(serializers.Serializer):
     new_password = serializers.CharField()
     confirm_new_password = serializers.CharField()
