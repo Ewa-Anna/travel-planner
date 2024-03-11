@@ -22,4 +22,4 @@ jobs:
 
       - name: Run pylint
         run: |
-          pylint backend
+          pylint backend --recursive=true
