@@ -2,6 +2,7 @@ from django.db import models
 from django.core.exceptions import ValidationError
 
 from authx.models import CustomUser
+from locations.models import POI
 
 
 class Trip(models.Model):
@@ -17,6 +18,9 @@ class Trip(models.Model):
         null=False,
         verbose_name="Organizer",
         related_name="organized_trips",
+    )
+    pois = models.ManyToManyField(
+        POI, related_name="trips", verbose_name="Points of Interest"
     )
 
     def __str__(self):

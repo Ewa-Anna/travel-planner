@@ -1,5 +1,7 @@
 from rest_framework import serializers
 
+from locations.serializers import CityNameSerializer
+from locations.models import POI
 from .models import Trip, Participant
 
 
@@ -32,9 +34,19 @@ class ParticipantViewSerializer(serializers.ModelSerializer):
         fields = ["participant", "first_name", "last_name"]
 
 
+class POIViewSerializer(serializers.ModelSerializer):
+    name = serializers.CharField(read_only=True)
+    city = CityNameSerializer(read_only=True)
+
+    class Meta:
+        model = POI
+        fields = ["name", "city"]
+
+
 class TripSerializer(serializers.ModelSerializer):
     participants = ParticipantViewSerializer(many=True, read_only=True)
     trip_length = serializers.SerializerMethodField()
+    pois = POIViewSerializer(many=True, read_only=True)
 
     class Meta:
         model = Trip
@@ -46,6 +58,7 @@ class TripSerializer(serializers.ModelSerializer):
             "trip_length",
             "organizer",
             "participants",
+            "pois",
         ]
 
     def validate(self, attrs):

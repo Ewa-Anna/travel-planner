@@ -38,6 +38,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # Apps
     "authx",
+    "locations",
     "trip",
     # Libraries
     "rest_framework",

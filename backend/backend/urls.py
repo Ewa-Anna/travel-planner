@@ -38,4 +38,5 @@ urlpatterns = [
     # Apps
     path("authx/", include("authx.urls", namespace="authx")),
     path("trip/", include("trip.urls", namespace="trip")),
+    path("locations/", include("locations.urls", namespace="locations")),
 ]
