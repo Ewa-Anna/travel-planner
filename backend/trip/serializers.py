@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from services.serializers import AccommodationSerializer, TransportationSerializer
 from locations.serializers import CityNameSerializer
 from locations.models import POI
 from .models import Trip, Participant
@@ -47,6 +48,8 @@ class TripSerializer(serializers.ModelSerializer):
     participants = ParticipantViewSerializer(many=True, read_only=True)
     trip_length = serializers.SerializerMethodField()
     pois = POIViewSerializer(many=True, read_only=True)
+    accommodations = AccommodationSerializer(many=True, required=False)
+    transportations = TransportationSerializer(many=True, required=False)
 
     class Meta:
         model = Trip
