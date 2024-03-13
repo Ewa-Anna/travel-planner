@@ -12,6 +12,7 @@ backend/__pycache__
 .pytest_cache
 
 media
+schema.json
 
 .DS_Store
 node_modules

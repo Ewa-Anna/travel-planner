@@ -5,6 +5,7 @@ from .models import Trip, Participant
 
 class TripAdmin(admin.ModelAdmin):
     list_display = (
+        "id",
         "name",
         "start_date",
         "end_date",

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     # Apps
     "authx",
     "locations",
+    "services",
     "trip",
     # Libraries
     "rest_framework",

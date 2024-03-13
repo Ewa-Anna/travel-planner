@@ -59,6 +59,8 @@ class TripSerializer(serializers.ModelSerializer):
             "organizer",
             "participants",
             "pois",
+            "accommodations",
+            "transportations",
         ]
 
     def validate(self, attrs):
