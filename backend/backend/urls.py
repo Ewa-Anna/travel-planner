@@ -40,4 +40,5 @@ urlpatterns = [
     path("trip/", include("trip.urls", namespace="trip")),
     path("locations/", include("locations.urls", namespace="locations")),
     path("services/", include("services.urls", namespace="services")),
+    path("journal/", include("journal.urls", namespace="journal")),
 ]
