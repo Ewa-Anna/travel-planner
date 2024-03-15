@@ -1,0 +1,13 @@
+# Virtual environment and VSC files
+venv
+.vscode
+
+# Django and Python files
+__pycache__
+*.pyc
+
+.gitignore
+.git
+
+# Frontend
+node_modules

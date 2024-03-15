@@ -64,13 +64,13 @@ Project will run on http://127.0.0.1:3000/
 
 #### Backend
 
-1. Install dependencies
-
-    ` pip install -r requirements.txt `
-
-2. Change the directory
+1. Change the directory
 
     ` cd backend ` 
+
+2. Install dependencies
+
+    ` pip install -r requirements.txt `
 
 3. Apply database migrations
 
