@@ -17,11 +17,9 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          cd backend
           python -m pip install --upgrade pip
-          pip install -r requirements.txt  
+          pip install -r backend/requirements.txt  
 
       - name: Run pylint
         run: |
-          cd ..
           pylint backend --recursive=true
