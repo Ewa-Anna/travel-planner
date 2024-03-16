@@ -64,5 +64,7 @@ class Review(models.Model):
         default="public",
     )
 
+    created = models.DateTimeField(auto_now_add=True)
+
     def __str__(self):
         return f"Review by {self.user.username} - Rating: {self.rating}"

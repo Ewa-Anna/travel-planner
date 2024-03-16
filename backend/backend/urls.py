@@ -41,4 +41,5 @@ urlpatterns = [
     path("locations/", include("locations.urls", namespace="locations")),
     path("services/", include("services.urls", namespace="services")),
     path("journal/", include("journal.urls", namespace="journal")),
+    path("expense/", include("expense.urls", namespace="expense")),
 ]

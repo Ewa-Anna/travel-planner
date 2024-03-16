@@ -21,6 +21,7 @@ jobs:
 
     - name: Install Dependencies
       run: |
+        cd backend
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
@@ -28,5 +29,4 @@ jobs:
       env:
         DJANGO_SETTINGS_MODULE: backend.settings.local
       run: |
-        cd backend
         python manage.py test --pattern="test*.py"
