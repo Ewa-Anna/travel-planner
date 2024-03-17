@@ -37,6 +37,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     # Apps
+    "analytics",
     "authx",
     "expense",
     "journal",

@@ -23,6 +23,7 @@ class Transportation(models.Model):
     TRANSPORTATION_TYPES = (
         ("car", "Car"),
         ("bus", "Bus"),
+        ("train", "Train"),
         ("plane", "Plane"),
         ("other", "Other"),
     )

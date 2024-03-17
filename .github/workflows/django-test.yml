@@ -28,4 +28,4 @@ jobs:
       env:
         DJANGO_SETTINGS_MODULE: backend.settings.local
       run: |
-        python manage.py test --pattern="test*.py"
+        python backend/manage.py test --pattern="test*.py"
