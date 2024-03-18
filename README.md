@@ -1,15 +1,16 @@
 # Travel Planner
-This project is a web application that main focus is to plan a trip. Key features: authentication/authorization, CRUD for altering database – add new trip, city, traveling points, attractions/activities, start-end dates, manage all data regarding stay, like hotel, taxi/car, details regarding arrival/departure dates, emergency contacts. Integration with google maps to add pins. Budget tracking for the trip – expenses for accommodation, transportation, food, activities. Add other users as collaborators/participators of the trip. Notifications with reminders. Travel Journal – for personal notes, photos upload. User reviews and ratings of the added places. Analytics – average expenses, most visited destinations.
+This project is a web application that main focus is to plan a trip. 
+
+Key features: authentication/authorization, CRUD for altering database – add new trip, city, traveling points, attractions/activities, start-end dates, manage all data regarding stay, like hotel, taxi/car, details regarding arrival/departure dates. Integration with google maps to add pins. Budget tracking for the trip – expenses for accommodation, transportation, food, activities. Add other users as participators of the trip. Notifications with reminders. Travel Journal – for personal notes, photos upload. User reviews and ratings of the added places. Analytics – average expenses, most visited destinations.
 
 ## Table of Contents
 - [Tools](#technologies-and-frameworks)
+- [Docker](#docker-compose)
 - [Installation](#how-to-install-and-run-the-project)
 - [API](#api)
 - [Tests](#tests)
-- [Docker](#docker-compose)
 - [Acknowledgments](#acknowledgments)
 - [License](#license)
-
 
 ## Technologies and frameworks
 
@@ -40,7 +41,16 @@ This project is a web application that main focus is to plan a trip. Key feature
     [![Docker](https://skillicons.dev/icons?i=docker)](https://skillicons.dev)
     [![Postman](https://skillicons.dev/icons?i=postman)](https://skillicons.dev)
 
-## How to install and run the project?
+## docker-compose
+Building Docker Image
+<br>
+` docker-compose build --no-cache `
+<br>
+Running Docker Container
+<br>
+` docker-compose up -d `
+
+## Installation
 ### Running the project locally
 
 1. Clone the repository
@@ -99,6 +109,7 @@ You can also run project with SQLite3, which is a lightweight and easy-to-use da
 All endpoints with methods are available under http://127.0.0.1:8000/swagger/
 
 ## Tests
+### Backend folder
 Run tests for given app
 <br>
 ` python manage.py test <app_name> `
@@ -106,15 +117,6 @@ Run tests for given app
 or run all tests
 <br>
 ` python manage.py test --pattern="test*.py" `
-
-## docker-compose
-Building Docker Image
-<br>
-` docker-compose build --no-cache `
-<br>
-Running Docker Container
-<br>
-` docker-compose up -d `
 
 ## Acknowledgments
 [![100commitow](100commitow.png)](https://100commitow.pl/)
