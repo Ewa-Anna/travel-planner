@@ -41,9 +41,7 @@ const username = computed(() => {
 const router = useRouter();
 
 const handleLoggedOut = () => {
-  // Logic to handle the "logged-out" event
   console.log("User logged out");
-  // You can perform additional actions here, such as updating the UI or redirecting the user
-  router.push({ name: "Home" }); // Redirect to Home page after logout
+  router.push({ name: "Home" });
 };
 </script>

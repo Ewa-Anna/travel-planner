@@ -6,6 +6,8 @@ import { createApp } from 'vue'
 
 const DEV_URL = 'http://127.0.0.1:8000'
 axios.defaults.baseURL = DEV_URL
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+axios.defaults.xsrfCookieName = 'csrftoken';
 
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 const app = createApp(App)

@@ -230,6 +230,11 @@ CORS_ALLOWED_ORIGINS = [
 
 CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]
 
+CSRF_COOKIE_NAME = "csrftoken"
+CSRF_USE_SESSIONS = False
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_HTTPONLY = True
+CSRF_COOKIE_SAMESITE = "None"
 
 CORS_ALLOW_METHODS = [
     "DELETE",
@@ -256,7 +261,9 @@ CORS_ALLOW_CREDENTIALS = True
 
 CORS_EXPOSE_HEADERS = ["Content-Type", "X-CSRFToken"]
 
-CORS_ORIGIN_WHITELIST = "http://localhost:3000"
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:3000",
+]
 
 DJANGO_REST_PASSWORDRESET_TOKEN_CONFIG = {
     "CLASS": "django_rest_passwordreset.tokens.RandomStringTokenGenerator",

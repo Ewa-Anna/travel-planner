@@ -6,7 +6,7 @@
 
 <script>
 import axios from "axios";
-import { ref } from "vue";
+import { getCookie } from "../../utils/csrf";
 
 export default {
   props: {
@@ -20,10 +20,13 @@ export default {
   methods: {
     async logout() {
       try {
+        const csrftoken = getCookie('csrftoken');
+        console.log(csrftoken)
         const token = localStorage.getItem("token");
         await axios.post("http://localhost:8000/authx/logout/", null, {
           headers: {
             Authorization: `Bearer ${token}`,
+            'X-CSRFToken': csrftoken 
           },
         });
         localStorage.removeItem("token");
