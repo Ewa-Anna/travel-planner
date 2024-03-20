@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "expense",
     "journal",
     "locations",
+    "notifications",
     "services",
     "trip",
     # Libraries
@@ -52,6 +53,8 @@ INSTALLED_APPS = [
     "corsheaders",
     "django_rest_passwordreset",
     "taggit",
+    "channels",
+    "daphne",
     # Django
     "django.contrib.admin",
     "django.contrib.auth",
@@ -90,7 +93,10 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "backend.wsgi.application"
+# WSGI_APPLICATION = "backend.wsgi.application"
+ASGI_APPLICATION = "backend.asgi.application"
+
+CHANNEL_LAYERS = {"default": {"BACKEND": "channels.layers.InMemoryChannelLayer"}}
 
 
 # Database
