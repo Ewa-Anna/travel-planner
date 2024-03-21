@@ -21,7 +21,7 @@ export default {
     async logout() {
       try {
         const csrftoken = getCookie('csrftoken');
-        console.log(csrftoken)
+        console.log('CSRF Token:', csrftoken);
         const token = localStorage.getItem("token");
         await axios.post("http://localhost:8000/authx/logout/", null, {
           headers: {
