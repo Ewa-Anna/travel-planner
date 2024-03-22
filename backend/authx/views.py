@@ -23,6 +23,14 @@ User = get_user_model()
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
+    permission_classes = []
+    authentication_classes = []
+
+    def post(self, request, *args, **kwargs):
+        response = super().post(request, *args, **kwargs)
+        csrf_token = request.META.get("CSRF_COOKIE")
+        response.data["csrf_token"] = csrf_token
+        return response
 
 
 class RegisterView(generics.CreateAPIView):

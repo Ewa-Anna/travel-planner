@@ -1,58 +1,57 @@
 import {
   createRouter,
   createWebHistory,
-  type RouteRecordRaw
-} from 'vue-router'
+  type RouteRecordRaw,
+} from "vue-router";
 
-import Home from '../views/Home.vue'
-import Login from '../components/Auth/Login.vue'
-import Register from '../components/Auth/Register.vue'
-import TripView from '../components/Trip/TripView.vue'
-import TripDetail from '../components/Trip/TripDetail.vue'
-import ParticipantView from '../components/Trip/ParticipantView.vue'
-
+import Home from "../views/Home.vue";
+import Login from "../components/Auth/Login.vue";
+import Register from "../components/Auth/Register.vue";
+import TripView from "../components/Trip/TripView.vue";
+import TripDetail from "../components/Trip/TripDetail.vue";
+import ParticipantView from "../components/Trip/ParticipantView.vue";
 
 const routes: RouteRecordRaw[] = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: "/",
+    name: "Home",
+    component: Home,
   },
   {
-    path: '/login',
-    name: 'Login',
-    component: Login
+    path: "/login",
+    name: "Login",
+    component: Login,
   },
   {
-    path: '/register',
-    name: 'Register',
-    component: Register
+    path: "/register",
+    name: "Register",
+    component: Register,
   },
   {
-    path: '/about',
-    name: 'About',
-    component: async () => await import('../views/About.vue')
+    path: "/about",
+    name: "About",
+    component: async () => await import("../views/About.vue"),
   },
   {
-    path: '/trips',
-    name: 'TripView',
-    component: TripView
+    path: "/trips",
+    name: "TripView",
+    component: TripView,
   },
   {
-    path: '/trips/:id',
-    name: 'TripDetail',
-    component: TripDetail
+    path: "/trips/:id",
+    name: "TripDetail",
+    component: TripDetail,
   },
   {
-    path: '/participants/:id/trips',
-    name: 'ParticipantView',
-    component: ParticipantView
-  }
-]
+    path: "/participants/:id/trips",
+    name: "ParticipantView",
+    component: ParticipantView,
+  },
+];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL as string),
-  routes
-})
+  history: createWebHistory(process.env.BASE_URL),
+  routes,
+});
 
-export default router
+export default router;

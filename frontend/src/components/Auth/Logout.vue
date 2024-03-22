@@ -5,8 +5,7 @@
 </template>
 
 <script>
-import axios from "axios";
-import { getCookie } from "../../utils/csrf";
+import apiClient from "../../utils/apiClient";
 
 export default {
   props: {
@@ -20,21 +19,21 @@ export default {
   methods: {
     async logout() {
       try {
-        const csrftoken = getCookie('csrftoken');
-        console.log('CSRF Token:', csrftoken);
-        const token = localStorage.getItem("token");
-        await axios.post("http://localhost:8000/authx/logout/", null, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'X-CSRFToken': csrftoken 
-          },
-        });
+        await apiClient.post("/authx/logout/");
         localStorage.removeItem("token");
         this.$emit("logged-out");
         this.$router.push({ name: "Home" });
         this.$router.go(0);
       } catch (error) {
-        console.error("Logout failed:", error);
+        if (error.response) {
+          console.error("Logout failed with status:", error.response.status);
+          console.error("Response data:", error.response.data);
+        } else if (error.request) {
+          console.error("No response received from the server:", error.request);
+        } else {
+          console.error("Error setting up the request:", error.message);
+        }
+        console.error("Error details:", error.config);
       }
     },
   },
