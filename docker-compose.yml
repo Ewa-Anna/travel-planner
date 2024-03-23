@@ -2,9 +2,10 @@ version: '3'
 
 services:
   backend:
-    build: 
-      context: ./backend  
-      dockerfile: Dockerfile 
+    container_name: travel-planner
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     env_file:
       - .env
     environment:
@@ -16,6 +17,8 @@ services:
       - 8000:8000
     depends_on:
       - db
+    networks:
+      - backend
 
   frontend:
     build:
@@ -27,22 +30,28 @@ services:
       - backend
 
   db:
-    image: postgres
+    container_name: postgres_db
+    image: postgres:16.2
     environment:
-      POSTGRES_DB: db
+      POSTGRES_DB: travel-planner
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_HOST_AUTH_METHOD: trust
     volumes:
       - pgdata:/var/lib/postgresql/data
-
+    ports:
+      - '5432:5432'
+    command: [ "docker-entrypoint.sh", "postgres" ]
     env_file:
       - .env
-    command: ["docker-entrypoint.sh", "postgres"]
-    
+    networks:
+      - backend
+
 volumes:
   pgdata:
 
+
 networks:
   backend:
-     driver: bridge
+    driver: bridge
+    name: backend
