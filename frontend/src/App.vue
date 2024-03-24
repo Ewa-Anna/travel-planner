@@ -3,6 +3,8 @@
     <v-main>
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
+      <router-link to="/participants/trips">My Trips</router-link> |
+      <router-link to="/trips">All Trips</router-link> |
       <div v-if="!isLoggedIn">
         <router-link to="/login">
           <v-btn color="primary">Login</v-btn>

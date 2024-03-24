@@ -3,6 +3,7 @@ from rest_framework import serializers
 from services.serializers import AccommodationSerializer, TransportationSerializer
 from locations.serializers import CityNameSerializer
 from locations.models import POI
+from authx.models import CustomUser
 from .models import Trip, Participant
 
 
@@ -35,6 +36,15 @@ class ParticipantViewSerializer(serializers.ModelSerializer):
         fields = ["participant", "first_name", "last_name"]
 
 
+class OrganizerViewSerializer(serializers.ModelSerializer):
+    first_name = serializers.CharField(read_only=True)
+    last_name = serializers.CharField(read_only=True)
+
+    class Meta:
+        model = CustomUser
+        fields = ["id", "first_name", "last_name"]
+
+
 class POIViewSerializer(serializers.ModelSerializer):
     name = serializers.CharField(read_only=True)
     city = CityNameSerializer(read_only=True)
@@ -45,6 +55,7 @@ class POIViewSerializer(serializers.ModelSerializer):
 
 
 class TripSerializer(serializers.ModelSerializer):
+    organizer = OrganizerViewSerializer(read_only=True)
     participants = ParticipantViewSerializer(many=True, read_only=True)
     trip_length = serializers.SerializerMethodField()
     pois = POIViewSerializer(many=True, read_only=True)
