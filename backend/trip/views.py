@@ -69,3 +69,17 @@ class ParticipantTripsView(generics.ListAPIView):
     def get_queryset(self):
         participant_id = self.kwargs.get("pk")
         return Trip.objects.filter(participants__participant=participant_id)
+
+
+class MyTripsOrganizerListView(generics.ListAPIView):
+    serializer_class = TripSerializer
+
+    def get_queryset(self):
+        return Trip.objects.filter(organizer=self.request.user)
+
+
+class MyTripsParticipantListView(generics.ListAPIView):
+    serializer_class = TripSerializer
+
+    def get_queryset(self):
+        return Trip.objects.filter(participants__participant=self.request.user)

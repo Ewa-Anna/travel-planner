@@ -6,6 +6,8 @@ from .views import (
     ParticipantView,
     ParticipantDetailView,
     ParticipantTripsView,
+    MyTripsOrganizerListView,
+    MyTripsParticipantListView,
 )
 
 
@@ -24,5 +26,15 @@ urlpatterns = [
         "participants/<int:pk>/trips/",
         ParticipantTripsView.as_view(),
         name="participant-trips",
+    ),
+    path(
+        "my_trips_organizer/",
+        MyTripsOrganizerListView.as_view(),
+        name="my_trips_organizer",
+    ),
+    path(
+        "my_trips_participant/",
+        MyTripsParticipantListView.as_view(),
+        name="my_trips_participant",
     ),
 ]
