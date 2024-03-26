@@ -72,6 +72,9 @@ class ParticipantTripsView(generics.ListAPIView):
 
 
 class MyTripsOrganizerListView(generics.ListAPIView):
+    """
+    Returns list of trips that currently logged in user is an organizer.
+    """
     serializer_class = TripSerializer
 
     def get_queryset(self):
@@ -79,6 +82,9 @@ class MyTripsOrganizerListView(generics.ListAPIView):
 
 
 class MyTripsParticipantListView(generics.ListAPIView):
+    """
+    Returns list of trips that currently logged in user is a participant.
+    """
     serializer_class = TripSerializer
 
     def get_queryset(self):

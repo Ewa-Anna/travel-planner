@@ -209,3 +209,72 @@ class TripCreationTestCase(TestCase):
         validated_data = self.serializer.validate(data)
 
         self.assertEqual(validated_data, data)
+
+
+class MyTripsOrganizerListViewTest(TestCase):
+    def setUp(self):
+        self.client = APIClient()
+        self.organizer = User.objects.create_user(
+            email="organizer@example.com", username="organizer", password="testpassword"
+        )
+        self.trip1 = Trip.objects.create(
+            name="Trip 1",
+            start_date="2024-01-01",
+            end_date="2024-01-10",
+            organizer=self.organizer,
+        )
+        self.trip2 = Trip.objects.create(
+            name="Trip 2",
+            start_date="2024-02-01",
+            end_date="2024-02-10",
+            organizer=self.organizer,
+        )
+        self.url = "/trip/my_trips_organizer/"
+
+    def test_my_trips_organizer_list_view(self):
+        self.client.force_login(self.organizer)
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        trips = Trip.objects.filter(organizer=self.organizer)
+        serializer = TripSerializer(trips, many=True)
+        no_pagination = response.data["results"]
+        self.assertEqual(no_pagination, serializer.data)
+
+    def tearDown(self):
+        User.objects.all().delete()
+        Trip.objects.all().delete()
+
+
+class MyTripsParticipantListViewTest(TestCase):
+    def setUp(self):
+        self.client = APIClient()
+        self.organizer = User.objects.create_user(
+            email="organizer@example.com", username="organizer", password="testpassword"
+        )
+        self.participant = User.objects.create_user(
+            email="participant@example.com",
+            username="participant",
+            password="testpassword",
+        )
+        self.trip1 = Trip.objects.create(
+            name="Trip 1",
+            start_date="2024-01-01",
+            end_date="2024-01-10",
+            organizer=self.organizer,
+        )
+        Participant.objects.create(trip=self.trip1, participant=self.participant)
+        self.url = "/trip/my_trips_participant/"
+
+    def test_my_trips_participant_list_view(self):
+        self.client.force_login(self.participant)
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        trips = Trip.objects.filter(participants__participant=self.participant)
+        serializer = TripSerializer(trips, many=True)
+        no_pagination = response.data["results"]
+        self.assertEqual(no_pagination, serializer.data)
+
+    def tearDown(self):
+        User.objects.all().delete()
+        Trip.objects.all().delete()
+        Participant.objects.all().delete()
