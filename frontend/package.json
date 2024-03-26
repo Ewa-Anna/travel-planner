@@ -18,7 +18,7 @@
   "dependencies": {
     "@mdi/font": "^7.4.47",
     "@vue/cli-service": "^5.0.8",
-    "axios": "^1.6.7",
+    "axios": "^1.6.8",
     "vue-router": "^4.3.0"
   }
 }
