@@ -9,7 +9,6 @@ import Login from "../components/Auth/Login.vue";
 import Register from "../components/Auth/Register.vue";
 import TripView from "../components/Trip/TripView.vue";
 import TripDetail from "../components/Trip/TripDetail.vue";
-import ParticipantView from "../components/Trip/ParticipantView.vue";
 
 const routes: RouteRecordRaw[] = [
   {
@@ -41,11 +40,6 @@ const routes: RouteRecordRaw[] = [
     path: "/trips/:id",
     name: "TripDetail",
     component: TripDetail,
-  },
-  {
-    path: "/participants/:id/trips",
-    name: "ParticipantView",
-    component: ParticipantView,
   },
 ];
 

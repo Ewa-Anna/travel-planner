@@ -14,6 +14,7 @@ class TripView(generics.ListCreateAPIView):
     def get_queryset(self):
         organizer_id = self.request.query_params.get("organizer")
         participant_id = self.request.query_params.get("participant")
+        order_by = self.request.query_params.get("order_by")
 
         queryset = Trip.objects.all()
 
@@ -36,6 +37,9 @@ class TripView(generics.ListCreateAPIView):
                     {"error": "Invalid participant ID"},
                     status=status.HTTP_400_BAD_REQUEST,
                 )
+
+        if order_by is not None:
+            queryset = queryset.order_by(order_by)
 
         return queryset
 
@@ -75,6 +79,7 @@ class MyTripsOrganizerListView(generics.ListAPIView):
     """
     Returns list of trips that currently logged in user is an organizer.
     """
+
     serializer_class = TripSerializer
 
     def get_queryset(self):
@@ -85,6 +90,7 @@ class MyTripsParticipantListView(generics.ListAPIView):
     """
     Returns list of trips that currently logged in user is a participant.
     """
+
     serializer_class = TripSerializer
 
     def get_queryset(self):

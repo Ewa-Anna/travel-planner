@@ -5,17 +5,17 @@
 // Read more: https://github.com/vuejs/core/pull/3399
 export {}
 
-declare module 'vue' {
+declare module "vue" {
   export interface GlobalComponents {
-    HelloWorld: (typeof import("./src/components/HelloWorld.vue"))["default"]
-    Home: (typeof import("./src/components/Home.vue"))["default"]
-    Login: typeof import('./src/components/Auth/Login.vue')['default']
-    Logout: typeof import('./src/components/Auth/Logout.vue')['default']
-    ParticipantView: typeof import('./src/components/Trip/ParticipantView.vue')['default']
-    Register: typeof import('./src/components/Auth/Register.vue')['default']
-    RouterLink: typeof import('vue-router')['RouterLink']
-    RouterView: typeof import('vue-router')['RouterView']
-    TripDetail: typeof import('./src/components/Trip/TripDetail.vue')['default']
-    TripView: typeof import('./src/components/Trip/TripView.vue')['default']
+    HelloWorld: (typeof import("./src/components/HelloWorld.vue"))["default"];
+    Home: (typeof import("./src/components/Home.vue"))["default"];
+    Login: (typeof import("./src/components/Auth/Login.vue"))["default"];
+    Logout: (typeof import("./src/components/Auth/Logout.vue"))["default"];
+    ParticipantView: (typeof import("./src/components/Trip/ParticipantView.vue"))["default"];
+    Register: (typeof import("./src/components/Auth/Register.vue"))["default"];
+    RouterLink: (typeof import("vue-router"))["RouterLink"];
+    RouterView: (typeof import("vue-router"))["RouterView"];
+    TripDetail: (typeof import("./src/components/Trip/TripDetail.vue"))["default"];
+    TripView: (typeof import("./src/components/Trip/TripView.vue"))["default"];
   }
 }
