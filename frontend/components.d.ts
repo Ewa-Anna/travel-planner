@@ -11,6 +11,7 @@ declare module "vue" {
     Home: (typeof import("./src/components/Home.vue"))["default"];
     Login: (typeof import("./src/components/Auth/Login.vue"))["default"];
     Logout: (typeof import("./src/components/Auth/Logout.vue"))["default"];
+    Map: (typeof import("./src/components/Map.vue"))["default"];
     ParticipantView: (typeof import("./src/components/Trip/ParticipantView.vue"))["default"];
     Register: (typeof import("./src/components/Auth/Register.vue"))["default"];
     RouterLink: (typeof import("vue-router"))["RouterLink"];

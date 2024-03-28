@@ -5,7 +5,7 @@
         <span class="headline">Trip {{ trip.name }}</span>
       </v-card-title>
       <v-card-text>
-        <div v-if="trip">
+        <div v-if="trip" class="trip-details">
           <h2>{{ trip.name }}</h2>
           <div><b>From:</b> {{ trip.start_date }}</div>
           <div><b>To:</b> {{ trip.end_date }}</div>
@@ -59,6 +59,7 @@
             </ul>
           </div>
         </div>
+        <!-- <Map :coordinates="trip.pois.map(poi => [poi.location_latitude, poi.location_longitude])"></Map> -->
       </v-card-text>
     </v-card>
   </v-container>
@@ -66,17 +67,33 @@
 
 <script>
 import apiClient from "../../utils/apiClient";
+import Map from "../Map";
 
 export default {
+  components: {
+    Map,
+  },
+  props: {
+    trip: Object,
+  },
   data() {
     return {
+      pois: [],
       trip: {},
     };
   },
   created() {
-    this.fetchTrip();
+    if (!this.isAuthenticated()) {
+      this.$router.push("/login");
+    } else {
+      this.fetchTrip();
+    }
   },
   methods: {
+    isAuthenticated() {
+      const token = localStorage.getItem("token");
+      return token !== null;
+    },
     fetchTrip() {
       const tripId = this.$route.params.id;
       apiClient
@@ -91,10 +108,32 @@ export default {
   },
 };
 </script>
-
 <style>
 .primary {
   background-color: #1976d2;
   color: white;
+}
+
+.trip-details h2 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.trip-details div {
+  margin-bottom: 10px;
+}
+
+.trip-details h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.trip-details ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.trip-details li {
+  margin-bottom: 5px;
 }
 </style>

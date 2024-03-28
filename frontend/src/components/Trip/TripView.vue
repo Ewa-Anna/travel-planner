@@ -58,9 +58,17 @@ export default {
     };
   },
   created() {
-    this.fetchTrips();
+    if (!this.isAuthenticated()) {
+      this.$router.push("/login");
+    } else {
+      this.fetchTrips();
+    }
   },
   methods: {
+    isAuthenticated() {
+      const token = localStorage.getItem("token");
+      return token !== null;
+    },
     fetchTrips(orderBy) {
       apiClient
         .get("http://localhost:8000/trip/trips/", {

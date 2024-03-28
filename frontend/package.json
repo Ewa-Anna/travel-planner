@@ -6,9 +6,11 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",
+    "@vue-leaflet/vue-leaflet": "^0.10.1",
     "eslint": "^8.57.0",
     "eslint-config-standard-with-typescript": "^43.0.1",
     "eslint-plugin-vue": "^9.22.0",
+    "leaflet": "^1.9.4",
     "prettier": "^3.2.5",
     "unplugin-fonts": "^1.1.1",
     "unplugin-vue-components": "^0.26.0",
@@ -19,6 +21,7 @@
     "@mdi/font": "^7.4.47",
     "@vue/cli-service": "^5.0.8",
     "axios": "^1.6.8",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "vue3-leaflet": "^1.0.48"
   }
 }

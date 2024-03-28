@@ -51,7 +51,14 @@ class POIViewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = POI
-        fields = ["name", "city"]
+        fields = [
+            "name",
+            "city",
+            "description",
+            "location_latitude",
+            "location_longitude",
+            "opening_hours",
+        ]
 
 
 class TripSerializer(serializers.ModelSerializer):
