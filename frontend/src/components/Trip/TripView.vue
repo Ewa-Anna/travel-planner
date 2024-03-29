@@ -31,6 +31,17 @@
               <div class="trip-info">
                 <div class="trip-date">Start date: {{ trip.start_date }}</div>
                 <div class="trip-date">End date: {{ trip.end_date }}</div>
+                <div class="trip-destination">
+                  Destination:
+                  <span
+                    v-for="(city, index) in uniqueCities(trip.pois)"
+                    :key="index"
+                    >{{ city
+                    }}<span v-if="index !== uniqueCities(trip.pois).length - 1"
+                      >,
+                    </span>
+                  </span>
+                </div>
               </div>
             </router-link>
           </div>
@@ -65,6 +76,15 @@ export default {
     }
   },
   methods: {
+    uniqueCities(pois) {
+      const cities = [];
+      pois.forEach((poi) => {
+        if (!cities.includes(poi.city.name)) {
+          cities.push(poi.city.name);
+        }
+      });
+      return cities;
+    },
     isAuthenticated() {
       const token = localStorage.getItem("token");
       return token !== null;
@@ -177,6 +197,10 @@ export default {
   color: #666;
 }
 
+.trip-destination {
+  color: #666;
+}
+
 .button-container {
   display: flex;
   justify-content: center;
@@ -189,6 +213,6 @@ export default {
 .trip-row {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 </style>
