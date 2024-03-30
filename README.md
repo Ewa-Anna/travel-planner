@@ -119,7 +119,7 @@ or run all tests
 ` python manage.py test --pattern="test*.py" `
 
 ## Acknowledgments
-[![100commitow](100commitow.png)](https://100commitow.pl/)
+[![100commitow](frontend/public/100commitow.png)](https://100commitow.pl/)
 - [djangoproject](https://www.djangoproject.com/)
 - [Django REST framework](https://www.django-rest-framework.org/)
 - [Vue](https://vuejs.org/)

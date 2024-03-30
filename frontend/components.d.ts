@@ -5,16 +5,16 @@
 // Read more: https://github.com/vuejs/core/pull/3399
 export {}
 
-declare module "vue" {
+declare module 'vue' {
   export interface GlobalComponents {
-    Login: (typeof import("./src/components/Auth/Login.vue"))["default"];
-    Logout: (typeof import("./src/components/Auth/Logout.vue"))["default"];
-    Map: (typeof import("./src/components/Map.vue"))["default"];
-    Profile: (typeof import("./src/components/Auth/Profile.vue"))["default"];
-    Register: (typeof import("./src/components/Auth/Register.vue"))["default"];
-    RouterLink: (typeof import("vue-router"))["RouterLink"];
-    RouterView: (typeof import("vue-router"))["RouterView"];
-    TripDetail: (typeof import("./src/components/Trip/TripDetail.vue"))["default"];
-    TripView: (typeof import("./src/components/Trip/TripView.vue"))["default"];
+    Login: typeof import('./src/components/Auth/Login.vue')['default']
+    Logout: typeof import('./src/components/Auth/Logout.vue')['default']
+    Map: typeof import('./src/components/Map.vue')['default']
+    Profile: typeof import('./src/components/Auth/Profile.vue')['default']
+    Register: typeof import('./src/components/Auth/Register.vue')['default']
+    RouterLink: typeof import('vue-router')['RouterLink']
+    RouterView: typeof import('vue-router')['RouterView']
+    TripDetail: typeof import('./src/components/Trip/TripDetail.vue')['default']
+    TripView: typeof import('./src/components/Trip/TripView.vue')['default']
   }
 }
