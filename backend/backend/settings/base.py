@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     "expense",
     "journal",
     "locations",
-    "notifications",
+    # "notifications",
     "services",
     "trip",
     # Libraries
@@ -53,8 +53,8 @@ INSTALLED_APPS = [
     "corsheaders",
     "django_rest_passwordreset",
     "taggit",
-    "channels",
-    "daphne",
+    # "channels",
+    # "daphne",
     # Django
     "django.contrib.admin",
     "django.contrib.auth",
@@ -93,10 +93,6 @@ TEMPLATES = [
     },
 ]
 
-# WSGI_APPLICATION = "backend.wsgi.application"
-ASGI_APPLICATION = "backend.asgi.application"
-
-CHANNEL_LAYERS = {"default": {"BACKEND": "channels.layers.InMemoryChannelLayer"}}
 
 
 # Database
@@ -231,10 +227,10 @@ SIMPLE_JWT = {
 AUTH_USER_MODEL = "authx.CustomUser"
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
+    f"http://{HOST}:3000",
 ]
 
-CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]
+CSRF_TRUSTED_ORIGINS = [f"http://{HOST}:3000"]
 CORS_ALLOW_ALL_ORIGINS = True
 CSRF_COOKIE_NAME = "csrftoken"
 CSRF_USE_SESSIONS = False
@@ -268,10 +264,15 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_EXPOSE_HEADERS = ["Content-Type", "X-CSRFToken"]
 
 CORS_ORIGIN_WHITELIST = [
-    "http://localhost:3000",
+    "http://{HOST}:3000",
 ]
 
 DJANGO_REST_PASSWORDRESET_TOKEN_CONFIG = {
     "CLASS": "django_rest_passwordreset.tokens.RandomStringTokenGenerator",
     "OPTIONS": {"min_length": 20, "max_length": 30},
 }
+
+# WSGI_APPLICATION = "backend.wsgi.application"
+ASGI_APPLICATION = "backend.asgi.application"
+
+CHANNEL_LAYERS = {"default": {"BACKEND": "channels.layers.InMemoryChannelLayer"}}

@@ -10,8 +10,8 @@ RUN npm install
 
 COPY . .
 
-RUN npm run dev
+RUN npm run dev && rm -rf node_modules
 
 EXPOSE 8080
 
-CMD ["npm", "run", "dev"]
+# CMD ["npm", "run", "dev"]
