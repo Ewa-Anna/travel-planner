@@ -7,7 +7,7 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     env_file:
-      - .env
+      - .env.docker
     environment:
       - SECRET_KEY=${SECRET_KEY}
     command: ./django-setup.sh
@@ -29,6 +29,11 @@ services:
     depends_on:
       - backend
 
+  test:
+    image: ubuntu:20.04
+    command: ["/bin/bash", "-c", "sleep 10000000"]
+    networks:
+      - backend
   db:
     container_name: postgres_db
     image: postgres:16.2
@@ -43,7 +48,7 @@ services:
       - '5432:5432'
     command: [ "docker-entrypoint.sh", "postgres" ]
     env_file:
-      - .env
+      - .env.docker
     networks:
       - backend
 
