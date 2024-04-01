@@ -124,6 +124,7 @@ or run all tests
 - [Django REST framework](https://www.django-rest-framework.org/)
 - [Vue](https://vuejs.org/)
 - [Vuetify](https://vuetifyjs.com/en/)
+- [Fontawesome](https://docs.fontawesome.com/)
 
 ## License
 Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
