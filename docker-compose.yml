@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   backend:
@@ -45,8 +45,8 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:
-      - '5432:5432'
-    command: [ "docker-entrypoint.sh", "postgres" ]
+      - "5432:5432"
+    command: ["docker-entrypoint.sh", "postgres"]
     env_file:
       - .env.docker
     networks:
@@ -54,7 +54,6 @@ services:
 
 volumes:
   pgdata:
-
 
 networks:
   backend:
