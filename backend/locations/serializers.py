@@ -29,6 +29,22 @@ class CityNameSerializer(serializers.ModelSerializer):
         fields = ["id", "name"]
 
 
+class POIViewSerializer(serializers.ModelSerializer):
+    name = serializers.CharField(read_only=True)
+    city = CityNameSerializer(read_only=True)
+
+    class Meta:
+        model = POI
+        fields = [
+            "name",
+            "city",
+            "description",
+            "location_latitude",
+            "location_longitude",
+            "opening_hours",
+        ]
+
+
 class POISerializer(serializers.ModelSerializer):
     city = serializers.PrimaryKeyRelatedField(queryset=City.objects.all())
 

@@ -30,4 +30,4 @@ app.component('font-awesome-icon', FontAwesomeIcon)
 registerPlugins(app)
 
 app.use(router)
-app.mount('#app' as string)
+app.mount('#app')

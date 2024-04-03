@@ -4,6 +4,7 @@ from .models import Trip, Participant
 
 
 class TripAdmin(admin.ModelAdmin):
+    # pylint: disable=R0801
     list_display = (
         "id",
         "name",
