@@ -6,23 +6,11 @@
       </v-card-title>
       <v-card-text>
         <div class="button-container">
-          <v-btn @click="sortTrips('name')" class="order-button"
-            >Order by Name</v-btn
-          >
-          <v-btn @click="sortTrips('start_date')" class="order-button"
-            >Order by Start Date</v-btn
-          >
-          <v-btn @click="sortTrips('end_date')" class="order-button"
-            >Order by End Date</v-btn
-          >
+          <v-btn @click="sortTrips('name')" class="order-button">Order by Name</v-btn>
+          <v-btn @click="sortTrips('start_date')" class="order-button">Order by Start Date</v-btn>
+          <v-btn @click="sortTrips('end_date')" class="order-button">Order by End Date</v-btn>
         </div>
-        <v-select
-          v-model="filterBy"
-          :items="filterOptions"
-          label="Filter by"
-          dense
-          outlined
-        ></v-select>
+        <v-select v-model="filterBy" :items="filterOptions" label="Filter by date" dense outlined></v-select>
 
         <div class="trip-row">
           <div v-for="trip in filteredTrips" :key="trip.id" class="trip-item">
@@ -33,12 +21,8 @@
                 <div class="trip-date">End date: {{ trip.end_date }}</div>
                 <div class="trip-destination">
                   Destination:
-                  <span
-                    v-for="(city, index) in uniqueCities(trip.pois)"
-                    :key="index"
-                    >{{ city
-                    }}<span v-if="index !== uniqueCities(trip.pois).length - 1"
-                      >,
+                  <span v-for="(city, index) in uniqueCities(trip.pois)" :key="index">{{ city
+                    }}<span v-if="index !== uniqueCities(trip.pois).length - 1">,
                     </span>
                   </span>
                 </div>

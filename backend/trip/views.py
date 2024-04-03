@@ -1,8 +1,11 @@
+from django.db import IntegrityError
+
 from rest_framework import generics, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from .serializers import TripSerializer, ParticipantSerializer
+from authx.models import CustomUser
+from .serializers import TripSerializer, ParticipantSerializer, TripCreateSerializer
 from .models import Trip, Participant
 
 
@@ -11,37 +14,93 @@ class TripView(generics.ListCreateAPIView):
     serializer_class = TripSerializer
     permission_classes = [IsAuthenticated]
 
+    def get_serializer_class(self):
+        if self.request.method == "POST":
+            return TripCreateSerializer
+        return TripSerializer
+
     def get_queryset(self):
+        queryset = super().get_queryset()
+
         organizer_id = self.request.query_params.get("organizer")
-        participant_id = self.request.query_params.get("participant")
-        order_by = self.request.query_params.get("order_by")
-
-        queryset = Trip.objects.all()
-
         if organizer_id is not None:
             try:
                 organizer_id = int(organizer_id)
                 queryset = queryset.filter(organizer=organizer_id)
             except ValueError:
-                return Response(
-                    {"error": "Invalid organizer ID"},
-                    status=status.HTTP_400_BAD_REQUEST,
-                )
+                pass
 
+        participant_id = self.request.query_params.get("participant")
         if participant_id is not None:
             try:
                 participant_id = int(participant_id)
                 queryset = queryset.filter(participants__participant=participant_id)
             except ValueError:
-                return Response(
-                    {"error": "Invalid participant ID"},
-                    status=status.HTTP_400_BAD_REQUEST,
-                )
+                pass
 
+        order_by = self.request.query_params.get("order_by")
         if order_by is not None:
             queryset = queryset.order_by(order_by)
 
         return queryset
+
+    def list(self, request, *args, **kwargs):
+        organizer_id = self.request.query_params.get("organizer")
+
+        if organizer_id is not None:
+            try:
+                organizer_id = int(organizer_id)
+                if not CustomUser.objects.filter(id=organizer_id).exists():
+                    return Response(
+                        {"success": False, "message": "Invalid organizer ID"},
+                        status=status.HTTP_400_BAD_REQUEST,
+                    )
+            except ValueError:
+                return Response(
+                    {"success": False, "message": "Invalid organizer ID"},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+        return super().list(request, *args, **kwargs)
+
+    def create(self, request, *args, **kwargs):
+        try:
+            response = super().create(request, *args, **kwargs)
+            trip_data = response.data
+            trip = Trip.objects.get(id=trip_data["id"])
+            trip_serializer = TripSerializer(
+                trip, context=self.get_serializer_context()
+            )
+            trip_data.update(trip_serializer.data)
+            return Response(
+                {
+                    "success": True,
+                    "message": "Trip has been created successfully",
+                    "result": trip_data,
+                },
+                status=status.HTTP_201_CREATED,
+            )
+
+        except IntegrityError as e:
+            if "name" in str(e) and "organizer_id" in str(e):
+                return Response(
+                    {
+                        "success": False,
+                        "message": "A trip with this name already exists for this organizer.",
+                    },
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+            return Response(
+                {
+                    "success": False,
+                    "message": "An error occurred while creating the trip.",
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+    def perform_create(self, serializer):
+        serializer.save(organizer=self.request.user)
 
 
 class TripDetailView(generics.RetrieveUpdateDestroyAPIView):

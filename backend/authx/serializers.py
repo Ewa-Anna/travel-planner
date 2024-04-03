@@ -113,3 +113,9 @@ class PasswordResetConfirmSerializer(serializers.Serializer):
             raise serializers.ValidationError(str(e))
 
         return attrs
+
+
+class CustomUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ["id", "username", "first_name", "last_name"]

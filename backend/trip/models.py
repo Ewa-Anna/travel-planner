@@ -8,7 +8,7 @@ from services.models import Accommodation, Transportation
 
 class Trip(models.Model):
     name = models.CharField(
-        max_length=100, unique=True, blank=False, verbose_name="Name"
+        max_length=100, unique=False, blank=False, verbose_name="Name"
     )
     start_date = models.DateField(blank=False, null=False, verbose_name="Start Date")
     end_date = models.DateField(blank=False, null=False, verbose_name="End Date")
@@ -30,8 +30,11 @@ class Trip(models.Model):
         Transportation, related_name="trips", verbose_name="Transportations"
     )
 
+    class Meta:
+        unique_together = [["name", "organizer"]]
+
     def __str__(self):
-        return f"Trip: {self.name}"
+        return f"Trip: {self.name} organized by {self.organizer}"
 
     def clean(self):
         """
