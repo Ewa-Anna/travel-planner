@@ -12,7 +12,7 @@ from .models import Trip, Participant
 class ParticipantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Participant
-        fields = ["id"]
+        fields = ["id", "trip", "participant"]
 
     def validate(self, attrs):
         """
@@ -27,6 +27,11 @@ class ParticipantSerializer(serializers.ModelSerializer):
             )
 
         return attrs
+
+class ParticipantCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Participant
+        fields = ["id", "trip", "participant"]
 
 
 class ParticipantViewSerializer(serializers.ModelSerializer):

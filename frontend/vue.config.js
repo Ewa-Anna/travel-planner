@@ -1,8 +1,7 @@
 module.exports = {
-    configureWebpack: {
-      entry: {
-        app: './src/main.ts',
-      },
+  configureWebpack: {
+    entry: {
+      app: "./src/main.ts",
     },
-  };
-  
+  },
+};

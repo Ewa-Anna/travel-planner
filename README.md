@@ -119,8 +119,11 @@ All endpoints with methods are available under http://127.0.0.1:8000/swagger/
 
 ## Tests
 
-### Backend folder
-
+### Backend
+Change the directory
+<br>
+` cd backend `
+<br>
 Run tests for given app
 <br>
 `python manage.py test <app_name>`

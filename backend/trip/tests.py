@@ -38,7 +38,6 @@ class TripParticipantTestCase(TestCase):
             end_date="2024-02-05",
             organizer=self.user2,
         )
-
         self.participant1 = Participant.objects.create(
             trip=self.trip1, participant=self.user1
         )
@@ -118,7 +117,7 @@ class TripParticipantTestCase(TestCase):
 
     def test_invalid_participant_creation(self):
         self.client.force_login(self.user1)
-        data = {"participant": self.user1.id}
+        data = {"participant": self.user1.id, "trip": self.trip1.id}
         response = self.client.post("/trip/participants/", data, format="json")
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
@@ -126,7 +125,7 @@ class TripParticipantTestCase(TestCase):
         self.client.force_login(self.user1)
         response = self.client.get(f"/trip/participants/{self.participant1.id}/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data["participant"], self.user1.id)
+        self.assertEqual(response.data["id"], self.participant1.id)
 
     def test_participant_deletion(self):
         self.client.force_login(self.user1)

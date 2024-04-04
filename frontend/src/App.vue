@@ -15,11 +15,10 @@
           </router-link>
         </div>
         <div v-else class="auth-section">
-          <p class="welcome-message">
-          <div v-if="username">
+          <div v-if="username" class="welcome-message">
             Welcome {{ username }}
           </div>
-          </p>
+
           <router-link to="/profile">
             <v-btn color="primary">Profile</v-btn>
           </router-link>
@@ -31,13 +30,25 @@
         <a href="https://www.facebook.com/" class="social-link" target="_blank">
           <FontAwesomeIcon :icon="['fab', 'fa-facebook']" :size="iconSize" />
         </a>
-        <a href="https://github.com/Ewa-Anna/" class="social-link" target="_blank">
+        <a
+          href="https://github.com/Ewa-Anna/"
+          class="social-link"
+          target="_blank"
+        >
           <FontAwesomeIcon :icon="['fab', 'fa-github']" :size="iconSize" />
         </a>
-        <a href="https://www.linkedin.com/in/ewa-kucala/" class="social-link" target="_blank">
+        <a
+          href="https://www.linkedin.com/in/ewa-kucala/"
+          class="social-link"
+          target="_blank"
+        >
           <FontAwesomeIcon :icon="['fab', 'fa-linkedin']" :size="iconSize" />
         </a>
-        <a href="https://www.instagram.com/?hl=pl" class="social-link" target="_blank">
+        <a
+          href="https://www.instagram.com/?hl=pl"
+          class="social-link"
+          target="_blank"
+        >
           <FontAwesomeIcon :icon="['fab', 'fa-instagram']" :size="iconSize" />
         </a>
         <a href="https://www.youtube.com/" class="social-link" target="_blank">

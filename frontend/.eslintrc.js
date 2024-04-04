@@ -23,5 +23,8 @@ module.exports = {
     project: "./tsconfig.json",
   },
   plugins: ["@typescript-eslint", "vue"],
-  rules: {},
+  rules: {
+    quotes: [2, "double", "avoid-escape"],
+    "@typescript-eslint/quotes": ["error", "double"],
+  },
 };
