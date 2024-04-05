@@ -5,7 +5,12 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from authx.models import CustomUser
-from .serializers import TripSerializer, ParticipantSerializer, TripCreateSerializer, ParticipantCreateSerializer
+from .serializers import (
+    TripSerializer,
+    ParticipantSerializer,
+    TripCreateSerializer,
+    ParticipantCreateSerializer,
+)
 from .models import Trip, Participant
 
 
@@ -113,7 +118,7 @@ class ParticipantView(generics.ListCreateAPIView):
     queryset = Participant.objects.all()
     serializer_class = ParticipantSerializer
     permission_classes = [IsAuthenticated]
-    
+
     def get_serializer_class(self):
         if self.request.method == "POST":
             return ParticipantCreateSerializer

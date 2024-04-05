@@ -28,6 +28,7 @@ class ParticipantSerializer(serializers.ModelSerializer):
 
         return attrs
 
+
 class ParticipantCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Participant

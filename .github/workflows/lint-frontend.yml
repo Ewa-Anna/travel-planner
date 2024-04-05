@@ -16,9 +16,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Move into frontend directory
-        run: cd frontend
-
       - name: Use Node.js
         uses: actions/setup-node@v2
         with:
@@ -28,4 +25,4 @@ jobs:
         run: npm install
 
       - name: Run ESLint
-        run: npx eslint src/**/*.ts
+        run: cd frontend; npx eslint src/**/*.ts
