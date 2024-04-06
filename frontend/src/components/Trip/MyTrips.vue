@@ -2,7 +2,7 @@
   <v-container class="justify-center">
     <v-card class="mx-auto" max-width="800">
       <v-card-title class="primary">
-        <span class="headline">Trips</span>
+        <span class="headline">My Trips</span>
       </v-card-title>
       <v-card-text>
         <div class="button-container">
