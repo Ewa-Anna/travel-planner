@@ -170,8 +170,9 @@ class TripCreateSerializer(serializers.ModelSerializer):
             return CustomUserSerializer(request.user).data
         return None
 
-    def validate(self, attrs):
-        participants_data = attrs.get("participants", [])
-        if not participants_data:
-            raise serializers.ValidationError("At least one participant is required.")
-        return attrs
+    # Commented out temporarily for frontend debugging
+    # def validate(self, attrs):
+    #     participants_data = attrs.get("participants", [])
+    #     if not participants_data:
+    #         raise serializers.ValidationError("At least one participant is required.")
+    #     return attrs

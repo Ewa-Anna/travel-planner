@@ -25,6 +25,9 @@
           <Logout :isLoggedIn="isLoggedIn" @logged-out="handleLoggedOut" />
         </div>
       </div>
+
+      <Alert ref="alertComponent" />
+
       <router-view />
       <footer class="footer">
         <a href="https://www.facebook.com/" class="social-link" target="_blank">
@@ -86,6 +89,26 @@ const handleLoggedOut = () => {
 };
 
 const iconSize = "lg";
+</script>
+
+<script lang="ts">
+import Alert from "./components/Utils/Alert.vue";
+import AddTrip from "./components/Trip/AddTrip.vue";
+
+export default {
+  components: {
+    Alert,
+    AddTrip,
+  },
+  methods: {
+    handleShowAlert(message) {
+      this.$refs.alertComponent.show(message);
+    },
+  },
+  mounted() {
+    this.$refs.addTripComponent.$on("showAlert", this.handleShowAlert);
+  },
+};
 </script>
 
 <style>
