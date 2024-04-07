@@ -91,7 +91,7 @@ const handleLoggedOut = () => {
 const iconSize = "lg";
 </script>
 
-<script lang="ts">
+<!-- <script lang="ts">
 import Alert from "./components/Utils/Alert.vue";
 import AddTrip from "./components/Trip/AddTrip.vue";
 
@@ -109,7 +109,7 @@ export default {
     this.$refs.addTripComponent.$on("showAlert", this.handleShowAlert);
   },
 };
-</script>
+</script> -->
 
 <style>
 .navigation {

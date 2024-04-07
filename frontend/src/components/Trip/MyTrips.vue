@@ -45,7 +45,12 @@
         </div>
       </v-card-text>
     </v-card>
-    <!-- <v-pagination v-model="page" :length="totalPages" @click="fetchTrips"></v-pagination> -->
+    <v-pagination
+      v-model="page"
+      :length="totalPages"
+      :total-visible="4"
+      @click="fetchTrips"
+    ></v-pagination>
   </v-container>
 </template>
 
@@ -58,11 +63,10 @@ export default {
       trips: [],
       filterBy: null,
       filterOptions: ["All", "Current", "Upcoming", "Past"],
-      // page: 1,
-      // totalPages: 1,
-      // itemsPerPage: 9,
-      // nextUrl: null,
-      // prevUrl: null,
+      page: 1,
+      totalPages: 1,
+      itemsPerPage: 9,
+      organizer: true,
     };
   },
   created() {
@@ -86,40 +90,33 @@ export default {
       const token = localStorage.getItem("token");
       return token !== null;
     },
-    fetchTrips(orderBy = "name", organizer = true) {
+    fetchTrips(page = 1, organizer = true) {
+      const limit = this.itemsPerPage;
+      const offset = (this.page - 1) * limit;
+
+      if (organizer !== this.organizer) {
+        this.page = 1;
+        this.totalPages = 1;
+        this.offset = 0;
+      }
       const endpoint = organizer
         ? "http://localhost:8000/trip/my_trips_organizer/"
         : "http://localhost:8000/trip/my_trips_participant/";
       apiClient
         .get(endpoint, {
           params: {
-            order_by: orderBy,
+            limit: limit,
+            offset: offset,
           },
         })
         .then((response) => {
           this.trips = response.data.results;
-          // this.totalPages = Math.ceil(response.data.count / this.itemsPerPage);
-          // this.nextUrl = response.data.next;
-          // this.prevUrl = response.data.previous;
+          this.totalPages = Math.ceil(response.data.count / this.itemsPerPage);
+          this.organizer = organizer;
         })
         .catch((error) => {
           console.error("Error fetching trips:", error);
         });
-    },
-    // nextPage() {
-    //   if (this.nextUrl) {
-    //     this.page++;
-    //     this.fetchTrips();
-    //   }
-    // },
-    // prevPage() {
-    //   if (this.prevUrl) {
-    //     this.page--;
-    //     this.fetchTrips();
-    //   }
-    // },
-    sortTrips(orderBy) {
-      this.fetchTrips(orderBy);
     },
     filterTrips() {
       switch (this.filterBy) {
