@@ -51,11 +51,6 @@ class RegisterSerializer(serializers.ModelSerializer):
         return user
 
 
-class ProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Profile
-        fields = ("bio", "photo", "birthdate")
-
 
 class ChangePasswordSerializer(serializers.ModelSerializer):
     old_password = serializers.CharField(write_only=True, required=True)
@@ -119,3 +114,10 @@ class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = ["id", "username", "first_name", "last_name"]
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    user = CustomUserSerializer(read_only=True)
+    class Meta:
+        model = Profile
+        fields = ("bio", "photo", "birthdate", "user")

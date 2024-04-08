@@ -2,16 +2,16 @@
   <v-app>
     <v-main>
       <div class="navigation">
-        <router-link to="/" class="nav-link">Home</router-link>
-        <router-link to="/about" class="nav-link">About</router-link>
-        <router-link to="/trips" class="nav-link">All Trips</router-link>
-        <router-link to="/mytrips" class="nav-link">My Trips</router-link>
+        <router-link to="/" class="nav-link" exact-active-class="active">Home</router-link>
+        <router-link to="/about" class="nav-link" exact-active-class="active">About</router-link>
+        <router-link to="/trips" class="nav-link" exact-active-class="active">All Trips</router-link>
+        <router-link to="/mytrips" class="nav-link" exact-active-class="active">My Trips</router-link>
         <div v-if="!isLoggedIn" class="auth-section">
           <router-link v-if="!isLoggedIn" to="/login" class="auth-link">
-            <v-btn color="primary">Login</v-btn>
+            <v-btn color="primary" exact-active-class="active">Login</v-btn>
           </router-link>
           <router-link to="/register" class="auth-link">
-            <v-btn color="primary">Register</v-btn>
+            <v-btn color="primary" exact-active-class="active">Register</v-btn>
           </router-link>
         </div>
         <div v-else class="auth-section">
@@ -19,7 +19,7 @@
             Welcome {{ username }}
           </div>
 
-          <router-link to="/profile">
+          <router-link to="/profile" exact-active-class="active">
             <v-btn color="primary">Profile</v-btn>
           </router-link>
           <Logout :isLoggedIn="isLoggedIn" @logged-out="handleLoggedOut" />
@@ -33,25 +33,13 @@
         <a href="https://www.facebook.com/" class="social-link" target="_blank">
           <FontAwesomeIcon :icon="['fab', 'fa-facebook']" :size="iconSize" />
         </a>
-        <a
-          href="https://github.com/Ewa-Anna/"
-          class="social-link"
-          target="_blank"
-        >
+        <a href="https://github.com/Ewa-Anna/" class="social-link" target="_blank">
           <FontAwesomeIcon :icon="['fab', 'fa-github']" :size="iconSize" />
         </a>
-        <a
-          href="https://www.linkedin.com/in/ewa-kucala/"
-          class="social-link"
-          target="_blank"
-        >
+        <a href="https://www.linkedin.com/in/ewa-kucala/" class="social-link" target="_blank">
           <FontAwesomeIcon :icon="['fab', 'fa-linkedin']" :size="iconSize" />
         </a>
-        <a
-          href="https://www.instagram.com/?hl=pl"
-          class="social-link"
-          target="_blank"
-        >
+        <a href="https://www.instagram.com/?hl=pl" class="social-link" target="_blank">
           <FontAwesomeIcon :icon="['fab', 'fa-instagram']" :size="iconSize" />
         </a>
         <a href="https://www.youtube.com/" class="social-link" target="_blank">
@@ -134,6 +122,11 @@ export default {
 
 .nav-link:hover {
   color: #999999;
+}
+
+.active {
+  color: #999999;
+  font-weight: bold;
 }
 
 .auth-section {

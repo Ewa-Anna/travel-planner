@@ -7,6 +7,7 @@
       <v-card-text>
         <div v-if="profile" class="profile-info">
           <img :src="profile.photo" alt="Profile Photo" class="profile-photo" />
+          <p>Hi {{ profile.user.first_name }} {{ profile.user.last_name }}!</p>
           <p><strong>Bio:</strong> {{ profile.bio }}</p>
           <p><strong>Birthdate:</strong> {{ profile.birthdate }}</p>
         </div>
