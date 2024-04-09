@@ -83,8 +83,12 @@
 <script>
 import apiClient from "../../utils/apiClient";
 import { mapActions } from "vuex";
+import Alert from "../../components/Utils/Alert.vue";
 
 export default {
+  components: {
+    Alert,
+  },
   data() {
     return {
       formData: {
@@ -122,7 +126,12 @@ export default {
         .post("http://localhost:8000/trip/trips/", this.formData)
         .then((response) => {
           console.log("Form data:", response.data);
-          this.$emit("showAlert", response.data.message);
+          this.$router.push("/mytrips");
+          this.emitter.emit("showAlert", {
+            message: response.data.message,
+            backgroundColor: "#4CAF50",
+            textColor: "white",
+          });
           this.formData = {
             name: "",
             start_date: "",
@@ -132,16 +141,14 @@ export default {
             accommodations: [],
             transportations: [],
           };
-          setTimeout(() => {
-            if (this.$refs.addTripComponent) {
-              this.$refs.addTripComponent.hideAlert();
-            }
-            this.$router.push("/mytrips");
-          }, 0);
         })
-
         .catch((error) => {
           console.error("Error submitting form:", error);
+          this.emitter.emit("showAlert", {
+            message: "An unexpected error occurred",
+            backgroundColor: "#f44336",
+            textColor: "white",
+          });
         });
     },
   },
