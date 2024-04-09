@@ -2,12 +2,20 @@
   <v-app>
     <v-main>
       <div class="navigation">
-        <router-link to="/" class="nav-link" exact-active-class="active">Home</router-link>
-        <router-link to="/about" class="nav-link" exact-active-class="active">About</router-link>
-        <router-link to="/trips" class="nav-link" exact-active-class="active">All Trips</router-link>
-        <router-link to="/mytrips" class="nav-link" exact-active-class="active">My Trips</router-link>
+        <router-link to="/" class="nav-link" exact-active-class="active"
+          >Home</router-link
+        >
+        <router-link to="/about" class="nav-link" exact-active-class="active"
+          >About</router-link
+        >
+        <router-link to="/trips" class="nav-link" exact-active-class="active"
+          >All Trips</router-link
+        >
+        <router-link to="/mytrips" class="nav-link" exact-active-class="active"
+          >My Trips</router-link
+        >
         <div v-if="!isLoggedIn" class="auth-section">
-          <router-link v-if="!isLoggedIn" to="/login" class="auth-link">
+          <router-link to="/login" class="auth-link">
             <v-btn color="primary" exact-active-class="active">Login</v-btn>
           </router-link>
           <router-link to="/register" class="auth-link">
@@ -33,13 +41,25 @@
         <a href="https://www.facebook.com/" class="social-link" target="_blank">
           <FontAwesomeIcon :icon="['fab', 'fa-facebook']" :size="iconSize" />
         </a>
-        <a href="https://github.com/Ewa-Anna/" class="social-link" target="_blank">
+        <a
+          href="https://github.com/Ewa-Anna/"
+          class="social-link"
+          target="_blank"
+        >
           <FontAwesomeIcon :icon="['fab', 'fa-github']" :size="iconSize" />
         </a>
-        <a href="https://www.linkedin.com/in/ewa-kucala/" class="social-link" target="_blank">
+        <a
+          href="https://www.linkedin.com/in/ewa-kucala/"
+          class="social-link"
+          target="_blank"
+        >
           <FontAwesomeIcon :icon="['fab', 'fa-linkedin']" :size="iconSize" />
         </a>
-        <a href="https://www.instagram.com/?hl=pl" class="social-link" target="_blank">
+        <a
+          href="https://www.instagram.com/?hl=pl"
+          class="social-link"
+          target="_blank"
+        >
           <FontAwesomeIcon :icon="['fab', 'fa-instagram']" :size="iconSize" />
         </a>
         <a href="https://www.youtube.com/" class="social-link" target="_blank">

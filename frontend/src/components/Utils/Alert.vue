@@ -20,17 +20,8 @@ export default {
       textColor: "white",
     };
   },
-  created() {
-    try {
-      if (this.$root.$options.eventBus) {
-        this.$root.$options.eventBus.on("showAlert", this.show);
-      }
-    } catch (error) {
-      console.error("Error in created hook:", error);
-    }
-  },
-  methods: {
-    show(message, backgroundColor = "#f44336", textColor = "white") {
+  mounted() {
+    this.emitter.on("showAlert", ({ message, backgroundColor, textColor }) => {
       this.alertMessage = message;
       this.backgroundColor = backgroundColor;
       this.textColor = textColor;
@@ -38,8 +29,10 @@ export default {
 
       setTimeout(() => {
         this.hideAlert();
-      }, 5000);
-    },
+      }, 10000);
+    });
+  },
+  methods: {
     hideAlert() {
       this.showAlert = false;
     },
@@ -49,20 +42,25 @@ export default {
 
 <style scoped>
 .alert {
-  background-color: #f44336;
-  color: white;
+  background-color: #e1f5fe;
+  color: #0d47a1;
   padding: 15px;
   margin-bottom: 20px;
+  margin-right: auto;
+  margin-left: auto;
   position: relative;
+  max-width: 700px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .alert button {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 5px;
+  right: 5px;
   background-color: transparent;
   border: none;
-  color: white;
+  color: #000000;
   font-weight: bold;
   cursor: pointer;
 }

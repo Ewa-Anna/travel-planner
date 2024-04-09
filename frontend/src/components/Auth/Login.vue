@@ -26,7 +26,12 @@
 
 <script>
 import axios from "axios";
+import Alert from "../../components/Utils/Alert.vue";
+
 export default {
+  components: {
+    Alert,
+  },
   data() {
     return {
       username: "",
@@ -48,7 +53,20 @@ export default {
         this.$router.push({ name: "Home" });
         this.$router.go(0);
       } catch (error) {
-        console.error("Login failed:", error);
+        if (error.response.status === 401) {
+          this.emitter.emit("showAlert", {
+            message: "Username or password is incorrect",
+            backgroundColor: "#f44336",
+            textColor: "white",
+          });
+        } else {
+          console.error("Login failed:", error);
+          this.emitter.emit("showAlert", {
+            message: "An unexpected error occurred",
+            backgroundColor: "#f44336",
+            textColor: "white",
+          });
+        }
       }
     },
   },
