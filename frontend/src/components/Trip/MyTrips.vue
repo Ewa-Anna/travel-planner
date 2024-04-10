@@ -1,8 +1,9 @@
 <template>
   <v-container class="justify-center">
     <v-card class="mx-auto" max-width="800">
-      <v-card-title class="primary">
+      <v-card-title id="trip-title" class="primary">
         <span class="headline">My Trips</span>
+        <router-link to="/addtrip" class="new-trip">Add new trip</router-link>
       </v-card-title>
       <v-card-text>
         <div class="button-container">
@@ -211,5 +212,28 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
+}
+
+#trip-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.new-trip {
+  display: inline-block;
+  background-color: #007bff;
+  border-radius: 6px;
+  padding: 8px 16px; 
+  border: none;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.new-trip:hover {
+  text-decoration: none;
+  background-color: #0056b3;
 }
 </style>

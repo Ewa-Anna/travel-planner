@@ -1,9 +1,11 @@
 <template>
   <v-container class="justify-center">
     <v-card class="mx-auto" max-width="800">
-      <v-card-title class="primary">
+      <v-card-title id="trip-title" class="primary">
         <span class="headline">All Trips</span>
+        <router-link to="/addtrip" class="new-trip">Add new trip</router-link>
       </v-card-title>
+      
       <v-card-text>
         <div class="button-container">
           <v-btn @click="sortTrips('name')" class="order-button"
@@ -152,6 +154,29 @@ export default {
 .primary {
   background-color: #1976d2;
   color: white;
+}
+
+#trip-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.new-trip {
+  display: inline-block;
+  background-color: #007bff;
+  border-radius: 6px;
+  padding: 8px 16px; 
+  border: none;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.new-trip:hover {
+  text-decoration: none;
+  background-color: #0056b3;
 }
 
 .trip-list {
