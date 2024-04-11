@@ -7,13 +7,14 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from .utils import get_user_from_token
+from .utils import get_user_from_token, NoPagination
 from .serializers import (
     CustomTokenObtainPairSerializer,
     RegisterSerializer,
     ProfileSerializer,
     ChangePasswordSerializer,
     PasswordResetConfirmSerializer,
+    CustomUserSerializer,
 )
 from .models import CustomUser, Profile
 
@@ -116,3 +117,9 @@ class PasswordResetConfirmAPIView(APIView):
         return Response(
             {"success": "Password reset successfully"}, status=status.HTTP_200_OK
         )
+
+
+class UserListView(generics.ListAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = CustomUserSerializer
+    pagination_class = NoPagination

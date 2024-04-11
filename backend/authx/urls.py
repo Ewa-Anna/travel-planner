@@ -15,6 +15,7 @@ from .views import (
     ChangePasswordView,
     DeactivateAccountView,
     PasswordResetConfirmAPIView,
+    UserListView,
 )
 
 app_name = "authx"
@@ -46,4 +47,5 @@ urlpatterns = [
         DeactivateAccountView.as_view(),
         name="deactivate-account",
     ),
+    path("users/", UserListView.as_view(), name="user-list"),
 ]

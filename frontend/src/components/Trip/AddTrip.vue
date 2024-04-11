@@ -26,13 +26,15 @@
             required
           />
         </div>
-        <div class="form-group">
-          <label for="participants">Participants:</label>
-          <select id="participants" v-model="formData.participants" multiple>
-            <option v-for="user in users" :key="user.id" :value="user.id">
-              {{ user.name }}
-            </option>
-          </select>
+        <label for="participants">Participants:</label>
+        <div class="form-group" style="max-height: 200px; overflow-y: auto;">
+         
+          <div v-for="user in users" :key="user.id" >
+            <label>
+              <input type="checkbox" v-model="formData.participants" :value="user.id" />
+              {{ user.first_name }} {{ user.last_name }}
+            </label>
+          </div>
         </div>
         <div class="form-group">
           <label for="pois">POIs:</label>
@@ -107,6 +109,7 @@ export default {
     };
   },
   created() {
+    this.fetchUsers();
     this.checkAuthentication();
   },
   methods: {
@@ -120,6 +123,16 @@ export default {
     isAuthenticated() {
       const token = localStorage.getItem("token");
       return token !== null;
+    },
+    fetchUsers() {
+      apiClient
+        .get("http://localhost:8000/authx/users/") 
+        .then((response) => {
+          this.users = response.data; 
+        })
+        .catch((error) => {
+          console.error("Error fetching users:", error);
+        });
     },
     submitForm() {
       apiClient

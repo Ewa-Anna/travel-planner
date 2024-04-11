@@ -3,6 +3,8 @@ import string
 
 from django_rest_passwordreset.models import ResetPasswordToken
 
+from rest_framework.pagination import PageNumberPagination
+
 
 class CustomTokenGenerator:
 
@@ -23,3 +25,7 @@ def get_user_from_token(token_key):
         return token.user
     except ResetPasswordToken.DoesNotExist:
         return None
+
+
+class NoPagination(PageNumberPagination):
+    page_size = None
