@@ -5,7 +5,7 @@
         <span class="headline">All Trips</span>
         <router-link to="/addtrip" class="new-trip">Add new trip</router-link>
       </v-card-title>
-      
+
       <v-card-text>
         <div class="button-container">
           <v-btn @click="sortTrips('name')" class="order-button"
@@ -166,7 +166,7 @@ export default {
   display: inline-block;
   background-color: #007bff;
   border-radius: 6px;
-  padding: 8px 16px; 
+  padding: 8px 16px;
   border: none;
   text-decoration: none;
   color: inherit;

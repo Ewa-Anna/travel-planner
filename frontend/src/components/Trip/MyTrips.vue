@@ -224,7 +224,7 @@ export default {
   display: inline-block;
   background-color: #007bff;
   border-radius: 6px;
-  padding: 8px 16px; 
+  padding: 8px 16px;
   border: none;
   text-decoration: none;
   color: inherit;
