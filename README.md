@@ -120,9 +120,10 @@ All endpoints with methods are available under http://127.0.0.1:8000/swagger/
 ## Tests
 
 ### Backend
+
 Change the directory
 <br>
-` cd backend `
+`cd backend`
 <br>
 Run tests for given app
 <br>
