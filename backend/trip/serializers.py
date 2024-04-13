@@ -164,15 +164,50 @@ class TripCreateSerializer(serializers.ModelSerializer):
 
         return trip
 
+    def update(self, instance, validated_data):
+        participants_data = validated_data.pop("participants", None)
+        pois_data = validated_data.pop("pois", None)
+        accommodations_data = validated_data.pop("accommodations", None)
+        transportations_data = validated_data.pop("transportations", None)
+
+        instance.name = validated_data.get("name", instance.name)
+        instance.start_date = validated_data.get("start_date", instance.start_date)
+        instance.end_date = validated_data.get("end_date", instance.end_date)
+
+        if participants_data is not None:
+            instance.participants.all().delete()
+            for participant_data in participants_data:
+                Participant.objects.create(trip=instance, **participant_data)
+
+        if pois_data is not None:
+            instance.pois.clear()
+            for poi_id in pois_data:
+                poi = POI.objects.get(id=poi_id)
+                instance.pois.add(poi)
+
+        if accommodations_data is not None:
+            instance.accommodations.clear()
+            for accommodation_id in accommodations_data:
+                accommodation = Accommodation.objects.get(id=accommodation_id)
+                instance.accommodations.add(accommodation)
+
+        if transportations_data is not None:
+            instance.transportations.clear()
+            for transportation_id in transportations_data:
+                transportation = Transportation.objects.get(id=transportation_id)
+                instance.transportations.add(transportation)
+
+        instance.save()
+        return instance
+
     def get_organizer(self, obj):
         request = self.context.get("request")
         if request and request.user.is_authenticated:
             return CustomUserSerializer(request.user).data
         return None
 
-    # Commented out temporarily for frontend debugging
-    # def validate(self, attrs):
-    #     participants_data = attrs.get("participants", [])
-    #     if not participants_data:
-    #         raise serializers.ValidationError("At least one participant is required.")
-    #     return attrs
+    def validate(self, attrs):
+        participants_data = attrs.get("participants", [])
+        if not participants_data:
+            raise serializers.ValidationError("At least one participant is required.")
+        return attrs

@@ -120,6 +120,9 @@ class PasswordResetConfirmAPIView(APIView):
 
 
 class UserListView(generics.ListAPIView):
-    queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
     pagination_class = NoPagination
+
+    def get_queryset(self):
+        queryset = CustomUser.objects.all().order_by("first_name", "last_name")
+        return queryset

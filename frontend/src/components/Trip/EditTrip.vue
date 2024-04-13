@@ -94,6 +94,12 @@ export default {
   components: {
     Alert,
   },
+  props: {
+    tripId: {
+      type: Number,
+      required: true,
+    },
+  },
   data() {
     return {
       formData: {
@@ -109,11 +115,13 @@ export default {
       pois: [],
       accommodations: [],
       transportations: [],
+      tripId: null,
     };
   },
   created() {
     this.fetchUsers();
     this.checkAuthentication();
+    this.fetchTrip();
   },
   methods: {
     ...mapActions(["fetchTrips"]),
@@ -137,9 +145,20 @@ export default {
           console.error("Error fetching users:", error);
         });
     },
+    fetchTrip() {
+      this.tripId = this.$route.params.id;
+      apiClient
+        .get(`http://localhost:8000/trip/trips/${this.tripId}/`)
+        .then((response) => {
+          this.formData = { ...this.formData, ...response.data };
+        })
+        .catch((error) => {
+          console.error("Error fetching trip:", error);
+        });
+    },
     submitForm() {
       apiClient
-        .post("http://localhost:8000/trip/trips/", this.formData)
+        .put(`http://localhost:8000/trip/trips/${this.tripId}/`, this.formData)
         .then((response) => {
           console.log("Form data:", response.data);
           this.$router.push("/mytrips");

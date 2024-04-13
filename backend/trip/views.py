@@ -12,12 +12,13 @@ from .serializers import (
     ParticipantCreateSerializer,
 )
 from .models import Trip, Participant
+from .permissions import IsOrganizerOrReadOnly
 
 
 class TripView(generics.ListCreateAPIView):
     queryset = Trip.objects.all()
     serializer_class = TripSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsOrganizerOrReadOnly]
 
     def get_serializer_class(self):
         if self.request.method == "POST":
@@ -111,7 +112,34 @@ class TripView(generics.ListCreateAPIView):
 class TripDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Trip.objects.all()
     serializer_class = TripSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsOrganizerOrReadOnly]
+
+    def get_serializer_class(self):
+        if self.request.method == "PUT" or "PATCH":
+            return TripCreateSerializer
+        return TripSerializer
+
+    def update(self, request, *args, **kwargs):
+        response = super().update(request, *args, **kwargs)
+        trip_data = response.data
+        return Response(
+            {
+                "success": True,
+                "message": "Trip has been updated successfully",
+                "result": trip_data,
+            }
+        )
+
+    def partial_update(self, request, *args, **kwargs):
+        response = super().partial_update(request, *args, **kwargs)
+        trip_data = response.data
+        return Response(
+            {
+                "success": True,
+                "message": "Trip has been updated successfully",
+                "result": trip_data,
+            }
+        )
 
 
 class ParticipantView(generics.ListCreateAPIView):
@@ -152,7 +180,7 @@ class MyTripsOrganizerListView(generics.ListAPIView):
     serializer_class = TripSerializer
 
     def get_queryset(self):
-        return Trip.objects.filter(organizer=self.request.user)
+        return Trip.objects.filter(organizer=self.request.user).order_by("name")
 
 
 class MyTripsParticipantListView(generics.ListAPIView):
@@ -163,4 +191,6 @@ class MyTripsParticipantListView(generics.ListAPIView):
     serializer_class = TripSerializer
 
     def get_queryset(self):
-        return Trip.objects.filter(participants__participant=self.request.user)
+        return Trip.objects.filter(
+            participants__participant=self.request.user
+        ).order_by("name")

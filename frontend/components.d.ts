@@ -9,6 +9,7 @@ declare module "vue" {
   export interface GlobalComponents {
     AddTrip: (typeof import("./src/components/Trip/AddTrip.vue"))["default"];
     Alert: (typeof import("./src/components/Utils/Alert.vue"))["default"];
+    EditTrip: (typeof import("./src/components/Trip/EditTrip.vue"))["default"];
     Login: (typeof import("./src/components/Auth/Login.vue"))["default"];
     Logout: (typeof import("./src/components/Auth/Logout.vue"))["default"];
     Map: (typeof import("./src/components/Map.vue"))["default"];

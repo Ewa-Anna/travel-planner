@@ -1,8 +1,14 @@
 <template>
   <v-container class="justify-center">
     <v-card class="mx-auto" max-width="800">
-      <v-card-title class="primary">
+      <v-card-title id="trip-title" class="primary">
         <span class="headline">Trip {{ trip.name }}</span>
+        <router-link
+          v-if="isOrganizer"
+          :to="'/edittrip/' + trip.id"
+          class="edit-trip"
+          >Edit trip</router-link
+        >
       </v-card-title>
       <v-card-text>
         <div v-if="trip" class="trip-details">
@@ -82,11 +88,37 @@ export default {
       trip: {},
     };
   },
+  computed: {
+    isOrganizer() {
+      return (
+        this.trip.organizer && this.trip.organizer.id === this.currentUserId
+      );
+    },
+  },
   created() {
     if (!this.isAuthenticated()) {
       this.$router.push("/login");
     } else {
-      this.fetchTrip();
+      this.fetchTrip()
+        .then(() => {
+          if (this.isOrganizer) {
+            return true;
+          } else {
+            console.log("You are not authorized to edit this trip.");
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching trip:", error);
+        });
+      apiClient
+        .get("/authx/profile/")
+        .then((response) => {
+          const userId = response.data.user.id;
+          this.currentUserId = userId;
+        })
+        .catch((error) => {
+          console.error("Error getting current user:", error);
+        });
     }
   },
   methods: {
@@ -96,7 +128,7 @@ export default {
     },
     fetchTrip() {
       const tripId = this.$route.params.id;
-      apiClient
+      return apiClient
         .get(`http://localhost:8000/trip/trips/${tripId}/`)
         .then((response) => {
           this.trip = response.data;
@@ -108,6 +140,7 @@ export default {
   },
 };
 </script>
+
 <style>
 .primary {
   background-color: #1976d2;
@@ -135,5 +168,28 @@ export default {
 
 .trip-details li {
   margin-bottom: 5px;
+}
+
+#trip-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.edit-trip {
+  display: inline-block;
+  background-color: #007bff;
+  border-radius: 6px;
+  padding: 8px 16px;
+  border: none;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.edit-trip:hover {
+  text-decoration: none;
+  background-color: #0056b3;
 }
 </style>
