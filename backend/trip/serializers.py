@@ -176,8 +176,9 @@ class TripCreateSerializer(serializers.ModelSerializer):
 
         if participants_data is not None:
             instance.participants.all().delete()
-            for participant_data in participants_data:
-                Participant.objects.create(trip=instance, **participant_data)
+            for participant_id in participants_data:
+                participant = CustomUser.objects.get(id=participant_id)
+                Participant.objects.create(trip=instance, participant=participant)
 
         if pois_data is not None:
             instance.pois.clear()

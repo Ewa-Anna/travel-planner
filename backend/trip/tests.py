@@ -99,10 +99,13 @@ class TripParticipantTestCase(TestCase):
             "start_date": "2024-01-01",
             "end_date": "2024-01-05",
             "organizer": self.user1.id,
+            "participants": [self.user1.id],
         }
-        response = self.client.put(f"/trip/trips/{self.trip1.id}/", data, format="json")
+        response = self.client.patch(
+            f"/trip/trips/{self.trip1.id}/", data, format="json"
+        )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data["name"], "Updated Trip")
+        self.assertEqual(response.data["result"]["result"]["name"], "Updated Trip")
 
     def test_delete_trip(self):
         self.client.force_login(self.user1)

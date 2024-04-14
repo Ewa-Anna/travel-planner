@@ -115,7 +115,7 @@ class TripDetailView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated, IsOrganizerOrReadOnly]
 
     def get_serializer_class(self):
-        if self.request.method == "PUT" or "PATCH":
+        if self.request.method in ("PUT", "PATCH"):
             return TripCreateSerializer
         return TripSerializer
 
