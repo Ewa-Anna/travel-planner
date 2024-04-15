@@ -8,13 +8,22 @@
 
       <v-card-text>
         <div class="button-container">
-          <v-btn @click="sortTrips('name')" class="order-button"
+          <v-btn
+            @click="sortTrips('name')"
+            :class="{ active: orderBy === 'name' }"
+            class="order-button"
             >Order by Name</v-btn
           >
-          <v-btn @click="sortTrips('start_date')" class="order-button"
+          <v-btn
+            @click="sortTrips('start_date')"
+            :class="{ active: orderBy === 'start_date' }"
+            class="order-button"
             >Order by Start Date</v-btn
           >
-          <v-btn @click="sortTrips('end_date')" class="order-button"
+          <v-btn
+            @click="sortTrips('end_date')"
+            :class="{ active: orderBy === 'end_date' }"
+            class="order-button"
             >Order by End Date</v-btn
           >
         </div>
@@ -25,6 +34,20 @@
           dense
           outlined
         ></v-select>
+
+        <div class="search-container">
+          <v-text-field
+            v-model="searchQuery"
+            label="Search"
+            outlined
+          ></v-text-field>
+          <v-btn @click="searchTrips" class="search-button">Search</v-btn>
+          <v-btn @click="clearSearch" class="clear-button">Clear</v-btn>
+        </div>
+
+        <div v-if="filteredTrips.length === 0" class="no-trips-message">
+          No matching trips found.
+        </div>
 
         <div class="trip-row">
           <div v-for="trip in filteredTrips" :key="trip.id" class="trip-item">
@@ -72,6 +95,7 @@ export default {
       totalPages: 1,
       itemsPerPage: 9,
       orderBy: "name",
+      searchQuery: "",
     };
   },
   created() {
@@ -105,6 +129,7 @@ export default {
             limit: limit,
             offset: offset,
             order_by: this.orderBy,
+            query: this.searchQuery,
           },
         })
         .then((response) => {
@@ -118,6 +143,13 @@ export default {
     sortTrips(orderBy) {
       this.orderBy = orderBy;
       this.fetchTrips(orderBy, this.page);
+    },
+    searchTrips() {
+      this.fetchTrips(this.orderBy, this.page);
+    },
+    clearSearch() {
+      this.searchQuery = "";
+      this.fetchTrips(this.orderBy, this.page);
     },
     filterTrips() {
       switch (this.filterBy) {
@@ -145,6 +177,11 @@ export default {
   computed: {
     filteredTrips() {
       return this.filterTrips();
+    },
+  },
+  watch: {
+    searchQuery(newValue) {
+      this.fetchTrips(this.orderBy, this.page);
     },
   },
 };
@@ -235,5 +272,35 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.search-button {
+  margin-left: 16px;
+}
+
+.clear-button {
+  margin-left: 8px;
+}
+
+.no-trips-message {
+  margin-top: 16px;
+  color: #888;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.order-button {
+  color: gray;
+}
+.order-button.active {
+  color: black;
 }
 </style>

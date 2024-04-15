@@ -7,12 +7,20 @@
       </v-card-title>
       <v-card-text>
         <div class="button-container">
-          <v-btn @click="fetchTrips('name', true)" class="order-button"
-            >Organizer</v-btn
+          <v-btn
+            @click="toggleUserType('organizer')"
+            :class="{ active: organizer }"
+            class="order-button"
           >
-          <v-btn @click="fetchTrips('name', false)" class="order-button"
-            >Participant</v-btn
+            Organizer
+          </v-btn>
+          <v-btn
+            @click="toggleUserType('participant')"
+            :class="{ active: !organizer }"
+            class="order-button"
           >
+            Participant
+          </v-btn>
         </div>
         <v-select
           v-model="filterBy"
@@ -21,6 +29,20 @@
           dense
           outlined
         ></v-select>
+
+        <div class="search-container">
+          <v-text-field
+            v-model="searchQuery"
+            label="Search"
+            outlined
+          ></v-text-field>
+          <v-btn @click="searchTrips" class="search-button">Search</v-btn>
+          <v-btn @click="clearSearch" class="clear-button">Clear</v-btn>
+        </div>
+
+        <div v-if="filteredTrips.length === 0" class="no-trips-message">
+          No matching trips found.
+        </div>
 
         <div class="trip-row">
           <div v-for="trip in filteredTrips" :key="trip.id" class="trip-item">
@@ -68,6 +90,7 @@ export default {
       totalPages: 1,
       itemsPerPage: 9,
       organizer: true,
+      searchQuery: "",
     };
   },
   created() {
@@ -91,23 +114,19 @@ export default {
       const token = localStorage.getItem("token");
       return token !== null;
     },
-    fetchTrips(page = 1, organizer = true) {
+    fetchTrips(page = 1) {
       const limit = this.itemsPerPage;
       const offset = (this.page - 1) * limit;
 
-      if (organizer !== this.organizer) {
-        this.page = 1;
-        this.totalPages = 1;
-        this.offset = 0;
-      }
-      const endpoint = organizer
-        ? "http://localhost:8000/trip/my_trips_organizer/"
-        : "http://localhost:8000/trip/my_trips_participant/";
+      const userType = this.organizer ? "organizer" : "participant";
+
       apiClient
-        .get(endpoint, {
+        .get("http://localhost:8000/trip/my_trips_organizer/", {
           params: {
             limit: limit,
             offset: offset,
+            query: this.searchQuery,
+            user_type: userType,
           },
         })
         .then((response) => {
@@ -118,6 +137,17 @@ export default {
         .catch((error) => {
           console.error("Error fetching trips:", error);
         });
+    },
+    toggleUserType(type) {
+      this.organizer = type === "organizer";
+      this.fetchTrips();
+    },
+    searchTrips() {
+      this.fetchTrips(this.orderBy, this.page);
+    },
+    clearSearch() {
+      this.searchQuery = "";
+      this.fetchTrips(this.orderBy, this.page);
     },
     filterTrips() {
       switch (this.filterBy) {
@@ -145,6 +175,14 @@ export default {
   computed: {
     filteredTrips() {
       return this.filterTrips();
+    },
+  },
+  watch: {
+    searchQuery(newValue) {
+      this.fetchTrips(this.orderBy, this.page);
+    },
+    page(newValue) {
+      this.fetchTrips();
     },
   },
 };
@@ -235,5 +273,28 @@ export default {
 .new-trip:hover {
   text-decoration: none;
   background-color: #0056b3;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.search-button {
+  margin-left: 16px;
+}
+
+.clear-button {
+  margin-left: 8px;
+}
+
+.no-trips-message {
+  margin-top: 16px;
+  color: #888;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

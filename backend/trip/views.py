@@ -1,4 +1,5 @@
 from django.db import IntegrityError
+from django.db.models import Q
 
 from rest_framework import generics, status
 from rest_framework.permissions import IsAuthenticated
@@ -47,6 +48,10 @@ class TripView(generics.ListCreateAPIView):
         order_by = self.request.query_params.get("order_by")
         if order_by is not None:
             queryset = queryset.order_by(order_by)
+
+        query = self.request.query_params.get("query")
+        if query:
+            queryset = queryset.filter(Q(name__icontains=query)).order_by("name")
 
         return queryset
 
@@ -172,25 +177,28 @@ class ParticipantTripsView(generics.ListAPIView):
         return Trip.objects.filter(participants__participant=participant_id)
 
 
-class MyTripsOrganizerListView(generics.ListAPIView):
+class MyTripsListView(generics.ListAPIView):
     """
-    Returns list of trips that currently logged in user is an organizer.
-    """
-
-    serializer_class = TripSerializer
-
-    def get_queryset(self):
-        return Trip.objects.filter(organizer=self.request.user).order_by("name")
-
-
-class MyTripsParticipantListView(generics.ListAPIView):
-    """
-    Returns list of trips that currently logged in user is a participant.
+    Returns list of trips that currently logged in user is an organizer or participant.
     """
 
     serializer_class = TripSerializer
 
     def get_queryset(self):
-        return Trip.objects.filter(
-            participants__participant=self.request.user
-        ).order_by("name")
+        user = self.request.user
+        user_type = self.request.query_params.get("user_type", "organizer")
+        query = self.request.query_params.get("query", None)
+
+        if user_type == "organizer":
+            queryset = Trip.objects.filter(organizer=user).order_by("name")
+        elif user_type == "participant":
+            queryset = Trip.objects.filter(participants__participant=user).order_by(
+                "name"
+            )
+        else:
+            return Trip.objects.none()
+
+        if query:
+            queryset = queryset.filter(name__icontains=query)
+
+        return queryset
