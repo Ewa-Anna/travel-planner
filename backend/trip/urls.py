@@ -6,8 +6,7 @@ from .views import (
     ParticipantView,
     ParticipantDetailView,
     ParticipantTripsView,
-    MyTripsOrganizerListView,
-    MyTripsParticipantListView,
+    MyTripsListView,
 )
 
 
@@ -29,12 +28,7 @@ urlpatterns = [
     ),
     path(
         "my_trips_organizer/",
-        MyTripsOrganizerListView.as_view(),
+        MyTripsListView.as_view(),
         name="my_trips_organizer",
-    ),
-    path(
-        "my_trips_participant/",
-        MyTripsParticipantListView.as_view(),
-        name="my_trips_participant",
     ),
 ]
