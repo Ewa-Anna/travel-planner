@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.db import IntegrityError
 from django.db.models import Q
 
@@ -28,6 +30,16 @@ class TripView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
+        filter_by = self.request.query_params.get("filterBy")
+
+        if filter_by == "Upcoming":
+            queryset = queryset.filter(start_date__gt=datetime.now())
+        elif filter_by == "Past":
+            queryset = queryset.filter(end_date__lt=datetime.now())
+        elif filter_by == "Current":
+            queryset = queryset.filter(
+                start_date__lt=datetime.now(), end_date__gt=datetime.now()
+            )
 
         organizer_id = self.request.query_params.get("organizer")
         if organizer_id is not None:

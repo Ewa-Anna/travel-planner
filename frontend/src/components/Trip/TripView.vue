@@ -33,6 +33,7 @@
           label="Filter by date"
           dense
           outlined
+          @change="fetchTrips"
         ></v-select>
 
         <div class="search-container">
@@ -130,6 +131,7 @@ export default {
             offset: offset,
             order_by: this.orderBy,
             query: this.searchQuery,
+            filterBy: this.filterBy,
           },
         })
         .then((response) => {
@@ -149,38 +151,23 @@ export default {
     },
     clearSearch() {
       this.searchQuery = "";
+      this.filterBy = null;
       this.fetchTrips(this.orderBy, this.page);
     },
     filterTrips() {
-      switch (this.filterBy) {
-        case "All":
-          return this.trips;
-        case "Upcoming":
-          return this.trips.filter(
-            (trip) => new Date(trip.start_date) > new Date(),
-          );
-        case "Past":
-          return this.trips.filter(
-            (trip) => new Date(trip.end_date) < new Date(),
-          );
-        case "Current":
-          return this.trips.filter(
-            (trip) =>
-              new Date(trip.start_date) < new Date() &&
-              new Date(trip.end_date) > new Date(),
-          );
-        default:
-          return this.trips;
-      }
+      this.fetchTrips(this.orderBy, this.page);
     },
   },
   computed: {
     filteredTrips() {
-      return this.filterTrips();
+      return this.trips;
     },
   },
   watch: {
     searchQuery(newValue) {
+      this.fetchTrips(this.orderBy, this.page);
+    },
+    filterBy(newValue) {
       this.fetchTrips(this.orderBy, this.page);
     },
   },
@@ -300,6 +287,7 @@ export default {
 .order-button {
   color: gray;
 }
+
 .order-button.active {
   color: black;
 }
