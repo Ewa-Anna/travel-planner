@@ -14,7 +14,7 @@ from .serializers import TripSerializer, ParticipantSerializer
 User = get_user_model()
 
 
-# pylint: disable=R0902
+# pylint: disable=R0902, R0904
 class TripParticipantTestCase(TestCase):
     def setUp(self):
         self.client = APIClient()
@@ -139,6 +139,30 @@ class TripParticipantTestCase(TestCase):
         self.client.force_authenticate(user=None)
         response = self.client.get("/trip/trips/")
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_search_query(self):
+        self.client.force_login(self.user1)
+        response = self.client.get("/trip/trips/?query=Trip 1")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["count"], 1)
+
+    def test_order_by_name(self):
+        self.client.force_login(self.user1)
+        response = self.client.get("/trip/trips/?order_by=-name")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["results"][0]["name"], "Trip 2")
+
+    def test_order_by_start_date(self):
+        self.client.force_login(self.user1)
+        response = self.client.get("/trip/trips/?order_by=start_date")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["results"][0]["start_date"], "2024-01-01")
+
+    def test_order_by_end_date(self):
+        self.client.force_login(self.user1)
+        response = self.client.get("/trip/trips/?order_by=-end_date")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["results"][0]["end_date"], "2024-02-05")
 
     def tearDown(self):
         User.objects.all().delete()
