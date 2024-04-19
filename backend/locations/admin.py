@@ -15,7 +15,7 @@ class CountryAdmin(admin.ModelAdmin):
 
 
 class POIAdmin(admin.ModelAdmin):
-    list_display = ["name", "city"]
+    list_display = ["id", "name", "city"]
     list_filter = ["city__country", "city"]
     search_fields = ["name"]
 

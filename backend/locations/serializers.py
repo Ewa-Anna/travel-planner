@@ -36,6 +36,7 @@ class POIViewSerializer(serializers.ModelSerializer):
     class Meta:
         model = POI
         fields = [
+            "id",
             "name",
             "city",
             "description",

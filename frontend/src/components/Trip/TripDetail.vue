@@ -86,6 +86,7 @@ export default {
     return {
       pois: [],
       trip: {},
+      currentUserId: null,
     };
   },
   computed: {

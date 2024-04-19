@@ -26,6 +26,7 @@
             required
           />
         </div>
+
         <label for="participants">Participants:</label>
         <div id="scroll-form-group" class="form-group">
           <div v-for="user in users" :key="user.id">
@@ -39,46 +40,48 @@
             </label>
           </div>
         </div>
+
+        <label for="pois">POIs:</label>
         <div id="scroll-form-group" class="form-group">
-          <label for="pois">POIs:</label>
-          <select id="pois" v-model="formData.pois" multiple>
-            <option v-for="poi in pois" :key="poi.id" :value="poi.id">
+          <div v-for="poi in pois" :key="poi.id">
+            <label>
+              <input type="checkbox" v-model="formData.pois" :value="poi.id" />
               {{ poi.name }}
-            </option>
-          </select>
+            </label>
+          </div>
         </div>
+
+        <label for="accommodations">Accommodations:</label>
         <div id="scroll-form-group" class="form-group">
-          <label for="accommodations">Accommodations:</label>
-          <select
-            id="accommodations"
-            v-model="formData.accommodations"
-            multiple
-          >
-            <option
-              v-for="accommodation in accommodations"
-              :key="accommodation.id"
-              :value="accommodation.id"
-            >
+          <div v-for="accommodation in accommodations" :key="accommodation.id">
+            <label>
+              <input
+                type="checkbox"
+                v-model="formData.accommodations"
+                :value="accommodation.id"
+              />
               {{ accommodation.name }}
-            </option>
-          </select>
+            </label>
+          </div>
         </div>
+
+        <label for="transportations">Transportations:</label>
         <div id="scroll-form-group" class="form-group">
-          <label for="transportations">Transportations:</label>
-          <select
-            id="transportations"
-            v-model="formData.transportations"
-            multiple
+          <div
+            v-for="transportation in transportations"
+            :key="transportation.id"
           >
-            <option
-              v-for="transportation in transportations"
-              :key="transportation.id"
-              :value="transportation.id"
-            >
+            <label>
+              <input
+                type="checkbox"
+                v-model="formData.transportations"
+                :value="transportation.id"
+              />
               {{ transportation.name }}
-            </option>
-          </select>
+            </label>
+          </div>
         </div>
+
         <button type="submit" class="primary">Submit</button>
       </form>
     </v-card>
@@ -113,6 +116,9 @@ export default {
   },
   created() {
     this.fetchUsers();
+    this.fetchPOIs();
+    this.fetchAccommodations();
+    this.fetchTransportations();
     this.checkAuthentication();
   },
   methods: {
@@ -135,6 +141,37 @@ export default {
         })
         .catch((error) => {
           console.error("Error fetching users:", error);
+        });
+    },
+    fetchPOIs() {
+      apiClient
+        .get("http://localhost:8000/locations/pois/")
+        .then((response) => {
+          this.pois = response.data;
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching POIs:", error);
+        });
+    },
+    fetchAccommodations() {
+      apiClient
+        .get("http://localhost:8000/services/accommodations/")
+        .then((response) => {
+          this.accommodations = response.data;
+        })
+        .catch((error) => {
+          console.error("Error fetching accommodations:", error);
+        });
+    },
+    fetchTransportations() {
+      apiClient
+        .get("http://localhost:8000/services/transportations/")
+        .then((response) => {
+          this.transportations = response.data;
+        })
+        .catch((error) => {
+          console.error("Error fetching transportations:", error);
         });
     },
     submitForm() {
