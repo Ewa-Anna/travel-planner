@@ -30,7 +30,7 @@ class CountryViewSetTestCase(TestCase):
         self.client.force_login(self.user)
         response = self.client.get("/locations/countries/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data["count"], 2)
+        self.assertEqual(len(response.data), 2)
 
     def test_retrieve_country(self):
         self.client.force_login(self.user)
@@ -81,7 +81,7 @@ class CityViewSetTestCase(TestCase):
         self.client.force_login(self.user)
         response = self.client.get("/locations/cities/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data["count"], 2)
+        self.assertEqual(len(response.data), 2)
 
     def test_retrieve_city(self):
         self.client.force_login(self.user)
@@ -138,7 +138,7 @@ class POIViewSetTestCase(TestCase):
         self.client.force_login(self.user)
         response = self.client.get("/locations/pois/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data["count"], 2)
+        self.assertEqual(len(response.data), 2)
 
     def test_retrieve_poi(self):
         self.client.force_login(self.user)

@@ -30,7 +30,7 @@ class AccommodationViewSetTestCase(APITestCase):
         self.client.force_login(self.user)
         response = self.client.get("/services/accommodations/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data["count"], 1)
+        self.assertEqual(len(response.data), 1)
 
     def test_retrieve_accommodation(self):
         self.client.force_login(self.user)
@@ -103,7 +103,7 @@ class TransportationViewSetTestCase(APITestCase):
         self.client.force_login(self.user)
         response = self.client.get("/services/transportations/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data["count"], 1)
+        self.assertEqual(len(response.data), 1)
 
     def test_retrieve_transportation(self):
         self.client.force_login(self.user)

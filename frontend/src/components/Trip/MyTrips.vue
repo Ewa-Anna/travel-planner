@@ -132,7 +132,6 @@ export default {
         .then((response) => {
           this.trips = response.data.results;
           this.totalPages = Math.ceil(response.data.count / this.itemsPerPage);
-          this.organizer = organizer;
         })
         .catch((error) => {
           console.error("Error fetching trips:", error);

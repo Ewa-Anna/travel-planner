@@ -39,46 +39,48 @@
             </label>
           </div>
         </div>
+
+        <label for="pois">POIs:</label>
         <div id="scroll-form-group" class="form-group">
-          <label for="pois">POIs:</label>
-          <select id="pois" v-model="formData.pois" multiple>
-            <option v-for="poi in pois" :key="poi.id" :value="poi.id">
+          <div v-for="poi in pois" :key="poi.id">
+            <label>
+              <input type="checkbox" v-model="formData.pois" :value="poi.id" />
               {{ poi.name }}
-            </option>
-          </select>
+            </label>
+          </div>
         </div>
+
+        <label for="accommodations">Accommodations:</label>
         <div id="scroll-form-group" class="form-group">
-          <label for="accommodations">Accommodations:</label>
-          <select
-            id="accommodations"
-            v-model="formData.accommodations"
-            multiple
-          >
-            <option
-              v-for="accommodation in accommodations"
-              :key="accommodation.id"
-              :value="accommodation.id"
-            >
+          <div v-for="accommodation in accommodations" :key="accommodation.id">
+            <label>
+              <input
+                type="checkbox"
+                v-model="formData.accommodations"
+                :value="accommodation.id"
+              />
               {{ accommodation.name }}
-            </option>
-          </select>
+            </label>
+          </div>
         </div>
+
+        <label for="transportations">Transportations:</label>
         <div id="scroll-form-group" class="form-group">
-          <label for="transportations">Transportations:</label>
-          <select
-            id="transportations"
-            v-model="formData.transportations"
-            multiple
+          <div
+            v-for="transportation in transportations"
+            :key="transportation.id"
           >
-            <option
-              v-for="transportation in transportations"
-              :key="transportation.id"
-              :value="transportation.id"
-            >
+            <label>
+              <input
+                type="checkbox"
+                v-model="formData.transportations"
+                :value="transportation.id"
+              />
               {{ transportation.name }}
-            </option>
-          </select>
+            </label>
+          </div>
         </div>
+
         <button type="submit" class="primary">Submit</button>
       </form>
     </v-card>
@@ -120,6 +122,9 @@ export default {
   },
   created() {
     this.fetchUsers();
+    this.fetchPOIs();
+    this.fetchAccommodations();
+    this.fetchTransportations();
     this.checkAuthentication();
     this.fetchTrip();
   },
@@ -145,12 +150,59 @@ export default {
           console.error("Error fetching users:", error);
         });
     },
+
+    fetchPOIs() {
+      apiClient
+        .get("http://localhost:8000/locations/pois/")
+        .then((response) => {
+          this.pois = response.data;
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching POIs:", error);
+        });
+    },
+    fetchAccommodations() {
+      apiClient
+        .get("http://localhost:8000/services/accommodations/")
+        .then((response) => {
+          this.accommodations = response.data;
+        })
+        .catch((error) => {
+          console.error("Error fetching accommodations:", error);
+        });
+    },
+    fetchTransportations() {
+      apiClient
+        .get("http://localhost:8000/services/transportations/")
+        .then((response) => {
+          this.transportations = response.data;
+        })
+        .catch((error) => {
+          console.error("Error fetching transportations:", error);
+        });
+    },
     fetchTrip() {
       this.tripId = this.$route.params.id;
       apiClient
         .get(`http://localhost:8000/trip/trips/${this.tripId}/`)
         .then((response) => {
-          this.formData = { ...this.formData, ...response.data };
+          const tripData = response.data;
+          this.formData = {
+            name: tripData.name,
+            start_date: tripData.start_date,
+            end_date: tripData.end_date,
+            participants: tripData.participants.map(
+              (participant) => participant.participant,
+            ),
+            pois: tripData.pois.map((poi) => poi.id),
+            accommodations: tripData.accommodations.map(
+              (accommodation) => accommodation.id,
+            ),
+            transportations: tripData.transportations.map(
+              (transportation) => transportation.id,
+            ),
+          };
         })
         .catch((error) => {
           console.error("Error fetching trip:", error);
