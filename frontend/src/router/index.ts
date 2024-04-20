@@ -13,6 +13,7 @@ import TripDetail from "../components/Trip/TripDetail.vue";
 import MyTrips from "../components/Trip/MyTrips.vue";
 import AddTrip from "../components/Trip/AddTrip.vue";
 import EditTrip from "../components/Trip/EditTrip.vue";
+import Map from "../components/Map.vue";
 
 const routes: RouteRecordRaw[] = [
   {
@@ -64,6 +65,11 @@ const routes: RouteRecordRaw[] = [
     path: "/trips/:id",
     name: "TripDetail",
     component: TripDetail,
+  },
+  {
+    path: "/map/:id",
+    name: "Map",
+    component: Map,
   },
 ];
 

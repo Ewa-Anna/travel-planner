@@ -11,61 +11,65 @@
         >
       </v-card-title>
       <v-card-text>
-        <div v-if="trip" class="trip-details">
-          <h2>{{ trip.name }}</h2>
-          <div><b>From:</b> {{ trip.start_date }}</div>
-          <div><b>To:</b> {{ trip.end_date }}</div>
-          <div><b>Duration:</b> {{ trip.trip_length }}</div>
-          <div v-if="trip.organizer">
-            <b>Organizer:</b> {{ trip.organizer.first_name }}
-            {{ trip.organizer.last_name }}
+        <div class="trip-container">
+          <div v-if="trip" class="trip-details">
+            <h2>{{ trip.name }}</h2>
+            <div><b>From:</b> {{ trip.start_date }}</div>
+            <div><b>To:</b> {{ trip.end_date }}</div>
+            <div><b>Duration:</b> {{ trip.trip_length }}</div>
+            <div v-if="trip.organizer">
+              <b>Organizer:</b> {{ trip.organizer.first_name }}
+              {{ trip.organizer.last_name }}
+            </div>
+            <div>
+              <h3>Participants:</h3>
+              <ul>
+                <li
+                  v-for="participant in trip.participants"
+                  :key="participant.participant"
+                >
+                  {{ participant.first_name }} {{ participant.last_name }}
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3>Points of Interest:</h3>
+              <ul>
+                <li v-for="poi in trip.pois" :key="poi.name">
+                  {{ poi.name }} - {{ poi.city.name }}
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3>Accommodations:</h3>
+              <ul>
+                <li
+                  v-for="accommodation in trip.accommodations"
+                  :key="accommodation.id"
+                >
+                  {{ accommodation.name }} - {{ accommodation.location }} -
+                  {{ accommodation.details }}
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3>Transportations:</h3>
+              <ul>
+                <li
+                  v-for="transportation in trip.transportations"
+                  :key="transportation.id"
+                >
+                  {{ transportation.name }} -
+                  {{ transportation.departure_location }} to
+                  {{ transportation.arrival_location }}
+                </li>
+              </ul>
+            </div>
           </div>
-          <div>
-            <h3>Participants:</h3>
-            <ul>
-              <li
-                v-for="participant in trip.participants"
-                :key="participant.participant"
-              >
-                {{ participant.first_name }} {{ participant.last_name }}
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h3>Points of Interest:</h3>
-            <ul>
-              <li v-for="poi in trip.pois" :key="poi.name">
-                {{ poi.name }} - {{ poi.city.name }}
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h3>Accommodations:</h3>
-            <ul>
-              <li
-                v-for="accommodation in trip.accommodations"
-                :key="accommodation.id"
-              >
-                {{ accommodation.name }} - {{ accommodation.location }} -
-                {{ accommodation.details }}
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h3>Transportations:</h3>
-            <ul>
-              <li
-                v-for="transportation in trip.transportations"
-                :key="transportation.id"
-              >
-                {{ transportation.name }} -
-                {{ transportation.departure_location }} to
-                {{ transportation.arrival_location }}
-              </li>
-            </ul>
+          <div class="map-container">
+            <Map v-if="trip.id" :tripId="trip.id" />
           </div>
         </div>
-        <!-- <Map :coordinates="trip.pois.map(poi => [poi.location_latitude, poi.location_longitude])"></Map> -->
       </v-card-text>
     </v-card>
   </v-container>
@@ -192,5 +196,13 @@ export default {
 .edit-trip:hover {
   text-decoration: none;
   background-color: #0056b3;
+}
+
+.trip-container {
+  display: flex;
+}
+
+.map-container {
+  margin: auto;
 }
 </style>
