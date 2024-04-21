@@ -5,15 +5,17 @@ import {
 } from "vue-router";
 
 import Home from "../views/Home.vue";
+
 import Login from "../components/Auth/Login.vue";
 import Register from "../components/Auth/Register.vue";
+
 import Profile from "../components/Auth/Profile.vue";
+
 import TripView from "../components/Trip/TripView.vue";
 import TripDetail from "../components/Trip/TripDetail.vue";
 import MyTrips from "../components/Trip/MyTrips.vue";
 import AddTrip from "../components/Trip/AddTrip.vue";
 import EditTrip from "../components/Trip/EditTrip.vue";
-import Map from "../components/Map.vue";
 
 const routes: RouteRecordRaw[] = [
   {
@@ -65,11 +67,6 @@ const routes: RouteRecordRaw[] = [
     path: "/trips/:id",
     name: "TripDetail",
     component: TripDetail,
-  },
-  {
-    path: "/map/:id",
-    name: "Map",
-    component: Map,
   },
 ];
 

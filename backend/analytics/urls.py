@@ -8,6 +8,7 @@ from .views import (
     AverageTripDurationView,
     TimelineView,
     MostVisitedCountries,
+    MostVisitedCountriesAll,
     UserAnalyticsView,
     TotalUsers,
 )
@@ -34,8 +35,13 @@ urlpatterns = [
     ),
     path("timeline/", TimelineView.as_view(), name="timeline"),
     path(
-        "most-visited-countries/",
+        "most-visited-countries-organizer/",
         MostVisitedCountries.as_view(),
+        name="most-visited-countries-organizer",
+    ),
+    path(
+        "most-visited-countries/",
+        MostVisitedCountriesAll.as_view(),
         name="most-visited-countries",
     ),
     path("total-time-spent/", UserAnalyticsView.as_view(), name="total-time-spent"),

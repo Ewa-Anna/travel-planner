@@ -6,6 +6,7 @@ from django.db.models import Sum, Count, Avg, F, ExpressionWrapper, DurationFiel
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.permissions import AllowAny
 
 from authx.models import CustomUser
 from trip.models import Trip
@@ -21,6 +22,8 @@ class AnalyticsReview(APIView):
     """
     Returns top5 reviews with the highest number of likes.
     """
+
+    permission_classes = [AllowAny]
 
     def get_most_liked_review(self):
         most_liked_reviews = Review.objects.filter(visibility="public").order_by(
@@ -79,6 +82,8 @@ class AnalyticsExpense(APIView):
 
 
 class PopularPOIs(APIView):
+    permission_classes = [AllowAny]
+
     def get(self, request):
         popular_pois = POI.objects.annotate(num_trips=Count("trips")).order_by(
             "-num_trips"
@@ -89,6 +94,8 @@ class PopularPOIs(APIView):
 
 
 class PopularAccommodations(APIView):
+    permission_classes = [AllowAny]
+
     def get(self, request):
         popular_accommodations = Accommodation.objects.annotate(
             num_trips=Count("trips")
@@ -167,6 +174,31 @@ class MostVisitedCountries(APIView):
         return Response(data)
 
 
+class MostVisitedCountriesAll(APIView):
+    """
+    Most visited countries for all users.
+    """
+
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        user_trips = Trip.objects.all()
+        country_trip_map = Counter()
+        for trip in user_trips:
+            trip_pois = trip.pois.all()
+            trip_countries = set(poi.city.country for poi in trip_pois)
+            for country in trip_countries:
+                country_trip_map[country] += 1
+
+        top_visited_countries = country_trip_map.most_common()
+        data = [
+            {"country": country.name, "trip_count": count}
+            for country, count in top_visited_countries
+        ]
+
+        return Response(data)
+
+
 class UserAnalyticsView(APIView):
     def get(self, request):
         total_time_spent = calculate_total_time_spent(request.user)
@@ -174,6 +206,8 @@ class UserAnalyticsView(APIView):
 
 
 class TotalUsers(APIView):
+    permission_classes = [AllowAny]
+
     def get(self, request):
         total_users_count = CustomUser.objects.count()
         return Response({"total_users": total_users_count})
