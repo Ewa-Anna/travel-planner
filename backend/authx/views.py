@@ -53,7 +53,7 @@ class RegisterView(generics.CreateAPIView):
 class ProfileView(generics.RetrieveUpdateAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
-    permission_classes = (IsAuthenticated,)
+    permission_classes = [IsAuthenticated]
 
     def get_object(self):
         return self.request.user.profile
@@ -95,7 +95,7 @@ class DeactivateAccountView(APIView):
 
 class PasswordResetConfirmAPIView(APIView):
     serializer_class = PasswordResetConfirmSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = [AllowAny]
 
     def post(self, request):
         serializer = self.serializer_class(data=request.data)

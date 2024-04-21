@@ -185,7 +185,7 @@ class TestMostVisitedCountries(TestCase):
         self.trip.pois.add(self.poi)
 
     def test_get_most_visited_countries(self):
-        url = reverse("analytics:most-visited-countries")
+        url = reverse("analytics:most-visited-countries-organizer")
         self.client.force_login(self.user)
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)

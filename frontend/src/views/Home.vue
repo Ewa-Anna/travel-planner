@@ -6,11 +6,27 @@
       <div class="py-14" />
       <p class="message">Don't know where to start?</p>
       <router-link to="/addtrip" class="primary">Add your trip!</router-link>
+      <p class="message">Here are some statistics:</p>
+      <div class="statistics">
+        <div class="statistics-item">
+          <PopularCountries />
+        </div>
+        <div class="statistics-item">
+          <PopularAccommodations />
+        </div>
+        <div class="statistics-item">
+          <PopularPOIs />
+        </div>
+      </div>
     </v-responsive>
   </v-container>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import PopularCountries from "@/components/Analytics/PopularCountries.vue";
+import PopularAccommodations from "@/components/Analytics/PopularAccommodations.vue";
+import PopularPOIs from "@/components/Analytics/PopularPOIs.vue";
+</script>
 
 <style>
 .primary {
@@ -26,7 +42,19 @@
 }
 
 .message {
+  margin-top: 50px;
+  margin-bottom: 20px;
   font-size: 1.2rem;
   margin-bottom: 10px;
+}
+
+.statistics {
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.statistics-item {
+  margin-right: 10px;
 }
 </style>
