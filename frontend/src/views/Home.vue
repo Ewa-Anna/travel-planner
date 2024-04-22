@@ -2,8 +2,6 @@
   <v-container class="fill-height">
     <v-responsive class="align-center text-center fill-height">
       <div class="text-body-2 font-weight-light mb-n1">Travel Planner</div>
-
-      <div class="py-14" />
       <p class="message">Don't know where to start?</p>
       <router-link to="/addtrip" class="primary">Add your trip!</router-link>
       <p class="message">Here are some statistics:</p>
@@ -18,6 +16,7 @@
           <PopularPOIs />
         </div>
       </div>
+      <TotalUsers />
     </v-responsive>
   </v-container>
 </template>
@@ -26,6 +25,7 @@
 import PopularCountries from "@/components/Analytics/PopularCountries.vue";
 import PopularAccommodations from "@/components/Analytics/PopularAccommodations.vue";
 import PopularPOIs from "@/components/Analytics/PopularPOIs.vue";
+import TotalUsers from "@/components/Analytics/TotalUsers.vue";
 </script>
 
 <style>
