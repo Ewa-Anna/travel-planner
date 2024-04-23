@@ -10,6 +10,7 @@ import Login from "../components/Auth/Login.vue";
 import Register from "../components/Auth/Register.vue";
 
 import Profile from "../components/Auth/Profile.vue";
+import EditProfile from "../components/Auth/EditProfile.vue";
 
 import TripView from "../components/Trip/TripView.vue";
 import TripDetail from "../components/Trip/TripDetail.vue";
@@ -37,6 +38,11 @@ const routes: RouteRecordRaw[] = [
     path: "/profile",
     name: "Profile",
     component: Profile,
+  },
+  {
+    path: "/editprofile",
+    name: "EditProfile",
+    component: EditProfile,
   },
   {
     path: "/about",

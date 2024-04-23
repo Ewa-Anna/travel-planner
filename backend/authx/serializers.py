@@ -121,3 +121,34 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ("bio", "photo", "birthdate", "user")
+
+
+class ProfileUpdateSerializer(serializers.ModelSerializer):
+    bio = serializers.CharField(required=False)
+    photo = serializers.URLField(required=False)
+    birthdate = serializers.DateField(required=False)
+    first_name = serializers.CharField(source="user.first_name", required=False)
+    last_name = serializers.CharField(source="user.last_name", required=False)
+
+    class Meta:
+        model = Profile
+        fields = ("bio", "photo", "birthdate", "first_name", "last_name")
+
+    def update(self, instance, validated_data):
+        user_data = validated_data.pop("user", {})
+        profile_data = {
+            k: v
+            for k, v in validated_data.items()
+            if k in ("bio", "photo", "birthdate")
+        }
+
+        for attr, value in profile_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+
+        user = instance.user
+        for attr, value in user_data.items():
+            setattr(user, attr, value)
+        user.save()
+
+        return instance

@@ -15,6 +15,7 @@ from .serializers import (
     ChangePasswordSerializer,
     PasswordResetConfirmSerializer,
     CustomUserSerializer,
+    ProfileUpdateSerializer,
 )
 from .models import CustomUser, Profile
 
@@ -58,11 +59,40 @@ class ProfileView(generics.RetrieveUpdateAPIView):
     def get_object(self):
         return self.request.user.profile
 
+    def get_serializer_class(self):
+        if self.request.method in ("PUT", "PATCH"):
+            return ProfileUpdateSerializer
+        return ProfileSerializer
+
+    def update(self, request, *args, **kwargs):
+        response = super().update(request, *args, **kwargs)
+        profile_data = response.data
+        return Response(
+            {
+                "success": True,
+                "message": "Profile has been updated successfully",
+                "result": profile_data,
+            }
+        )
+
+    def partial_update(self, request, *args, **kwargs):
+        response = super().partial_update(request, *args, **kwargs)
+        profile_data = response.data
+        return Response(
+            {
+                "success": True,
+                "message": "Profile has been updated successfully",
+                "result": profile_data,
+            }
+        )
+
 
 class LogoutAPIView(APIView):
     def post(self, request):
         logout(request)
-        return Response({"message": "Logout successful"}, status=status.HTTP_200_OK)
+        return Response(
+            {"success": True, "message": "Logout successful"}, status=status.HTTP_200_OK
+        )
 
 
 class ChangePasswordView(generics.UpdateAPIView):
