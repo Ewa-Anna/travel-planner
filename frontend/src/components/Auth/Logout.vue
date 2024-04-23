@@ -6,8 +6,12 @@
 
 <script>
 import apiClient from "../../utils/apiClient";
+import Alert from "../../components/Utils/Alert.vue";
 
 export default {
+  components: {
+    Alert,
+  },
   props: {
     isLoggedIn: Boolean,
   },
@@ -18,23 +22,28 @@ export default {
   },
   methods: {
     async logout() {
-      try {
-        await apiClient.post("/authx/logout/");
-        localStorage.removeItem("token");
-        this.$emit("logged-out");
-        this.$router.push({ name: "Home" });
-        this.$router.go(0);
-      } catch (error) {
-        if (error.response) {
-          console.error("Logout failed with status:", error.response.status);
-          console.error("Response data:", error.response.data);
-        } else if (error.request) {
-          console.error("No response received from the server:", error.request);
-        } else {
-          console.error("Error setting up the request:", error.message);
-        }
-        console.error("Error details:", error.config);
-      }
+      apiClient
+        .post("/authx/logout/")
+        .then((response) => {
+          localStorage.removeItem("token");
+          this.$emit("logged-out");
+          this.username = "";
+          this.emitter.emit("showAlert", {
+            message: response.data.message,
+            backgroundColor: "#4CAF50",
+            textColor: "white",
+          });
+          this.$router.push({ name: "Home" });
+          this.$router.go(0);
+        })
+        .catch((error) => {
+          console.error("Error submitting form:", error);
+          this.emitter.emit("showAlert", {
+            message: "An unexpected error occurred",
+            backgroundColor: "#f44336",
+            textColor: "white",
+          });
+        });
     },
   },
 };
