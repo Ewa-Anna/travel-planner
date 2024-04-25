@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.contrib.auth import logout, get_user_model
 
 from rest_framework.views import APIView
@@ -155,4 +156,12 @@ class UserListView(generics.ListAPIView):
 
     def get_queryset(self):
         queryset = CustomUser.objects.all().order_by("first_name", "last_name")
+        query_param = self.request.query_params.get("query")
+
+        if query_param:
+            queryset = queryset.filter(
+                Q(first_name__icontains=query_param)
+                | Q(last_name__icontains=query_param)
+            )
+
         return queryset
