@@ -27,6 +27,13 @@
           />
         </div>
         <label for="participants">Participants:</label>
+        <input
+          type="text"
+          v-model="userQuery"
+          @input="fetchUsers(userQuery)"
+          placeholder="Search users"
+        />
+
         <div id="scroll-form-group" class="form-group">
           <div v-for="user in users" :key="user.id">
             <label>
@@ -140,9 +147,13 @@ export default {
       const token = localStorage.getItem("token");
       return token !== null;
     },
-    fetchUsers() {
+    fetchUsers(query = "") {
+      const url = query
+        ? `http://localhost:8000/authx/users/?query=${query}`
+        : "http://localhost:8000/authx/users/";
+
       apiClient
-        .get("http://localhost:8000/authx/users/")
+        .get(url)
         .then((response) => {
           this.users = response.data;
         })
