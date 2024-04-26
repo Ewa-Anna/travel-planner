@@ -1,3 +1,5 @@
+from django.db.models import Q
+
 from rest_framework import viewsets
 
 from authx.utils import NoPagination
@@ -13,6 +15,11 @@ class AccommodationViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = Accommodation.objects.all().order_by("name")
+        query_param = self.request.query_params.get("query")
+
+        if query_param:
+            queryset = queryset.filter(Q(name__icontains=query_param))
+
         return queryset
 
 
@@ -23,4 +30,9 @@ class TransportationViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = Transportation.objects.all().order_by("name")
+        query_param = self.request.query_params.get("query")
+
+        if query_param:
+            queryset = queryset.filter(Q(name__icontains=query_param))
+
         return queryset
