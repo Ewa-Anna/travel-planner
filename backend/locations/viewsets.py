@@ -1,3 +1,5 @@
+from django.db.models import Q
+
 from rest_framework import viewsets
 
 from authx.utils import NoPagination
@@ -13,6 +15,11 @@ class CountryViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = Country.objects.all().order_by("name")
+        query_param = self.request.query_params.get("query")
+
+        if query_param:
+            queryset = queryset.filter(Q(name__icontains=query_param))
+
         return queryset
 
 
@@ -23,6 +30,11 @@ class CityViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = City.objects.all().order_by("name")
+        query_param = self.request.query_params.get("query")
+
+        if query_param:
+            queryset = queryset.filter(Q(name__icontains=query_param))
+
         return queryset
 
 
@@ -33,4 +45,9 @@ class POIViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = POI.objects.all().order_by("name")
+        query_param = self.request.query_params.get("query")
+
+        if query_param:
+            queryset = queryset.filter(Q(name__icontains=query_param))
+
         return queryset
