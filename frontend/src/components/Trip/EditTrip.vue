@@ -31,7 +31,7 @@
           type="text"
           v-model="userQuery"
           @input="fetchUsers(userQuery)"
-          placeholder="Search users"
+          placeholder="Search Users"
         />
 
         <div id="scroll-form-group" class="form-group">
@@ -48,6 +48,12 @@
         </div>
 
         <label for="pois">POIs:</label>
+        <input
+          type="text"
+          v-model="poiQuery"
+          @input="fetchPOIs(poiQuery)"
+          placeholder="Search POIs"
+        />
         <div id="scroll-form-group" class="form-group">
           <div v-for="poi in pois" :key="poi.id">
             <label>
@@ -58,6 +64,12 @@
         </div>
 
         <label for="accommodations">Accommodations:</label>
+        <input
+          type="text"
+          v-model="accQuery"
+          @input="fetchAccommodations(accQuery)"
+          placeholder="Search Accommodations"
+        />
         <div id="scroll-form-group" class="form-group">
           <div v-for="accommodation in accommodations" :key="accommodation.id">
             <label>
@@ -72,6 +84,12 @@
         </div>
 
         <label for="transportations">Transportations:</label>
+        <input
+          type="text"
+          v-model="transpQuery"
+          @input="fetchTransportations(transpQuery)"
+          placeholder="Search Transportations"
+        />
         <div id="scroll-form-group" class="form-group">
           <div
             v-for="transportation in transportations"
@@ -162,7 +180,10 @@ export default {
         });
     },
 
-    fetchPOIs() {
+    fetchPOIs(query = "") {
+      const url = query
+        ? `http://localhost:8000/locations/pois/?query=${query}`
+        : "http://localhost:8000/locations/pois/";
       apiClient
         .get("http://localhost:8000/locations/pois/")
         .then((response) => {
@@ -173,7 +194,10 @@ export default {
           console.error("Error fetching POIs:", error);
         });
     },
-    fetchAccommodations() {
+    fetchAccommodations(query = "") {
+      const url = query
+        ? `http://localhost:8000/services/accommodations/?query=${query}`
+        : "http://localhost:8000/services/accommodations/";
       apiClient
         .get("http://localhost:8000/services/accommodations/")
         .then((response) => {
@@ -183,7 +207,10 @@ export default {
           console.error("Error fetching accommodations:", error);
         });
     },
-    fetchTransportations() {
+    fetchTransportations(query = "") {
+      const url = query
+        ? `http://localhost:8000/services/transportations/?query=${query}`
+        : "http://localhost:8000/services/transportations/";
       apiClient
         .get("http://localhost:8000/services/transportations/")
         .then((response) => {

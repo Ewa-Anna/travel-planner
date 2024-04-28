@@ -32,7 +32,7 @@
           type="text"
           v-model="userQuery"
           @input="fetchUsers(userQuery)"
-          placeholder="Search users"
+          placeholder="Search Users"
         />
 
         <div id="scroll-form-group" class="form-group">
