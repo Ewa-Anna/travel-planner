@@ -68,6 +68,7 @@ class TripSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "name",
+            "visibility",
             "start_date",
             "end_date",
             "trip_length",
@@ -126,6 +127,7 @@ class TripCreateSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "name",
+            "visibility",
             "start_date",
             "end_date",
             "organizer",
@@ -171,6 +173,7 @@ class TripCreateSerializer(serializers.ModelSerializer):
         transportations_data = validated_data.pop("transportations", None)
 
         instance.name = validated_data.get("name", instance.name)
+        instance.visibility = validated_data.get("visibility", instance.visibility)
         instance.start_date = validated_data.get("start_date", instance.start_date)
         instance.end_date = validated_data.get("end_date", instance.end_date)
 

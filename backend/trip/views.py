@@ -19,7 +19,6 @@ from .permissions import IsOrganizerOrReadOnly
 
 
 class TripView(generics.ListCreateAPIView):
-    queryset = Trip.objects.all()
     serializer_class = TripSerializer
     permission_classes = [IsAuthenticated, IsOrganizerOrReadOnly]
 
@@ -29,7 +28,8 @@ class TripView(generics.ListCreateAPIView):
         return TripSerializer
 
     def get_queryset(self):
-        queryset = super().get_queryset()
+        queryset = Trip.objects.all()
+        # queryset = Trip.objects.filter(visibility=True)
         filter_by = self.request.query_params.get("filterBy")
 
         if filter_by == "Upcoming":
