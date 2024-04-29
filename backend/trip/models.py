@@ -12,6 +12,7 @@ class Trip(models.Model):
     )
     start_date = models.DateField(blank=False, null=False, verbose_name="Start Date")
     end_date = models.DateField(blank=False, null=False, verbose_name="End Date")
+    visibility = models.BooleanField(default=True, verbose_name="Visibility")
     organizer = models.ForeignKey(
         CustomUser,
         on_delete=models.CASCADE,

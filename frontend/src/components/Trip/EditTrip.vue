@@ -9,51 +9,34 @@
           <input type="text" id="name" v-model="formData.name" required />
         </div>
         <div class="form-group">
+          <label for="visibility">
+            Visibility:
+          </label>
+          <input type="checkbox" id="visibility" v-model="formData.visibility" />
+          Private
+        </div>
+        <div class="form-group">
           <label for="start_date">Start Date:</label>
-          <input
-            type="date"
-            id="start_date"
-            v-model="formData.start_date"
-            required
-          />
+          <input type="date" id="start_date" v-model="formData.start_date" required />
         </div>
         <div class="form-group">
           <label for="end_date">End Date:</label>
-          <input
-            type="date"
-            id="end_date"
-            v-model="formData.end_date"
-            required
-          />
+          <input type="date" id="end_date" v-model="formData.end_date" required />
         </div>
         <label for="participants">Participants:</label>
-        <input
-          type="text"
-          v-model="userQuery"
-          @input="fetchUsers(userQuery)"
-          placeholder="Search Users"
-        />
+        <input type="text" v-model="userQuery" @input="fetchUsers(userQuery)" placeholder="Search Users" />
 
         <div id="scroll-form-group" class="form-group">
           <div v-for="user in users" :key="user.id">
             <label>
-              <input
-                type="checkbox"
-                v-model="formData.participants"
-                :value="user.id"
-              />
+              <input type="checkbox" v-model="formData.participants" :value="user.id" />
               {{ user.first_name }} {{ user.last_name }} ({{ user.username }})
             </label>
           </div>
         </div>
 
         <label for="pois">POIs:</label>
-        <input
-          type="text"
-          v-model="poiQuery"
-          @input="fetchPOIs(poiQuery)"
-          placeholder="Search POIs"
-        />
+        <input type="text" v-model="poiQuery" @input="fetchPOIs(poiQuery)" placeholder="Search POIs" />
         <div id="scroll-form-group" class="form-group">
           <div v-for="poi in pois" :key="poi.id">
             <label>
@@ -64,43 +47,24 @@
         </div>
 
         <label for="accommodations">Accommodations:</label>
-        <input
-          type="text"
-          v-model="accQuery"
-          @input="fetchAccommodations(accQuery)"
-          placeholder="Search Accommodations"
-        />
+        <input type="text" v-model="accQuery" @input="fetchAccommodations(accQuery)"
+          placeholder="Search Accommodations" />
         <div id="scroll-form-group" class="form-group">
           <div v-for="accommodation in accommodations" :key="accommodation.id">
             <label>
-              <input
-                type="checkbox"
-                v-model="formData.accommodations"
-                :value="accommodation.id"
-              />
+              <input type="checkbox" v-model="formData.accommodations" :value="accommodation.id" />
               {{ accommodation.name }}
             </label>
           </div>
         </div>
 
         <label for="transportations">Transportations:</label>
-        <input
-          type="text"
-          v-model="transpQuery"
-          @input="fetchTransportations(transpQuery)"
-          placeholder="Search Transportations"
-        />
+        <input type="text" v-model="transpQuery" @input="fetchTransportations(transpQuery)"
+          placeholder="Search Transportations" />
         <div id="scroll-form-group" class="form-group">
-          <div
-            v-for="transportation in transportations"
-            :key="transportation.id"
-          >
+          <div v-for="transportation in transportations" :key="transportation.id">
             <label>
-              <input
-                type="checkbox"
-                v-model="formData.transportations"
-                :value="transportation.id"
-              />
+              <input type="checkbox" v-model="formData.transportations" :value="transportation.id" />
               {{ transportation.name }}
             </label>
           </div>
@@ -133,6 +97,7 @@ export default {
         name: "",
         start_date: "",
         end_date: "",
+        visibility: true,
         participants: [],
         pois: [],
         accommodations: [],
@@ -228,6 +193,7 @@ export default {
           const tripData = response.data;
           this.formData = {
             name: tripData.name,
+            visibility: tripData.visibility,
             start_date: tripData.start_date,
             end_date: tripData.end_date,
             participants: tripData.participants.map(
@@ -241,6 +207,9 @@ export default {
               (transportation) => transportation.id,
             ),
           };
+          if (this.formData.visibility === false) {
+            document.getElementById("visibility").checked = true;
+          }
         })
         .catch((error) => {
           console.error("Error fetching trip:", error);
