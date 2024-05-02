@@ -7,6 +7,7 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    AddPOI: typeof import('./src/components/Locations/AddPOI.vue')['default']
     AddTrip: typeof import('./src/components/Trip/AddTrip.vue')['default']
     Alert: typeof import('./src/components/Utils/Alert.vue')['default']
     EditProfile: typeof import('./src/components/Auth/EditProfile.vue')['default']

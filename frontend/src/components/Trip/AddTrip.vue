@@ -64,6 +64,17 @@
           @input="fetchPOIs(poiQuery)"
           placeholder="Search POIs"
         />
+
+        <p>
+          Your POI is not on the list?
+          <a href="#" @click="showAddPOIPopup">Add one</a>
+        </p>
+        <div v-if="showAddPOIPopup" class="popup-overlay">
+          <div class="popup-content">
+            <AddPOI @add-poi="handleAddPOI" @close-popup="closeAddPOIPopup" />
+          </div>
+        </div>
+
         <div id="scroll-form-group" class="form-group">
           <div v-for="poi in pois" :key="poi.id">
             <label>
@@ -126,13 +137,16 @@
 import apiClient from "../../utils/apiClient";
 import { mapActions } from "vuex";
 import Alert from "../../components/Utils/Alert.vue";
+import AddPOI from "../../components/Locations/AddPOI.vue";
 
 export default {
   components: {
     Alert,
+    AddPOI,
   },
   data() {
     return {
+      showAddPOIPopup: false,
       formData: {
         name: "",
         start_date: "",
@@ -194,6 +208,12 @@ export default {
         .catch((error) => {
           console.error("Error fetching POIs:", error);
         });
+    },
+    showAddPOIPopup() {
+      this.showAddPOIPopup = true;
+    },
+    closeAddPOIPopup() {
+      this.showAddPOIPopup = false;
     },
     fetchAccommodations(query = "") {
       const url = query
@@ -300,5 +320,24 @@ button {
 #scroll-form-group {
   max-height: 200px;
   overflow-y: auto;
+}
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 </style>
