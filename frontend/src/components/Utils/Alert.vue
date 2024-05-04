@@ -42,14 +42,17 @@ export default {
 
 <style scoped>
 .alert {
+  position: fixed; 
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%); 
+  z-index: 9999;
   background-color: #e1f5fe;
   color: #0d47a1;
   padding: 15px;
-  margin-bottom: 20px;
-  margin-right: auto;
-  margin-left: auto;
-  position: relative;
-  max-width: 700px;
+  text-align: center;
+  min-width: 400px;
+  max-width: 1200px;
   border-radius: 10px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }

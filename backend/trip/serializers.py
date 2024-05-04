@@ -93,6 +93,20 @@ class TripSerializer(serializers.ModelSerializer):
 
         return attrs
 
+    def validate(self, attrs):
+        """
+        Validate that the end date is greater than the start date.
+        """
+        start_date = attrs.get("start_date")
+        end_date = attrs.get("end_date")
+
+        if end_date <= start_date:
+            raise serializers.ValidationError(
+                "End date must be greater than the start date."
+            )
+
+        return attrs
+
     def get_trip_length(self, obj):
         """
         Calculate the length of the trip in days.
@@ -214,4 +228,13 @@ class TripCreateSerializer(serializers.ModelSerializer):
         participants_data = attrs.get("participants", [])
         if not participants_data:
             raise serializers.ValidationError("At least one participant is required.")
+
+        start_date = attrs.get("start_date")
+        end_date = attrs.get("end_date")
+
+        if end_date <= start_date:
+            raise serializers.ValidationError(
+                "End date must be greater than the start date."
+            )
+
         return attrs
