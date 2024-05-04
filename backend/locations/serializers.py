@@ -3,6 +3,12 @@ from rest_framework import serializers
 from .models import Country, City, POI
 
 
+class CountryNameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Country
+        fields = ["id", "name"]
+
+
 class CountrySerializer(serializers.ModelSerializer):
     class Meta:
         model = Country
@@ -10,6 +16,23 @@ class CountrySerializer(serializers.ModelSerializer):
 
 
 class CitySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = City
+        fields = [
+            "id",
+            "name",
+            "country",
+            "population",
+            "latitude",
+            "longitude",
+            "region",
+        ]
+
+
+class CityViewSerializer(serializers.ModelSerializer):
+    country = CountryNameSerializer(read_only=True)
+
     class Meta:
         model = City
         fields = [
