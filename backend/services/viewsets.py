@@ -14,13 +14,18 @@ class AccommodationViewSet(viewsets.ModelViewSet):
     pagination_class = NoPagination
 
     def get_queryset(self):
-        queryset = Accommodation.objects.all().order_by("name")
+        queryset = Accommodation.objects.filter(created_by=self.request.user).order_by(
+            "name"
+        )
         query_param = self.request.query_params.get("query")
 
         if query_param:
             queryset = queryset.filter(Q(name__icontains=query_param))
 
         return queryset
+
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
 
 
 class TransportationViewSet(viewsets.ModelViewSet):
@@ -29,10 +34,15 @@ class TransportationViewSet(viewsets.ModelViewSet):
     pagination_class = NoPagination
 
     def get_queryset(self):
-        queryset = Transportation.objects.all().order_by("name")
+        queryset = Transportation.objects.filter(created_by=self.request.user).order_by(
+            "name"
+        )
         query_param = self.request.query_params.get("query")
 
         if query_param:
             queryset = queryset.filter(Q(name__icontains=query_param))
 
         return queryset
+
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)

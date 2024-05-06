@@ -5,6 +5,7 @@ from .models import Accommodation, Transportation
 
 class AccommodationSerializer(serializers.ModelSerializer):
     total_price = serializers.SerializerMethodField()
+    created_by = serializers.ReadOnlyField(source="created_by.username")
 
     class Meta:
         model = Accommodation
@@ -18,6 +19,7 @@ class AccommodationSerializer(serializers.ModelSerializer):
             "checkout_date",
             "amenities",
             "total_price",
+            "created_by",
         ]
 
     def get_total_price(self, obj):
@@ -27,6 +29,8 @@ class AccommodationSerializer(serializers.ModelSerializer):
 
 
 class TransportationSerializer(serializers.ModelSerializer):
+    created_by = serializers.ReadOnlyField(source="created_by.username")
+
     class Meta:
         model = Transportation
         fields = [
@@ -39,4 +43,5 @@ class TransportationSerializer(serializers.ModelSerializer):
             "description",
             "price",
             "type",
+            "created_by",
         ]
