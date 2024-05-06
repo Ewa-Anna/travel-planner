@@ -13,9 +13,10 @@ from trip.models import Trip
 from locations.models import POI
 from expense.models import Expense
 from journal.models import Review
-from services.models import Accommodation
+from services.models import Accommodation, TRANSPORTATION_TYPES
 
 from .utils import calculate_total_time_spent
+from .serializers import DictionaryContentSerializer
 
 
 class AnalyticsReview(APIView):
@@ -211,3 +212,24 @@ class TotalUsers(APIView):
     def get(self, request):
         total_users_count = CustomUser.objects.count()
         return Response({"total_users": total_users_count})
+
+
+class DictionaryContentView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request, dictionary_name):
+        dictionary_name = dictionary_name.lower()
+        if dictionary_name == "transportation_types":
+            content = dict(TRANSPORTATION_TYPES)
+        else:
+            return Response(
+                {"error": f"Dictionary with name {dictionary_name} not found"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        serializer = DictionaryContentSerializer(
+            data={"dictionary_name": dictionary_name, "content": content}
+        )
+        serializer.is_valid(raise_exception=True)
+
+        return Response(content, status=status.HTTP_200_OK)

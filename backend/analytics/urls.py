@@ -11,6 +11,7 @@ from .views import (
     MostVisitedCountriesAll,
     UserAnalyticsView,
     TotalUsers,
+    DictionaryContentView,
 )
 
 app_name = "analytics"
@@ -46,4 +47,9 @@ urlpatterns = [
     ),
     path("total-time-spent/", UserAnalyticsView.as_view(), name="total-time-spent"),
     path("total-users/", TotalUsers.as_view(), name="total-users"),
+    path(
+        "dropdown-list/<str:dictionary_name>",
+        DictionaryContentView.as_view(),
+        name="dropdown-list",
+    ),
 ]

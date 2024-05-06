@@ -12,6 +12,9 @@ User = get_user_model()
 
 class AccommodationViewSetTestCase(APITestCase):
     def setUp(self):
+        self.user = User.objects.create_user(
+            username="test_user", password="test_password"
+        )
         self.accommodation1 = Accommodation.objects.create(
             name="Hotel ABC",
             location="City XYZ",
@@ -20,9 +23,7 @@ class AccommodationViewSetTestCase(APITestCase):
             checkin_date="2024-03-20",
             checkout_date="2024-03-25",
             amenities="Amenities of the hotel",
-        )
-        self.user = User.objects.create_user(
-            username="test_user", password="test_password"
+            created_by=self.user,
         )
         self.client = APIClient()
 
@@ -84,6 +85,9 @@ class AccommodationViewSetTestCase(APITestCase):
 
 class TransportationViewSetTestCase(APITestCase):
     def setUp(self):
+        self.user = User.objects.create_user(
+            username="test_user", password="test_password"
+        )
         self.transportation1 = Transportation.objects.create(
             name="Flight XYZ",
             departure_location="City A",
@@ -93,9 +97,7 @@ class TransportationViewSetTestCase(APITestCase):
             description="Description of the flight",
             price=200,
             type="plane",
-        )
-        self.user = User.objects.create_user(
-            username="test_user", password="test_password"
+            created_by=self.user,
         )
         self.client = APIClient()
 

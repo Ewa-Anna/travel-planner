@@ -25,6 +25,11 @@
         <label for="participants">Participants:</label>
         <input type="text" v-model="userQuery" @input="fetchUsers(userQuery)" placeholder="Search Users" />
 
+        <p class="info">
+          Your friends are not on the list? Don't forget to
+          <a href="#" class="add-button">add them</a> and refresh the page!
+        </p>
+
         <div id="scroll-form-group" class="form-group">
           <div v-for="user in users" :key="user.id">
             <label>
@@ -64,11 +69,25 @@
         <label for="accommodations">Accommodations:</label>
         <input type="text" v-model="accQuery" @input="fetchAccommodations(accQuery)"
           placeholder="Search Accommodations" />
+
+        <div>
+          <p class="info">
+            Your accommodation is not on the list?
+            <a href="#" @click.prevent="openAddAccPopup" class="add-button">Add one</a>
+          </p>
+        </div>
+
+        <div v-if="showAddAccPopup" class="popup-overlay" @click="closeAddAccPopup">
+          <div class="popup-content" @click.stop>
+            <AddAcc @add-acc="handleAddAcc" @close-popup="closeAddAccPopup" />
+          </div>
+        </div>
+
         <div id="scroll-form-group" class="form-group">
           <div v-for="accommodation in accommodations" :key="accommodation.id">
             <label>
               <input type="checkbox" v-model="formData.accommodations" :value="accommodation.id" />
-              {{ accommodation.name }}
+              {{ accommodation.name }} ({{ accommodation.checkin_date }} - {{ accommodation.checkout_date }})
             </label>
           </div>
         </div>
@@ -76,6 +95,20 @@
         <label for="transportations">Transportations:</label>
         <input type="text" v-model="transpQuery" @input="fetchTransportations(transpQuery)"
           placeholder="Search Transportations" />
+
+        <div>
+          <p class="info">
+            Your transportation is not on the list?
+            <a href="#" @click.prevent="openAddTranspPopup" class="add-button">Add one</a>
+          </p>
+        </div>
+
+        <div v-if="showAddTranspPopup" class="popup-overlay" @click="closeAddTranspPopup">
+          <div class="popup-content" @click.stop>
+            <AddTransp @add-transp="handleAddTransp" @close-popup="closeAddTranspPopup" />
+          </div>
+        </div>
+
         <div id="scroll-form-group" class="form-group">
           <div v-for="transportation in transportations" :key="transportation.id">
             <label>
@@ -96,15 +129,21 @@ import apiClient from "../../utils/apiClient";
 import { mapActions } from "vuex";
 import Alert from "../../components/Utils/Alert.vue";
 import AddPOI from "../../components/Locations/AddPOI.vue";
+import AddAcc from "../../components/Services/AddAcc.vue";
+import AddTransp from "../../components/Services/AddTransp.vue";
 
 export default {
   components: {
     Alert,
     AddPOI,
+    AddAcc,
+    AddTransp,
   },
   data() {
     return {
       showAddPOIPopup: false,
+      showAddAccPopup: false,
+      showAddTranspPopup: false,
       formData: {
         name: "",
         start_date: "",
@@ -181,11 +220,11 @@ export default {
           console.error("Error fetching POIs:", error);
         });
     },
+
     handleAddPOI(poi) {
       this.formData.pois.push(poi);
       this.closeAddPOIPopup();
       this.fetchPOIs();
-      this.submitForm();
     },
     openAddPOIPopup() {
       this.showAddPOIPopup = true;
@@ -193,6 +232,7 @@ export default {
     closeAddPOIPopup() {
       this.showAddPOIPopup = false;
     },
+
     fetchAccommodations(query = "") {
       const url = query
         ? `http://localhost:8000/services/accommodations/?query=${query}`
@@ -206,6 +246,19 @@ export default {
           console.error("Error fetching accommodations:", error);
         });
     },
+
+    handleAddAcc(accommodation) {
+      this.formData.accommodations.push(accommodation);
+      this.closeAddAccPopup();
+      this.fetchAccommodations();
+    },
+    openAddAccPopup() {
+      this.showAddAccPopup = true;
+    },
+    closeAddAccPopup() {
+      this.showAddAccPopup = false;
+    },
+
     fetchTransportations(query = "") {
       const url = query
         ? `http://localhost:8000/services/transportations/?query=${query}`
@@ -219,6 +272,19 @@ export default {
           console.error("Error fetching transportations:", error);
         });
     },
+
+    handleAddTransp(transportation) {
+      this.formData.transportations.push(transportation);
+      this.closeAddTranspPopup();
+      this.fetchTransportations();
+    },
+    openAddTranspPopup() {
+      this.showAddTranspPopup = true;
+    },
+    closeAddTranspPopup() {
+      this.showAddTranspPopup = false;
+    },
+
     submitForm() {
       this.formData.visibility = document.getElementById("visibility").checked;
       apiClient
