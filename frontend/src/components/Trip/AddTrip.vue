@@ -10,39 +10,20 @@
         </div>
         <div class="form-group">
           <label for="visibility"> Visibility: </label>
-          <input
-            type="checkbox"
-            id="visibility"
-            v-model="formData.visibility"
-          />
+          <input type="checkbox" id="visibility" v-model="formData.visibility" />
           Public
         </div>
         <div class="form-group">
           <label for="start_date">Start Date:</label>
-          <input
-            type="date"
-            id="start_date"
-            v-model="formData.start_date"
-            required
-          />
+          <input type="date" id="start_date" v-model="formData.start_date" required />
         </div>
         <div class="form-group">
           <label for="end_date">End Date:</label>
-          <input
-            type="date"
-            id="end_date"
-            v-model="formData.end_date"
-            required
-          />
+          <input type="date" id="end_date" v-model="formData.end_date" required />
         </div>
 
         <label for="participants">Participants:</label>
-        <input
-          type="text"
-          v-model="userQuery"
-          @input="fetchUsers(userQuery)"
-          placeholder="Search Users"
-        />
+        <input type="text" v-model="userQuery" @input="fetchUsers(userQuery)" placeholder="Search Users" />
 
         <p class="info">
           Your friends are not on the list? Don't forget to
@@ -52,11 +33,7 @@
         <div id="scroll-form-group" class="form-group">
           <div v-for="user in users" :key="user.id">
             <label>
-              <input
-                type="checkbox"
-                v-model="formData.participants"
-                :value="user.id"
-              />
+              <input type="checkbox" v-model="formData.participants" :value="user.id" />
               {{ user.first_name }} {{ user.last_name }} ({{ user.username }})
             </label>
           </div>
@@ -64,33 +41,21 @@
 
         <label for="pois">POIs:</label>
 
-        <input
-          type="text"
-          v-model="poiQuery"
-          @input="fetchPOIs(poiQuery)"
-          placeholder="Search POIs"
-        />
-        <input
-          type="text"
-          v-model="poiCityQuery"
-          @input="fetchCityPOIs(poiCityQuery)"
-          placeholder="Search Cities"
-        />
+        <input type="text" v-model="poiQuery" @input="fetchPOIs(poiQuery)" placeholder="Search POIs" />
+        <select v-model="selectedCity" @change="fetchCityPOIs(selectedCity)">
+          <option value="">All cities</option>
+          <option v-for="city in cities" :key="city.id" :value="city.name">{{ city.name }} ({{ city.country.name }})
+          </option>
+        </select>
 
         <div>
           <p class="info">
             Your POI is not on the list?
-            <a href="#" @click.prevent="openAddPOIPopup" class="add-button"
-              >Add one</a
-            >
+            <a href="#" @click.prevent="openAddPOIPopup" class="add-button">Add one</a>
           </p>
         </div>
 
-        <div
-          v-if="showAddPOIPopup"
-          class="popup-overlay"
-          @click="closeAddPOIPopup"
-        >
+        <div v-if="showAddPOIPopup" class="popup-overlay" @click="closeAddPOIPopup">
           <div class="popup-content" @click.stop>
             <AddPOI @add-poi="handleAddPOI" @close-popup="closeAddPOIPopup" />
           </div>
@@ -106,27 +71,17 @@
         </div>
 
         <label for="accommodations">Accommodations:</label>
-        <input
-          type="text"
-          v-model="accQuery"
-          @input="fetchAccommodations(accQuery)"
-          placeholder="Search Accommodations"
-        />
+        <input type="text" v-model="accQuery" @input="fetchAccommodations(accQuery)"
+          placeholder="Search Accommodations" />
 
         <div>
           <p class="info">
             Your accommodation is not on the list?
-            <a href="#" @click.prevent="openAddAccPopup" class="add-button"
-              >Add one</a
-            >
+            <a href="#" @click.prevent="openAddAccPopup" class="add-button">Add one</a>
           </p>
         </div>
 
-        <div
-          v-if="showAddAccPopup"
-          class="popup-overlay"
-          @click="closeAddAccPopup"
-        >
+        <div v-if="showAddAccPopup" class="popup-overlay" @click="closeAddAccPopup">
           <div class="popup-content" @click.stop>
             <AddAcc @add-acc="handleAddAcc" @close-popup="closeAddAccPopup" />
           </div>
@@ -135,11 +90,7 @@
         <div id="scroll-form-group" class="form-group">
           <div v-for="accommodation in accommodations" :key="accommodation.id">
             <label>
-              <input
-                type="checkbox"
-                v-model="formData.accommodations"
-                :value="accommodation.id"
-              />
+              <input type="checkbox" v-model="formData.accommodations" :value="accommodation.id" />
               {{ accommodation.name }} ({{ accommodation.checkin_date }} -
               {{ accommodation.checkout_date }})
             </label>
@@ -147,46 +98,26 @@
         </div>
 
         <label for="transportations">Transportations:</label>
-        <input
-          type="text"
-          v-model="transpQuery"
-          @input="fetchTransportations(transpQuery)"
-          placeholder="Search Transportations"
-        />
+        <input type="text" v-model="transpQuery" @input="fetchTransportations(transpQuery)"
+          placeholder="Search Transportations" />
 
         <div>
           <p class="info">
             Your transportation is not on the list?
-            <a href="#" @click.prevent="openAddTranspPopup" class="add-button"
-              >Add one</a
-            >
+            <a href="#" @click.prevent="openAddTranspPopup" class="add-button">Add one</a>
           </p>
         </div>
 
-        <div
-          v-if="showAddTranspPopup"
-          class="popup-overlay"
-          @click="closeAddTranspPopup"
-        >
+        <div v-if="showAddTranspPopup" class="popup-overlay" @click="closeAddTranspPopup">
           <div class="popup-content" @click.stop>
-            <AddTransp
-              @add-transp="handleAddTransp"
-              @close-popup="closeAddTranspPopup"
-            />
+            <AddTransp @add-transp="handleAddTransp" @close-popup="closeAddTranspPopup" />
           </div>
         </div>
 
         <div id="scroll-form-group" class="form-group">
-          <div
-            v-for="transportation in transportations"
-            :key="transportation.id"
-          >
+          <div v-for="transportation in transportations" :key="transportation.id">
             <label>
-              <input
-                type="checkbox"
-                v-model="formData.transportations"
-                :value="transportation.id"
-              />
+              <input type="checkbox" v-model="formData.transportations" :value="transportation.id" />
               {{ transportation.name }}
             </label>
           </div>
@@ -215,6 +146,8 @@ export default {
   },
   data() {
     return {
+      cities: [],
+      selectedCity: '',
       showAddPOIPopup: false,
       showAddAccPopup: false,
       showAddTranspPopup: false,
@@ -237,6 +170,7 @@ export default {
   created() {
     this.fetchUsers();
     this.fetchPOIs();
+    this.fetchCities();
     this.fetchCityPOIs();
     this.fetchAccommodations();
     this.fetchTransportations();
@@ -281,9 +215,9 @@ export default {
           console.error("Error fetching POIs:", error);
         });
     },
-    fetchCityPOIs(query = "") {
-      const url = query
-        ? `http://localhost:8000/locations/pois/?city=${query}`
+    fetchCityPOIs(cityName) {
+      const url = cityName
+        ? `http://localhost:8000/locations/pois/?city=${encodeURIComponent(cityName)}`
         : "http://localhost:8000/locations/pois/";
       apiClient
         .get(url)
@@ -293,6 +227,18 @@ export default {
         .catch((error) => {
           console.error("Error fetching POIs:", error);
         });
+    },
+    async fetchCities() {
+      try {
+        const response = await apiClient.get('http://localhost:8000/locations/cities/', {
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+        this.cities = response.data;
+      } catch (error) {
+        console.error('Error fetching cities:', error);
+      }
     },
 
     handleAddPOI(poi) {

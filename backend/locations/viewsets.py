@@ -1,3 +1,4 @@
+from django.utils.text import slugify
 from django.db.models import Q
 
 from rest_framework import viewsets
@@ -63,7 +64,8 @@ class POIViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(Q(name__icontains=query_param))
 
         if city_param:
-            queryset = queryset.filter(Q(city__name__icontains=city_param))
+            city_name_slug = slugify(city_param)
+            queryset = queryset.filter(city__name__iexact=city_name_slug)
 
         return queryset
 
