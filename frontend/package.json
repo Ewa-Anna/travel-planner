@@ -28,7 +28,7 @@
     "axios": "^1.6.8",
     "chart.js": "^4.4.2",
     "chartjs-adapter-moment": "^1.0.1",
-    "devextreme-vue": "^23.2.5",
+    "devextreme-vue": "^23.2.6",
     "mitt": "^3.0.1",
     "postcss": "^8.4.38",
     "vue-router": "^4.3.2",
