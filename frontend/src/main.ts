@@ -13,6 +13,7 @@ import {
   faInstagram,
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
+import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import mitt from "mitt";
 
 const DEV_URL = "http://127.0.0.1:8000";
@@ -20,7 +21,7 @@ axios.defaults.baseURL = DEV_URL;
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
 axios.defaults.xsrfCookieName = "csrftoken";
 
-library.add(fab, faFacebook, faGithub, faLinkedin, faInstagram, faYoutube);
+library.add(fab, faFacebook, faGithub, faLinkedin, faInstagram, faYoutube, faTrashCan);
 
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 const app = createApp(App);

@@ -89,11 +89,16 @@
 
         <div id="scroll-form-group" class="form-group">
           <div v-for="accommodation in accommodations" :key="accommodation.id">
-            <label>
-              <input type="checkbox" v-model="formData.accommodations" :value="accommodation.id" />
-              {{ accommodation.name }} ({{ accommodation.checkin_date }} -
-              {{ accommodation.checkout_date }})
-            </label>
+            <div style="display: flex; align-items: center;">
+              <label>
+                <input type="checkbox" v-model="formData.accommodations" :value="accommodation.id" />
+                {{ accommodation.name }} ({{ accommodation.checkin_date }} -
+                {{ accommodation.checkout_date }})
+              </label>
+              <button @click="deleteAccommodation(accommodation.id)" style="margin-left: 10px;">
+                <font-awesome-icon class="delete-text" icon="fa-regular fa-trash-can" />
+              </button>
+            </div>
           </div>
         </div>
 
@@ -116,10 +121,15 @@
 
         <div id="scroll-form-group" class="form-group">
           <div v-for="transportation in transportations" :key="transportation.id">
-            <label>
-              <input type="checkbox" v-model="formData.transportations" :value="transportation.id" />
-              {{ transportation.name }}
-            </label>
+            <div style="display: flex; align-items: center;">
+              <label>
+                <input type="checkbox" v-model="formData.transportations" :value="transportation.id" />
+                {{ transportation.name }}
+              </label>
+              <button @click="deleteTransportation(transportation.id)" style="margin-left: 10px;">
+                <font-awesome-icon class="delete-text" icon="fa-regular fa-trash-can" />
+              </button>
+            </div>
           </div>
         </div>
 
@@ -278,7 +288,18 @@ export default {
     closeAddAccPopup() {
       this.showAddAccPopup = false;
     },
-
+    deleteAccommodation(id) {
+      if (confirm('Are you sure you want to delete this accommodation?')) {
+        apiClient
+          .delete(`http://127.0.0.1:8000/services/accommodations/${id}/`)
+          .then(() => {
+            this.accommodations = this.accommodations.filter(acc => acc.id !== id);
+          })
+          .catch(error => {
+            console.error('Error deleting accommodation:', error);
+          });
+      }
+    },
     fetchTransportations(query = "") {
       const url = query
         ? `http://localhost:8000/services/transportations/?query=${query}`
@@ -304,7 +325,18 @@ export default {
     closeAddTranspPopup() {
       this.showAddTranspPopup = false;
     },
-
+    deleteTransportation(id) {
+      if (confirm('Are you sure you want to delete this transportation?')) {
+        apiClient
+          .delete(`http://127.0.0.1:8000/services/transportations/${id}/`)
+          .then(() => {
+            this.transportations = this.transportations.filter(transp => transp.id !== id);
+          })
+          .catch(error => {
+            console.error('Error deleting transportation:', error);
+          });
+      }
+    },
     submitForm() {
       this.formData.visibility = document.getElementById("visibility").checked;
       apiClient
@@ -452,5 +484,10 @@ button {
 
 .add-button:hover {
   background-color: #1565c0;
+}
+
+.delete-text {
+  color: red;
+  font-style: italic;
 }
 </style>
