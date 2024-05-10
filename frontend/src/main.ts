@@ -21,7 +21,15 @@ axios.defaults.baseURL = DEV_URL;
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
 axios.defaults.xsrfCookieName = "csrftoken";
 
-library.add(fab, faFacebook, faGithub, faLinkedin, faInstagram, faYoutube, faTrashCan);
+library.add(
+  fab,
+  faFacebook,
+  faGithub,
+  faLinkedin,
+  faInstagram,
+  faYoutube,
+  faTrashCan,
+);
 
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 const app = createApp(App);

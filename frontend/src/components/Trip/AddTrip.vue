@@ -10,20 +10,39 @@
         </div>
         <div class="form-group">
           <label for="visibility"> Visibility: </label>
-          <input type="checkbox" id="visibility" v-model="formData.visibility" />
+          <input
+            type="checkbox"
+            id="visibility"
+            v-model="formData.visibility"
+          />
           Public
         </div>
         <div class="form-group">
           <label for="start_date">Start Date:</label>
-          <input type="date" id="start_date" v-model="formData.start_date" required />
+          <input
+            type="date"
+            id="start_date"
+            v-model="formData.start_date"
+            required
+          />
         </div>
         <div class="form-group">
           <label for="end_date">End Date:</label>
-          <input type="date" id="end_date" v-model="formData.end_date" required />
+          <input
+            type="date"
+            id="end_date"
+            v-model="formData.end_date"
+            required
+          />
         </div>
 
         <label for="participants">Participants:</label>
-        <input type="text" v-model="userQuery" @input="fetchUsers(userQuery)" placeholder="Search Users" />
+        <input
+          type="text"
+          v-model="userQuery"
+          @input="fetchUsers(userQuery)"
+          placeholder="Search Users"
+        />
 
         <p class="info">
           Your friends are not on the list? Don't forget to
@@ -33,7 +52,11 @@
         <div id="scroll-form-group" class="form-group">
           <div v-for="user in users" :key="user.id">
             <label>
-              <input type="checkbox" v-model="formData.participants" :value="user.id" />
+              <input
+                type="checkbox"
+                v-model="formData.participants"
+                :value="user.id"
+              />
               {{ user.first_name }} {{ user.last_name }} ({{ user.username }})
             </label>
           </div>
@@ -41,21 +64,33 @@
 
         <label for="pois">POIs:</label>
 
-        <input type="text" v-model="poiQuery" @input="fetchPOIs(poiQuery)" placeholder="Search POIs" />
+        <input
+          type="text"
+          v-model="poiQuery"
+          @input="fetchPOIs(poiQuery)"
+          placeholder="Search POIs"
+        />
         <select v-model="selectedCity" @change="fetchCityPOIs(selectedCity)">
           <option value="">All cities</option>
-          <option v-for="city in cities" :key="city.id" :value="city.name">{{ city.name }} ({{ city.country.name }})
+          <option v-for="city in cities" :key="city.id" :value="city.name">
+            {{ city.name }} ({{ city.country.name }})
           </option>
         </select>
 
         <div>
           <p class="info">
             Your POI is not on the list?
-            <a href="#" @click.prevent="openAddPOIPopup" class="add-button">Add one</a>
+            <a href="#" @click.prevent="openAddPOIPopup" class="add-button"
+              >Add one</a
+            >
           </p>
         </div>
 
-        <div v-if="showAddPOIPopup" class="popup-overlay" @click="closeAddPOIPopup">
+        <div
+          v-if="showAddPOIPopup"
+          class="popup-overlay"
+          @click="closeAddPOIPopup"
+        >
           <div class="popup-content" @click.stop>
             <AddPOI @add-poi="handleAddPOI" @close-popup="closeAddPOIPopup" />
           </div>
@@ -71,17 +106,27 @@
         </div>
 
         <label for="accommodations">Accommodations:</label>
-        <input type="text" v-model="accQuery" @input="fetchAccommodations(accQuery)"
-          placeholder="Search Accommodations" />
+        <input
+          type="text"
+          v-model="accQuery"
+          @input="fetchAccommodations(accQuery)"
+          placeholder="Search Accommodations"
+        />
 
         <div>
           <p class="info">
             Your accommodation is not on the list?
-            <a href="#" @click.prevent="openAddAccPopup" class="add-button">Add one</a>
+            <a href="#" @click.prevent="openAddAccPopup" class="add-button"
+              >Add one</a
+            >
           </p>
         </div>
 
-        <div v-if="showAddAccPopup" class="popup-overlay" @click="closeAddAccPopup">
+        <div
+          v-if="showAddAccPopup"
+          class="popup-overlay"
+          @click="closeAddAccPopup"
+        >
           <div class="popup-content" @click.stop>
             <AddAcc @add-acc="handleAddAcc" @close-popup="closeAddAccPopup" />
           </div>
@@ -89,45 +134,81 @@
 
         <div id="scroll-form-group" class="form-group">
           <div v-for="accommodation in accommodations" :key="accommodation.id">
-            <div style="display: flex; align-items: center;">
+            <div style="display: flex; align-items: center">
               <label>
-                <input type="checkbox" v-model="formData.accommodations" :value="accommodation.id" />
+                <input
+                  type="checkbox"
+                  v-model="formData.accommodations"
+                  :value="accommodation.id"
+                />
                 {{ accommodation.name }} ({{ accommodation.checkin_date }} -
                 {{ accommodation.checkout_date }})
               </label>
-              <button @click="deleteAccommodation(accommodation.id)" style="margin-left: 10px;">
-                <font-awesome-icon class="delete-text" icon="fa-regular fa-trash-can" />
+              <button
+                @click="deleteAccommodation(accommodation.id)"
+                style="margin-left: 10px"
+              >
+                <font-awesome-icon
+                  class="delete-text"
+                  icon="fa-regular fa-trash-can"
+                />
               </button>
             </div>
           </div>
         </div>
 
         <label for="transportations">Transportations:</label>
-        <input type="text" v-model="transpQuery" @input="fetchTransportations(transpQuery)"
-          placeholder="Search Transportations" />
+        <input
+          type="text"
+          v-model="transpQuery"
+          @input="fetchTransportations(transpQuery)"
+          placeholder="Search Transportations"
+        />
 
         <div>
           <p class="info">
             Your transportation is not on the list?
-            <a href="#" @click.prevent="openAddTranspPopup" class="add-button">Add one</a>
+            <a href="#" @click.prevent="openAddTranspPopup" class="add-button"
+              >Add one</a
+            >
           </p>
         </div>
 
-        <div v-if="showAddTranspPopup" class="popup-overlay" @click="closeAddTranspPopup">
+        <div
+          v-if="showAddTranspPopup"
+          class="popup-overlay"
+          @click="closeAddTranspPopup"
+        >
           <div class="popup-content" @click.stop>
-            <AddTransp @add-transp="handleAddTransp" @close-popup="closeAddTranspPopup" />
+            <AddTransp
+              @add-transp="handleAddTransp"
+              @close-popup="closeAddTranspPopup"
+            />
           </div>
         </div>
 
         <div id="scroll-form-group" class="form-group">
-          <div v-for="transportation in transportations" :key="transportation.id">
-            <div style="display: flex; align-items: center;">
+          <div
+            v-for="transportation in transportations"
+            :key="transportation.id"
+          >
+            <div style="display: flex; align-items: center">
               <label>
-                <input type="checkbox" v-model="formData.transportations" :value="transportation.id" />
+                <input
+                  type="checkbox"
+                  v-model="formData.transportations"
+                  :value="transportation.id"
+                />
                 {{ transportation.name }}
               </label>
-              <button @click="deleteTransportation(transportation.id)" style="margin-left: 10px;">
-                <font-awesome-icon class="delete-text" icon="fa-regular fa-trash-can" />
+              <button
+                @click="deleteTransportation(transportation.id)"
+                style="margin-left: 10px"
+              >
+                <font-awesome-icon
+                  class="delete-text"
+                  icon="fa-regular fa-trash-can"
+                />
               </button>
             </div>
           </div>
@@ -157,7 +238,7 @@ export default {
   data() {
     return {
       cities: [],
-      selectedCity: '',
+      selectedCity: "",
       showAddPOIPopup: false,
       showAddAccPopup: false,
       showAddTranspPopup: false,
@@ -240,14 +321,17 @@ export default {
     },
     async fetchCities() {
       try {
-        const response = await apiClient.get('http://localhost:8000/locations/cities/', {
-          headers: {
-            'Accept': 'application/json'
-          }
-        });
+        const response = await apiClient.get(
+          "http://localhost:8000/locations/cities/",
+          {
+            headers: {
+              Accept: "application/json",
+            },
+          },
+        );
         this.cities = response.data;
       } catch (error) {
-        console.error('Error fetching cities:', error);
+        console.error("Error fetching cities:", error);
       }
     },
 
@@ -289,14 +373,16 @@ export default {
       this.showAddAccPopup = false;
     },
     deleteAccommodation(id) {
-      if (confirm('Are you sure you want to delete this accommodation?')) {
+      if (confirm("Are you sure you want to delete this accommodation?")) {
         apiClient
           .delete(`http://127.0.0.1:8000/services/accommodations/${id}/`)
           .then(() => {
-            this.accommodations = this.accommodations.filter(acc => acc.id !== id);
+            this.accommodations = this.accommodations.filter(
+              (acc) => acc.id !== id,
+            );
           })
-          .catch(error => {
-            console.error('Error deleting accommodation:', error);
+          .catch((error) => {
+            console.error("Error deleting accommodation:", error);
           });
       }
     },
@@ -326,14 +412,16 @@ export default {
       this.showAddTranspPopup = false;
     },
     deleteTransportation(id) {
-      if (confirm('Are you sure you want to delete this transportation?')) {
+      if (confirm("Are you sure you want to delete this transportation?")) {
         apiClient
           .delete(`http://127.0.0.1:8000/services/transportations/${id}/`)
           .then(() => {
-            this.transportations = this.transportations.filter(transp => transp.id !== id);
+            this.transportations = this.transportations.filter(
+              (transp) => transp.id !== id,
+            );
           })
-          .catch(error => {
-            console.error('Error deleting transportation:', error);
+          .catch((error) => {
+            console.error("Error deleting transportation:", error);
           });
       }
     },
