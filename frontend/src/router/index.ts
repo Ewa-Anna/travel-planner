@@ -11,6 +11,7 @@ import Register from "../components/Auth/Register.vue";
 
 import Profile from "../components/Auth/Profile.vue";
 import EditProfile from "../components/Auth/EditProfile.vue";
+import Users from "../components/Auth/Users.vue";
 
 import TripView from "../components/Trip/TripView.vue";
 import TripDetail from "../components/Trip/TripDetail.vue";
@@ -38,6 +39,11 @@ const routes: RouteRecordRaw[] = [
     path: "/profile",
     name: "Profile",
     component: Profile,
+  },
+  {
+    path: "/users",
+    name: "Users",
+    component: Users,
   },
   {
     path: "/editprofile",
