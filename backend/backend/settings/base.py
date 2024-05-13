@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     # Apps
     "analytics",
     "authx",
+    "contacts",
     "expense",
     "journal",
     "locations",
