@@ -1,6 +1,10 @@
-from rest_framework import serializers
-from .models import Friendship
 from django.contrib.auth import get_user_model
+
+from rest_framework import serializers
+
+from authx.serializers import CustomUserSerializer
+
+from .models import Friendship
 
 
 class FriendshipSerializer(serializers.ModelSerializer):
@@ -23,3 +27,12 @@ class FriendshipSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Friendship already exists.")
 
         return data
+
+
+class FriendshipReadSerializer(serializers.ModelSerializer):
+    user = serializers.PrimaryKeyRelatedField(queryset=get_user_model().objects.all())
+    friend = CustomUserSerializer()
+
+    class Meta:
+        model = Friendship
+        fields = ["user", "friend", "created_at"]
