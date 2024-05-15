@@ -46,7 +46,7 @@
 
         <p class="info">
           Your friends are not on the list? Don't forget to
-          <a href="#" class="add-button">add them</a> and refresh the page!
+          <router-link to="/users" target="_blank" class="add-button">add them</router-link> and refresh the page!
         </p>
 
         <div id="scroll-form-group" class="form-group">
