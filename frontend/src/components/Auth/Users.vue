@@ -12,13 +12,17 @@
 
       <ul>
         <li v-for="user in users" :key="user.id" class="user-item">
-          <span class="user-username">{{ user.first_name }} {{ user.last_name }} ({{ user.username }})</span>
+          <span class="user-username"
+            >{{ user.first_name }} {{ user.last_name }} ({{
+              user.username
+            }})</span
+          >
           <v-btn
             class="add-friend-button"
             v-if="!isFriend(user.id)"
             @click="addFriend(user.id)"
           >
-          Add Friend
+            Add Friend
           </v-btn>
         </li>
       </ul>
@@ -32,7 +36,11 @@
       ></v-text-field>
       <ul>
         <li v-for="friend in friends" :key="friend.id" class="user-item">
-          <span class="user-username">{{ friend.friend.first_name }} {{ friend.friend.last_name }} ({{ friend.friend.username }})</span>
+          <span class="user-username"
+            >{{ friend.friend.first_name }} {{ friend.friend.last_name }} ({{
+              friend.friend.username
+            }})</span
+          >
         </li>
       </ul>
     </v-card>
@@ -78,7 +86,7 @@ export default {
           console.error("Error fetching users:", error);
         });
     },
-    fetchFriends(query="") {
+    fetchFriends(query = "") {
       const params = { query: this.searchFriendQuery };
       apiClient
         .get("http://127.0.0.1:8000/contacts/friendships/", { params })
@@ -90,7 +98,7 @@ export default {
         });
     },
     addFriend(friendId) {
-      const userId = this.getCurrentUserId(); 
+      const userId = this.getCurrentUserId();
       apiClient
         .post("http://127.0.0.1:8000/contacts/friendships/", {
           user: userId,
@@ -120,7 +128,7 @@ export default {
       }
     },
     isFriend(userId) {
-      return this.friends.some(friendship => friendship.friend.id === userId);
+      return this.friends.some((friendship) => friendship.friend.id === userId);
     },
   },
 };
