@@ -16,9 +16,9 @@ class FriendshipSerializer(serializers.ModelSerializer):
         fields = ["user", "friend", "created_at"]
         read_only_fields = ["created_at"]
 
-    def validate(self, data):
-        user = data["user"]
-        friend = data["friend"]
+    def validate(self, attrs):
+        user = attrs["user"]
+        friend = attrs["friend"]
 
         if user == friend:
             raise serializers.ValidationError("Cannot add yourself as a friend.")
@@ -26,7 +26,7 @@ class FriendshipSerializer(serializers.ModelSerializer):
         if Friendship.objects.filter(user=user, friend=friend).exists():
             raise serializers.ValidationError("Friendship already exists.")
 
-        return data
+        return attrs
 
 
 class FriendshipReadSerializer(serializers.ModelSerializer):
@@ -35,4 +35,4 @@ class FriendshipReadSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Friendship
-        fields = ["user", "friend", "created_at"]
+        fields = ["id", "user", "friend", "created_at"]
