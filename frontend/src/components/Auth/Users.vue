@@ -3,28 +3,46 @@
     <v-card class="mx-auto" max-width="800">
       <v-card-title class="primary">Users</v-card-title>
 
-      <v-text-field v-model="searchQuery" label="Search" @input="fetchUsers" class="search-bar"></v-text-field>
+      <v-text-field
+        v-model="searchQuery"
+        label="Search"
+        @input="fetchUsers"
+        class="search-bar"
+      ></v-text-field>
 
       <ul>
         <li v-for="user in users" :key="user.id" class="user-item">
-          <span class="user-username">{{ user.first_name }} {{ user.last_name }} ({{
-        user.username
-      }})</span>
-          <v-btn class="add-friend-button" v-if="!isFriend(user.id)" @click="addFriend(user.id)">
+          <span class="user-username"
+            >{{ user.first_name }} {{ user.last_name }} ({{
+              user.username
+            }})</span
+          >
+          <v-btn
+            class="add-friend-button"
+            v-if="!isFriend(user.id)"
+            @click="addFriend(user.id)"
+          >
             Add Friend
           </v-btn>
         </li>
       </ul>
 
       <v-card-title class="primary">Friends</v-card-title>
-      <v-text-field v-model="searchFriendQuery" label="Search" @input="fetchFriends" class="search-bar"></v-text-field>
+      <v-text-field
+        v-model="searchFriendQuery"
+        label="Search"
+        @input="fetchFriends"
+        class="search-bar"
+      ></v-text-field>
       <ul>
         <li v-for="friend in friends" :key="friend.id" class="user-item">
-          <span class="user-username">{{ friend.friend.first_name }} {{ friend.friend.last_name }} ({{
-        friend.friend.username
-      }})</span>
+          <span class="user-username"
+            >{{ friend.friend.first_name }} {{ friend.friend.last_name }} ({{
+              friend.friend.username
+            }})</span
+          >
           <v-btn class="remove-friend-button" @click="removeFriend(friend.id)">
-            Remove Friend 
+            Remove Friend
           </v-btn>
         </li>
       </ul>
@@ -165,12 +183,12 @@ export default {
   background-color: #45a049;
 }
 
-.remove-friend-button{
+.remove-friend-button {
   background-color: #b33828;
   color: white;
 }
 
-.remove-friend-button:hover{
+.remove-friend-button:hover {
   background-color: #b33830;
 }
 </style>
