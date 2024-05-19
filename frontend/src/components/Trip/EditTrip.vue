@@ -38,20 +38,28 @@
         <label for="participants">Participants:</label>
         <input
           type="text"
-          v-model="userQuery"
+          v-model="searchFriendQuery"
           @input="fetchUsers(userQuery)"
           placeholder="Search Users"
         />
 
+        <p class="info">
+          Your friends are not on the list? Don't forget to
+          <router-link to="/users" target="_blank" class="add-button"
+            >add them</router-link
+          >
+          and refresh the page!
+        </p>
+
         <div id="scroll-form-group" class="form-group">
-          <div v-for="user in users" :key="user.id">
+          <div v-for="user in friends" :key="user.id">
             <label>
               <input
                 type="checkbox"
                 v-model="formData.participants"
-                :value="user.id"
+                :value="user.friend.id"
               />
-              {{ user.first_name }} {{ user.last_name }} ({{ user.username }})
+              {{ user.friend.first_name }} {{ user.friend.last_name }} ({{ user.friend.username }})
             </label>
           </div>
         </div>
@@ -153,6 +161,7 @@ export default {
       accommodations: [],
       transportations: [],
       tripId: null,
+      searchFriendQuery: "",
     };
   },
   created() {
@@ -175,21 +184,17 @@ export default {
       const token = localStorage.getItem("token");
       return token !== null;
     },
-    fetchUsers(query = "") {
-      const url = query
-        ? `http://localhost:8000/authx/users/?query=${query}`
-        : "http://localhost:8000/authx/users/";
-
+    fetchUsers() {
+      const params = { query: this.searchFriendQuery };
       apiClient
-        .get(url)
+        .get("http://127.0.0.1:8000/contacts/friendships/", { params })
         .then((response) => {
-          this.users = response.data;
+          this.friends = response.data.results;
         })
         .catch((error) => {
-          console.error("Error fetching users:", error);
+          console.error("Error fetching friends:", error);
         });
     },
-
     fetchPOIs(query = "") {
       const url = query
         ? `http://localhost:8000/locations/pois/?query=${query}`
