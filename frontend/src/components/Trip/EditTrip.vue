@@ -59,7 +59,9 @@
                 v-model="formData.participants"
                 :value="user.friend.id"
               />
-              {{ user.friend.first_name }} {{ user.friend.last_name }} ({{ user.friend.username }})
+              {{ user.friend.first_name }} {{ user.friend.last_name }} ({{
+                user.friend.username
+              }})
             </label>
           </div>
         </div>
