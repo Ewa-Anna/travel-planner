@@ -26,7 +26,7 @@
     "@mdi/font": "^7.4.47",
     "@vue/cli-service": "^5.0.8",
     "axios": "^1.6.8",
-    "chart.js": "^4.4.2",
+    "chart.js": "^4.4.3",
     "chartjs-adapter-moment": "^1.0.1",
     "devextreme-vue": "^23.2.6",
     "jwt-decode": "^4.0.0",
