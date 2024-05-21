@@ -2,7 +2,14 @@
 
 This project is a web application that main focus is to plan a trip.
 
-Key features: authentication/authorization, CRUD for altering database – add new trip, city, traveling points, attractions/activities, start-end dates, manage all data regarding stay, like hotel, taxi/car, details regarding arrival/departure dates. Integration with google maps to add pins. Budget tracking for the trip – expenses for accommodation, transportation, food, activities. Add other users as participators of the trip. Notifications with reminders. Travel Journal – for personal notes, photos upload. User reviews and ratings of the added places. Analytics – average expenses, most visited destinations.
+Key features: 
+- authentication/authorization,
+- CRUD for altering database – add new trip, city, traveling points, attractions/activities, start-end dates,
+- manage all data regarding stay, like hotel, taxi/car, details regarding arrival/departure dates,
+- budget tracking for the trip – expenses for accommodation, transportation, food, activities,
+- add other users as participators of the trip,
+- Travel Journal – for personal notes, photos upload. User reviews and ratings of the added places,
+- analytics – average expenses, most visited destinations.
 
 ## Table of Contents
 
