@@ -5,6 +5,7 @@ This project is a web application that main focus is to plan a trip.
 Key features: 
 - authentication/authorization,
 - CRUD for altering database – add new trip, city, traveling points, attractions/activities, start-end dates,
+- contact list - add/delete friends,
 - manage all data regarding stay, like hotel, taxi/car, details regarding arrival/departure dates,
 - budget tracking for the trip – expenses for accommodation, transportation, food, activities,
 - add other users as participators of the trip,
