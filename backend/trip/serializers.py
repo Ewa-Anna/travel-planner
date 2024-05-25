@@ -38,19 +38,21 @@ class ParticipantCreateSerializer(serializers.ModelSerializer):
 class ParticipantViewSerializer(serializers.ModelSerializer):
     first_name = serializers.CharField(source="participant.first_name", read_only=True)
     last_name = serializers.CharField(source="participant.last_name", read_only=True)
+    username = serializers.CharField(source="participant.username", read_only=True)
 
     class Meta:
         model = Participant
-        fields = ["participant", "first_name", "last_name"]
+        fields = ["participant", "first_name", "last_name", "username"]
 
 
 class OrganizerViewSerializer(serializers.ModelSerializer):
     first_name = serializers.CharField(read_only=True)
     last_name = serializers.CharField(read_only=True)
+    username = serializers.CharField(read_only=True)
 
     class Meta:
         model = CustomUser
-        fields = ["id", "first_name", "last_name"]
+        fields = ["id", "first_name", "last_name", "username"]
 
 
 class TripSerializer(serializers.ModelSerializer):

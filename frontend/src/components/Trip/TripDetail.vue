@@ -19,7 +19,7 @@
             <div><b>Duration:</b> {{ trip.trip_length }}</div>
             <div v-if="trip.organizer">
               <b>Organizer:</b> {{ trip.organizer.first_name }}
-              {{ trip.organizer.last_name }}
+              {{ trip.organizer.last_name }} ({{ trip.organizer.username }})
             </div>
             <div>
               <h3>Participants:</h3>
@@ -28,7 +28,7 @@
                   v-for="participant in trip.participants"
                   :key="participant.participant"
                 >
-                  {{ participant.first_name }} {{ participant.last_name }}
+                  {{ participant.first_name }} {{ participant.last_name }} ({{ participant.username }})
                 </li>
               </ul>
             </div>
