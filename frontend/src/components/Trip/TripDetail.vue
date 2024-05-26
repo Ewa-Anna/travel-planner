@@ -28,7 +28,9 @@
                   v-for="participant in trip.participants"
                   :key="participant.participant"
                 >
-                  {{ participant.first_name }} {{ participant.last_name }} ({{ participant.username }})
+                  {{ participant.first_name }} {{ participant.last_name }} ({{
+                    participant.username
+                  }})
                 </li>
               </ul>
             </div>
