@@ -1,16 +1,27 @@
 # Travel Planner
 
-This project is a web application that main focus is to plan a trip.
+This project is a web application primarily designed to help users plan their trips.
 
 Key features: 
-- authentication/authorization,
-- CRUD for altering database – add new trip, city, traveling points, attractions/activities, start-end dates,
-- contact list - add/delete friends,
-- manage all data regarding stay, like hotel, taxi/car, details regarding arrival/departure dates,
-- budget tracking for the trip – expenses for accommodation, transportation, food, activities,
-- add other users as participators of the trip,
-- Travel Journal – for personal notes, photos upload. User reviews and ratings of the added places,
-- analytics – average expenses, most visited destinations.
+- Authentication/Authorization: Secure user login and access control.
+- Trip Management:
+   - Create, read, update, and delete (CRUD) operations for trips.
+   - Add new trips, cities, travel points, attractions/activities, and set start and end dates.
+- Contact List:
+   - Add and delete friends.
+- Stay Management:
+   - Manage details of accommodations such as hotels.
+   - Arrange transportation like taxis or car rentals.
+   - Track arrival and departure dates.
+- Budget Tracking:
+   - Monitor expenses for accommodation, transportation, food, and activities.
+- Trip Participation:
+   - Add other users as participants in the trip.
+- Travel Journal:
+   - Maintain personal notes and upload photos.
+   - Review and rate added places.
+- Analytics:
+   - Track average expenses and identify the most visited destinations.
 
 ## Table of Contents
 
