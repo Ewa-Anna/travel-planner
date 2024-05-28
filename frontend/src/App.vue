@@ -14,6 +14,9 @@
         <router-link to="/mytrips" class="nav-link" exact-active-class="active"
           >My Trips</router-link
         >
+        <router-link to="/journal" class="nav-link" exact-active-class="active"
+          >Travel Journal</router-link
+        >
         <router-link to="/users" class="nav-link" exact-active-class="active"
           >Users</router-link
         >

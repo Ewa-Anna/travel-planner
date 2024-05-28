@@ -19,6 +19,8 @@ import MyTrips from "../components/Trip/MyTrips.vue";
 import AddTrip from "../components/Trip/AddTrip.vue";
 import EditTrip from "../components/Trip/EditTrip.vue";
 
+import JournalView from "../components/Journal/JournalView.vue";
+
 const routes: RouteRecordRaw[] = [
   {
     path: "/",
@@ -80,6 +82,11 @@ const routes: RouteRecordRaw[] = [
     name: "TripDetail",
     component: TripDetail,
   },
+  {
+    path: "/journal",
+    name: "JournalView",
+    component: JournalView,
+  }
 ];
 
 const router = createRouter({
