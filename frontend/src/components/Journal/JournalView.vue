@@ -9,11 +9,14 @@
             <v-card-text>
                 <v-list>
           <v-list-item v-for="entry in journalEntries" :key="entry.id">
-            <v-list-item-content>
+            <v-list-item-content class="journal-items">
+                <v-list-item-subtitle>
+                Trip: <router-link :to="`/trips/${entry.trip}`" class="trip-link">Trip {{ entry.trip }}</router-link>
+              </v-list-item-subtitle>
               <v-list-item-title>{{ entry.title }}</v-list-item-title>
               <v-list-item-subtitle>{{ entry.notes }}</v-list-item-subtitle>
-              <v-list-item-subtitle>Created: {{ entry.created }}</v-list-item-subtitle>
-              <v-list-item-subtitle>Updated: {{ entry.updated }}</v-list-item-subtitle>
+              <v-list-item-subtitle>Created: {{ formatDate(entry.created) }}</v-list-item-subtitle>
+              <v-list-item-subtitle>Updated: {{ formatDate(entry.updated) }}</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -31,6 +34,7 @@
 
 <script>
 import apiClient from "../../utils/apiClient";
+import { format } from "date-fns";
 
 export default {
   data() {
@@ -73,6 +77,9 @@ export default {
           console.error("Error fetching journal entries:", error);
         });
     },
+    formatDate(dateString) {
+    return format(new Date(dateString), "MMMM dd, yyyy HH:mm");
+    },
   },
 };
 </script>
@@ -106,5 +113,20 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.journal-items {
+    margin: 7px;
+}
+
+.trip-link {
+  color: #1976d2;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.trip-link:hover {
+  text-decoration: underline;
 }
 </style>
