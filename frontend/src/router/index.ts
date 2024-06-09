@@ -20,6 +20,7 @@ import AddTrip from "../components/Trip/AddTrip.vue";
 import EditTrip from "../components/Trip/EditTrip.vue";
 
 import JournalView from "../components/Journal/JournalView.vue";
+import AddJournal from "../components/Journal/AddJounral.vue";
 
 const routes: RouteRecordRaw[] = [
   {
@@ -86,6 +87,11 @@ const routes: RouteRecordRaw[] = [
     path: "/journal",
     name: "JournalView",
     component: JournalView,
+  },
+  {
+    path: "/addjournal",
+    name: "AddJournal",
+    component: AddJournal,
   }
 ];
 
