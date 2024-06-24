@@ -56,7 +56,7 @@ requests-oauthlib==1.4.0
 service-identity==24.1.0
 setuptools==69.2.0
 six==1.16.0
-sqlparse==0.4.4
+sqlparse==0.5.0
 tomli==2.0.1
 tomlkit==0.12.4
 txaio==23.1.1
