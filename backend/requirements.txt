@@ -39,7 +39,7 @@ pillow==10.4.0
 platformdirs==4.2.0
 psycopg2==2.9.9
 psycopg2-binary==2.9.9
-pyasn1==0.5.1
+pyasn1==0.6.1
 pyasn1-modules==0.3.0
 pycodestyle==2.11.1
 pycparser==2.21
