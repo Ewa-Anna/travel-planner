@@ -14,7 +14,7 @@ constantly==23.10.4
 cryptography==44.0.0
 daphne==4.1.0
 dill==0.3.8
-Django==5.0.9
+Django==5.1.4
 django-channels==0.7.0
 django-cors-headers==4.3.1
 django-rest-passwordreset==1.4.0
