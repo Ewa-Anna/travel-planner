@@ -3,7 +3,7 @@ astroid==3.3.8
 attrs==25.1.0
 autobahn==24.4.2
 Automat==24.8.1
-black==24.8.0
+black==25.1.0
 certifi==2025.1.31
 cffi==1.17.1
 channels==4.0.0
