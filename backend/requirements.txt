@@ -57,7 +57,7 @@ service-identity==24.1.0
 setuptools==75.8.0
 six==1.17.0
 sqlparse==0.5.3
-tomli==2.0.1
+tomli==2.2.1
 tomlkit==0.13.2
 txaio==23.1.1
 typing_extensions==4.10.0
