@@ -36,7 +36,7 @@ oauthlib==3.2.2
 packaging==24.2
 pathspec==0.12.1
 pillow==11.1.0
-platformdirs==4.2.0
+platformdirs==4.3.6
 psycopg2==2.9.10
 psycopg2-binary==2.9.10
 pyasn1==0.6.1
