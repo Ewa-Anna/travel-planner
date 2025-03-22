@@ -8,7 +8,7 @@ certifi==2025.1.31
 cffi==1.17.1
 channels==4.2.0
 charset-normalizer==3.3.2
-click==8.1.7
+click==8.1.8
 colorama==0.4.6
 constantly==23.10.4
 cryptography==44.0.1
