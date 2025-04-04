@@ -11,7 +11,7 @@ charset-normalizer==3.4.1
 click==8.1.8
 colorama==0.4.6
 constantly==23.10.4
-cryptography==44.0.1
+cryptography==44.0.2
 daphne==4.1.2
 dill==0.3.9
 Django==5.1.7
