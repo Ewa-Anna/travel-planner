@@ -17,7 +17,7 @@ dill==0.3.9
 Django==5.1.7
 django-channels==0.7.0
 django-cors-headers==4.7.0
-django-rest-passwordreset==1.4.0
+django-rest-passwordreset==1.5.0
 django-taggit==6.1.0
 djangorestframework==3.16.0
 djangorestframework-simplejwt==5.3.1
