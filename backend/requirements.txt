@@ -45,7 +45,7 @@ pycodestyle==2.13.0
 pycparser==2.22
 pyflakes==3.3.2
 PyJWT==2.10.1
-pylint==3.3.6
+pylint==3.3.7
 pyOpenSSL==25.0.0
 python-dotenv==1.1.0
 pytz==2025.2
