@@ -1,5 +1,5 @@
 ﻿asgiref==3.8.1
-astroid==3.3.9
+astroid==3.3.10
 attrs==25.3.0
 autobahn==24.4.2
 Automat==25.4.16
