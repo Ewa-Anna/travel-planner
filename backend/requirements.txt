@@ -12,7 +12,7 @@ click==8.1.8
 colorama==0.4.6
 constantly==23.10.4
 cryptography==45.0.2
-daphne==4.1.2
+daphne==4.2.0
 dill==0.4.0
 Django==5.1.7
 django-channels==0.7.0
