@@ -58,7 +58,7 @@ setuptools==80.9.0
 six==1.17.0
 sqlparse==0.5.3
 tomli==2.2.1
-tomlkit==0.13.2
+tomlkit==0.13.3
 txaio==23.1.1
 typing_extensions==4.13.2
 tzdata==2025.2
