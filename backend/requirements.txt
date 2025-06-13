@@ -49,7 +49,7 @@ pylint==3.3.7
 pyOpenSSL==25.1.0
 python-dotenv==1.1.0
 pytz==2025.2
-PyYAML==6.0.1
+PyYAML==6.0.2
 referencing==0.36.2
 requests==2.32.4
 requests-oauthlib==2.0.0
