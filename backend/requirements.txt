@@ -63,5 +63,5 @@ txaio==23.1.1
 typing_extensions==4.14.0
 tzdata==2025.2
 uritemplate==4.2.0
-urllib3==2.4.0
+urllib3==2.5.0
 zope.interface==7.2
