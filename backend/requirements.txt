@@ -23,7 +23,7 @@ djangorestframework==3.16.0
 djangorestframework-simplejwt==5.5.0
 drf-spectacular==0.28.0
 drf-spectacular-sidecar==2025.6.1
-flake8==7.2.0
+flake8==7.3.0
 hyperlink==21.0.0
 idna==3.10
 inflection==0.5.1
