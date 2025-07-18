@@ -28,7 +28,7 @@ hyperlink==21.0.0
 idna==3.10
 inflection==0.5.1
 isort==6.0.1
-jsonschema==4.24.0
+jsonschema==4.24.1
 jsonschema-specifications==2025.4.1
 mccabe==0.7.0
 mypy-extensions==1.1.0
