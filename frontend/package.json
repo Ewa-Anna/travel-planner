@@ -22,7 +22,7 @@
     "@fortawesome/free-brands-svg-icons": "^6.7.2",
     "@fortawesome/free-regular-svg-icons": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^7.0.0",
-    "@fortawesome/vue-fontawesome": "^3.0.8",
+    "@fortawesome/vue-fontawesome": "^3.1.0",
     "@mdi/font": "^7.4.47",
     "@vue/cli-service": "^5.0.8",
     "axios": "^1.10.0",
