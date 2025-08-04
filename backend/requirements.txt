@@ -22,7 +22,7 @@ django-taggit==6.1.0
 djangorestframework==3.16.0
 djangorestframework-simplejwt==5.5.1
 drf-spectacular==0.28.0
-drf-spectacular-sidecar==2025.7.1
+drf-spectacular-sidecar==2025.8.1
 flake8==7.3.0
 hyperlink==21.0.0
 idna==3.10
