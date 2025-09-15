@@ -46,7 +46,7 @@ pycparser==2.22
 pyflakes==3.4.0
 PyJWT==2.10.1
 pylint==3.3.8
-pyOpenSSL==25.1.0
+pyOpenSSL==25.2.0
 python-dotenv==1.1.1
 pytz==2025.2
 PyYAML==6.0.2
