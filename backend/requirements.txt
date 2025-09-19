@@ -16,7 +16,7 @@ daphne==4.2.1
 dill==0.4.0
 Django==5.1.7
 django-channels==0.7.0
-django-cors-headers==4.8.0
+django-cors-headers==4.9.0
 django-rest-passwordreset==1.5.0
 django-taggit==6.1.0
 djangorestframework==3.16.1
