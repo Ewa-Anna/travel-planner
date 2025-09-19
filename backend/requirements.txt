@@ -64,4 +64,4 @@ typing_extensions==4.15.0
 tzdata==2025.2
 uritemplate==4.2.0
 urllib3==2.5.0
-zope.interface==7.2
+zope.interface==8.0
