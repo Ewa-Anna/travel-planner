@@ -59,7 +59,7 @@ six==1.17.0
 sqlparse==0.5.3
 tomli==2.2.1
 tomlkit==0.13.3
-txaio==23.6.1
+txaio==25.9.2
 typing_extensions==4.15.0
 tzdata==2025.2
 uritemplate==4.2.0
