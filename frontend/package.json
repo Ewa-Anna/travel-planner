@@ -9,7 +9,7 @@
     "@vue-leaflet/vue-leaflet": "^0.10.1",
     "eslint": "^9.36.0",
     "eslint-config-standard-with-typescript": "^43.0.1",
-    "eslint-plugin-vue": "^10.5.0",
+    "eslint-plugin-vue": "^10.6.2",
     "leaflet": "^1.9.4",
     "prettier": "^3.6.2",
     "unplugin-fonts": "^1.4.0",
