@@ -47,7 +47,7 @@ pyflakes==3.4.0
 PyJWT==2.10.1
 pylint==4.0.2
 pyOpenSSL==25.3.0
-python-dotenv==1.1.1
+python-dotenv==1.2.1
 pytz==2025.2
 PyYAML==6.0.3
 referencing==0.36.2
