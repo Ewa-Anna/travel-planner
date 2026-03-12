@@ -1,4 +1,4 @@
-asgiref==3.11.0
+asgiref==3.11.1
 astroid==4.0.2
 attrs==25.3.0
 autobahn==25.12.2
