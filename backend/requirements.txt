@@ -27,7 +27,7 @@ flake8==7.3.0
 hyperlink==21.0.0
 idna==3.11
 inflection==0.5.1
-isort==7.0.0
+isort==8.0.1
 jsonschema==4.26.0
 jsonschema-specifications==2025.9.1
 mccabe==0.7.0
