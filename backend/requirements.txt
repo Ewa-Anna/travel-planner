@@ -48,7 +48,7 @@ PyJWT==2.12.1
 pylint==4.0.4
 pyOpenSSL==26.0.0
 python-dotenv==1.2.2
-pytz==2025.2
+pytz==2026.1.post1
 PyYAML==6.0.3
 referencing==0.36.2
 requests==2.32.5
