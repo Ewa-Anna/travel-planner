@@ -61,7 +61,7 @@ tomli==2.3.0
 tomlkit==0.14.0
 txaio==25.9.2
 typing_extensions==4.15.0
-tzdata==2025.2
+tzdata==2025.3
 uritemplate==4.2.0
 urllib3==2.6.3
 zope.interface==8.2
