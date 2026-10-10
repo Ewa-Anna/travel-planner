@@ -44,7 +44,7 @@ pyasn1-modules==0.4.2
 pycodestyle==2.14.0
 pycparser==2.23
 pyflakes==3.4.0
-PyJWT==2.12.1
+PyJWT==2.13.0
 pylint==4.0.4
 pyOpenSSL==26.0.0
 python-dotenv==1.2.2
